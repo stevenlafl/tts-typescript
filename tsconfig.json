@@ -1,0 +1,16 @@
+{
+  "files": ["index.d.ts"],
+  "compilerOptions": {
+    "rootDir": ".",
+    "outDir": "build",
+    "target": "ESNext",
+    "lib": ["EsNext"],
+    //"noEmit": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "tstl": {
+    "luaTarget": "5.2"
+  },
+  "include": ["src/**/*.ts", "test/**/*.ts"]
+}
