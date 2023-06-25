@@ -44,7 +44,7 @@ mkdir src
 
 note: we use `"luaTarget": "5.2"` to be compatible with the LUA version Tabletop Simulator uses.
 
-4. Create `src/index.ts`
+3. Create `src/index.ts`
 ```typescript
 // The OnLoad function. This is called after everything in the game save finishes loading.
 // Most of your script code goes here.
@@ -57,7 +57,7 @@ function onLoad( saveData: any ) {
 }
 ```
 
-5. Your project is ready! run `npx tstl` to compile it into Lua
+4. Your project is ready! run `npx tstl` to compile it into Lua
 ```
 npx tstl
 ```
