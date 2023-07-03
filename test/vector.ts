@@ -13,6 +13,24 @@ function vectorTest(script_state: string) {
 
   let Purple: Vector = { x: 201, y: 0, z: 255 };
 
+  Purple.lerp(Vector.new(0, 0, 0), 0.5);
+
+  Purple.set(0,0,0);
+  Purple.setAt('x', 0);
+  let vals = Purple.get();
+  vals.x;
+  vals.y;
+  vals.z;
+
+  Purple = Purple.add(Vector.new(0, 0, 0));
+
+  Purple.rotateOver('x', 0.5);
+
+  Purple.magnitude();
+  Vector.magnitude(Purple);
+
+  let copy: Vector = Purple.copy();
+
   vectorIds = {
     White: [254, 254, 254],
     Pink: [255, 0, 231],

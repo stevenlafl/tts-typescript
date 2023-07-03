@@ -14,6 +14,12 @@ function colorTest(script_state: string) {
   let Purple: Color = { r: 201, g: 0, b: 255 };
   let PurpleAlpha: Color = { r: 201, g: 0, b: 255, a: 255 };
 
+  Purple.get();
+  Purple.set(0, 0, 0);
+  Purple.setAt('r', 0);
+
+  let col:Color = Purple.lerp(Color.new(0, 0, 0, 255), 0.5);
+
   colorIds = {
     White: [254, 254, 254, 255],
     Pink: [255, 0, 231],

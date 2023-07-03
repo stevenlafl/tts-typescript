@@ -26,7 +26,7 @@ interface UI {
    *
    * @returns {CustomAsset[]} A table/array of custom assets.
    */
-  getCustomAssets(): CustomAsset[];
+  getCustomAssets(this: void): CustomAsset[];
 
   /**
    * Obtains the value between elements tags, like: <Text>ValueToGet</Text>
@@ -41,14 +41,14 @@ interface UI {
    *
    * @returns {string} The contents of the current UI formatted as XML.
    */
-  getXml(): string;
+  getXml(this: void): string;
 
   /**
    * Returns the contents of the current UI formatted as a table.
    *
    * @returns {XMLData} The contents of the current UI formatted as a table.
    */
-  getXmlTable(): XMLData;
+  getXmlTable(this: void): XMLData;
 
   /**
    * Hides the given UI element. Unlike the "active" attribute, hide triggers animations.
@@ -158,7 +158,7 @@ interface UIConstructor {
    *
    * @returns {CustomAsset[]} A table/array of custom assets.
    */
-  getCustomAssets: () => CustomAsset[];
+  getCustomAssets: (this: void) => CustomAsset[];
 
   /**
    * Obtains the value between elements tags, like: <Text>ValueToGet</Text>
@@ -173,14 +173,14 @@ interface UIConstructor {
    *
    * @returns {string} The contents of the current UI formatted as XML.
    */
-  getXml: () => string;
+  getXml: (this: void) => string;
 
   /**
    * Returns the contents of the current UI formatted as a table.
    *
    * @returns {XMLData} The contents of the current UI formatted as a table.
    */
-  getXmlTable: () => XMLData;
+  getXmlTable: (this: void) => XMLData;
 
   /**
    * Hides the given UI element. Unlike the "active" attribute, hide triggers animations.
