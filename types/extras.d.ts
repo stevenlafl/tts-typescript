@@ -13,7 +13,7 @@ interface osConstructor {
   /**
    *
    */
-  time(this: void, timeString: string): number;
+  time(this: void, timeString?: string): number;
 
   /**
    *
