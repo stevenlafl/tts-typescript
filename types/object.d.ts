@@ -1524,7 +1524,7 @@ type CreateButtonParameters = {
   /**
    *
    */
-  click_function: (obj: GObject, player_clicker_color: string, alt_click: boolean) => void;
+  click_function: (obj: GObject, player_clicker_color: ColorLiteral, alt_click: boolean) => void;
 } & CommonButtonParameters;
 
 type CommonInputParameters = {
