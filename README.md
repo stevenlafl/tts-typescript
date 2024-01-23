@@ -25,6 +25,7 @@ mkdir src
     "lib": ["ESNext"],
     
     "moduleResolution": "nodenext",
+    "module": "NodeNext",
 
     "declaration": false,
     "declarationMap": false,
