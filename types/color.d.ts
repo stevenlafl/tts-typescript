@@ -18,7 +18,7 @@ declare class ColorFunctionality {
   /**
    *
    */
-  setAt?: (this: void, k: string, value: number) => this;
+  setAt?: (this: void, k: ColorLetterKeys | ColorNumberKeys, value: number) => this;
 
   /**
    *
@@ -37,7 +37,7 @@ declare class ColorFunctionality {
 }
 
 type ColorLetterKeys = 'r' | 'g' | 'b' | 'a';
-type ColorNumberKeys = 0 | 1 | 2 | 3;
+type ColorNumberKeys = 1 | 2 | 3 | 4;
 
 type ColorLetters = {
   [key in ColorLetterKeys]?: number;
@@ -61,7 +61,7 @@ interface Color extends ColorLetters, ColorNumbers, ColorFunctionality {
   * @param {number} value The value to set the component to.
   * @returns {this} self
   */
- setAt?: (k: ColorLetterKeys, value: number) => this;
+ setAt?: (k: ColorLetterKeys | ColorNumberKeys, value: number) => this;
 
  /**
   * Sets r, b, g, a components to given values and returns self.

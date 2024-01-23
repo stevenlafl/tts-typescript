@@ -1,4 +1,4 @@
-interface Zone {
+interface Zone extends Omit<GObject, 'getObjects'> {
   /**
    *
    */

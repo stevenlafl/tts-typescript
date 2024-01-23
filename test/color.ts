@@ -17,6 +17,13 @@ function colorTest(script_state: string) {
   Purple.get();
   Purple.set(0, 0, 0);
   Purple.setAt('r', 0);
+  Purple.setAt(1, 0);
+  Purple.setAt('g', 0);
+  Purple.setAt(2, 0);
+  Purple.setAt('b', 0);
+  Purple.setAt(3, 0);
+  Purple.setAt('a', 0);
+  Purple.setAt(4, 0);
 
   let col:Color = Purple.lerp(Color.new(0, 0, 0, 255), 0.5);
 
