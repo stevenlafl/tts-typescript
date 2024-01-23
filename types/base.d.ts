@@ -74,7 +74,7 @@ declare function getAllObjects(): GObject[];
  * @param {string} guid GUID of the Object to get a reference of.
  * @returns {GObject}
  */
-declare function getObjectFromGUID(guid: string): GObject;
+declare function getObjectFromGUID(guid: string): GObject | Zone;
 
 /**
  * Returns a list of all Objects.
@@ -181,7 +181,7 @@ declare function spawnObjectJSON(parameters: SpawnObjectJSONParameters): GObject
  * @param {string} function_name Name of the function being called as a coroutine.
  * @returns {boolean}
  */
-declare function startLuaCoroutine(function_owner: GObject, function_name: string): boolean;
+declare function startLuaCoroutine(function_owner: GObject  | Global, function_name: string): boolean;
 
 /**
  * Converts a Player Color string into a Color Table for tinting.

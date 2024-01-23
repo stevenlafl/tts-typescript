@@ -499,7 +499,7 @@ interface GObject {
    * @param {boolean} fast If the Object is moved quickly.
    * @returns {boolean} True if the position was applied, false if not.
    */
-  setPositionSmooth(this: void, vector: Vector, collide: boolean, fast: boolean): boolean;
+  setPositionSmooth(this: void, vector: Vector, collide?: boolean, fast?: boolean): boolean;
 
   /**
    * Instantly rotates an Object to the given Vector.
@@ -517,7 +517,7 @@ interface GObject {
    * @param {boolean} fast If the Object is rotated quickly.
    * @returns {boolean} True if the rotation was applied, false if not.
    */
-  setRotationSmooth(this: void, vector: Vector, collide: boolean, fast: boolean): boolean;
+  setRotationSmooth(this: void, vector: Vector, collide?: boolean, fast?: boolean): boolean;
 
   /**
    * Sets a Vector as the current scale.
@@ -1457,7 +1457,7 @@ type CommonButtonParameters = {
   /**
    *
    */
-  function_owner?: GObject;
+  function_owner?: GObject | Global;
 
   /**
    *
@@ -2201,6 +2201,26 @@ type CloneParameters = {
    * Defaults to false.
    */
   snap_to_grid?: boolean;
+
+  /**
+   *
+   */
+  callback_function?: (this: void, obj: GObject) => void;
+
+  /**
+   * param table passed to callback, NOT callback_function
+   */
+  params?: CustomTableObject;
+
+  /**
+   * function name for (this: void, obj: GObject, data?: CustomTableObject) => void
+   */
+  callback?: string;
+
+  /**
+   * 
+   */
+  callback_owner?: GObject | Global;
 };
 
 type TakeObjectParameters = {
@@ -2243,6 +2263,21 @@ type TakeObjectParameters = {
    *
    */
   callback_function?: (this: void, obj: GObject) => void;
+
+  /**
+   * param table passed to callback, NOT callback_function
+   */
+  params?: CustomTableObject;
+
+  /**
+   * function name for (this: void, obj: GObject, data?: CustomTableObject) => void
+   */
+  callback?: string;
+
+  /**
+   * 
+   */
+  callback_owner?: GObject | Global;
 };
 
 type AddDecalParameters = {

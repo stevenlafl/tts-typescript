@@ -21,3 +21,7 @@ interface osConstructor {
   date(this: void, format: string): string;
 }
 declare var os: osConstructor;
+
+type CustomTableObject = {
+  [key: string]: any
+}
