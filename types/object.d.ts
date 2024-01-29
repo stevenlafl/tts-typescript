@@ -58,7 +58,7 @@ interface GObject {
   /**
    * The Color of the Player that is holding the object.
    */
-  held_by_color: string;
+  held_by_color: ColorLiteral;
 
   /**
    * 0-23 value. Changes when a Player hits flip or alt + rotate.

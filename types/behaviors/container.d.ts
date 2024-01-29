@@ -3,7 +3,7 @@
 /**
  * The Container behavior is present on Container objects such as Bags, Stacks and Decks.
  */
-interface Container {
+interface Container extends GObject {
   /**
    * Activate search window for player, optionally limited to top N cards
    *
