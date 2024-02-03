@@ -1,6 +1,4 @@
-interface Hands {}
-
-interface HandsConstructor {
+interface Hand extends Zone {
   /**
    * Whether hand zones are enabled i.e. hold objects.
    */
@@ -25,10 +23,5 @@ interface HandsConstructor {
    *
    * @returns {Zone[]} A table of all Hand Zone Objects in the game.
    */
-  getHands(this: void): Zone[];
+  getHands(this: void): Hand[];
 }
-
-/**
- * The static global Hands class allows you to control the behavior of Hand Zones.
- */
-declare var Hands: HandsConstructor;

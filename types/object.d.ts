@@ -1,5 +1,342 @@
 /// <reference path="zone.d.ts" />
 
+/*
+* Derived from https://api.tabletopsimulator.com/built-in-object/ and https://api.tabletopsimulator.com/custom-game-objects/
+*/
+declare type BlockObjectType =
+| 'BlockRectangle'
+| 'BlockSquare'
+| 'BlockTriangle'
+
+declare type BoardObjectType =
+| 'backgammon_board'
+| 'CardBot_Board'
+| 'Checker_Board'
+| 'Chess_Board'
+| 'Chinese_Checkers_Board'
+| 'Go_Board'
+| 'Pachisi_board'
+| 'reversi_board'
+
+declare type CardObjectType =
+| 'Card'
+
+declare type DeckObjectType =
+| 'Deck'
+| 'Deck_CardBot_Head'
+| 'Deck_CardBot_Main'
+
+declare type CheckerObjectType =
+| 'Checker_black'
+| 'Checker_red'
+| 'Checker_white'
+| 'Chinese_Checkers_Piece'
+
+declare type ChessObjectType =
+| 'Chess_Bishop'
+| 'Chess_King'
+| 'Chess_Knight'
+| 'Chess_Pawn'
+| 'Chess_Queen'
+| 'Chess_Rook'
+
+declare type ChipObjectType =
+| 'Chip_10'
+| 'Chip_50'
+| 'Chip_100'
+| 'Chip_500'
+| 'Chip_1000'
+
+declare type DiceObjectType =
+| 'Die_4'
+| 'Die_6'
+| 'Die_6_Rounded'
+| 'Die_8'
+| 'Die_10'
+| 'Die_12'
+| 'Die_20'
+| 'Die_Piecepack'
+
+declare type DominoObjectType =
+| 'Domino'
+| 'Mahjong_Coin'
+| 'Mahjong_Stick'
+| 'Mahjong_Tile'
+
+declare type FigurineObjectType =
+| 'Figurine_Card_Bot'
+| 'Figurine_Kimi_Kat'
+| 'Figurine_Knil'
+| 'Figurine_Mara'
+| 'Figurine_Sir_Loin'
+| 'Figurine_Zeke'
+| 'Figurine_Zomblor'
+| 'Metal Ball'
+| 'PlayerPawn'
+
+declare type GoPieceObjectType =
+| 'go_game_piece_black'
+| 'go_game_piece_white'
+| 'go_game_bowl_black'
+| 'go_game_bowl_white'
+
+declare type GraphicsObjectType =
+| '3DText'
+
+declare type PiecepackObjectType =
+| 'PiecePack_Arms'
+| 'PiecePack_Crowns'
+| 'PiecePack_Moons'
+| 'PiecePack_Suns'
+
+declare type RPGFigurineObjectType =
+| 'rpg_BARGHEST'
+| 'rpg_BASILISK'
+| 'rpg_BEAR'
+| 'rpg_BLACK_DRAGON'
+| 'rpg_CENTAUR'
+| 'rpg_CERBERUS'
+| 'rpg_CHIMERA'
+| 'rpg_CRASC'
+| 'rpg_CYCLOP'
+| 'rpg_DARKNESS_WARLORD'
+| 'rpg_DRAGONIDE'
+| 'rpg_EVIL_WATCHER'
+| 'rpg_GHOUL'
+| 'rpg_GIANT_VIPER'
+| 'rpg_GOBLIN'
+| 'rpg_GOLEM'
+| 'rpg_GRIFFON'
+| 'rpg_HYDRA'
+| 'rpg_KNIGHT'
+| 'rpg_KOBOLD'
+| 'rpg_LIZARD_WARRIOR'
+| 'rpg_MAGE'
+| 'rpg_MANTICORA'
+| 'rpg_MUMMY'
+| 'rpg_OGRE'
+| 'rpg_ORC'
+| 'rpg_RANGER'
+| 'rpg_RAT'
+| 'rpg_SKELETON_KNIGHT'
+| 'rpg_TEMPLATE'
+| 'rpg_THIEF'
+| 'rpg_TREE_ENT'
+| 'rpg_TROLL'
+| 'rpg_VAMPIRE'
+| 'rpg_WARRIRO'
+| 'rpg_WEREWOLF'
+| 'rpg_WYVERN'
+
+declare type TilesetObjectType =
+| 'Tileset_Barrel'
+| 'Tileset_Chair'
+| 'Tileset_Chest'
+| 'Tileset_Corner'
+| 'Tileset_Floor'
+| 'Tileset_Rock'
+| 'Tileset_Table'
+| 'Tileset_Tree'
+| 'Tileset_Wall'
+
+declare type ZoneObjectType =
+| 'Fog'
+| 'FogOfWar'
+| 'Hand'
+| 'Layout'
+| 'Randomize'
+| 'Scripting'
+
+declare type OtherObjectType =
+| 'backgammon_piece_brown'
+| 'backgammon_piece_white'
+| 'Bag'
+| 'Bowl'
+| 'Calculator'
+| 'Counter'
+| 'Digital_Clock'
+| 'Infinite_Bag'
+| 'Notecard'
+| 'Quarter'
+| 'reversi_chip'
+| 'Tablet'
+
+declare type SpawnableTypeObjectType =
+| 'Arms Dice'
+| 'Backgammon Board'
+| 'Barrel'
+| 'Bear'
+| 'Bishop Cast Iron'
+| 'Bishop Chrome'
+| 'Bishop Dark Wood'
+| 'Bishop Light Wood'
+| 'Black Ball'
+| 'Black Checker'
+| 'Black Pawn'
+| 'Blue 10'
+| 'Blue Ball'
+| 'Blue Pawn'
+| 'Blue Rectangle'
+| 'Brown Backgammon'
+| 'CardBot'
+| 'CardBots Head Deck'
+| 'CardBots Main Deck'
+| 'Chair'
+| 'Checkers Board'
+| 'Chess Board'
+| 'Chest'
+| 'Chimera'
+| 'Chinese Checkers Board'
+| 'Corner'
+| 'Crowns Dice'
+| 'Custom Board'
+| 'Custom Deck'
+| 'Custom Figurine'
+| 'Custom Model'
+| 'Cyclops'
+| 'D10'
+| 'D10 Chrome'
+| 'D12'
+| 'D12 Chrome'
+| 'D20'
+| 'D20 Chrome'
+| 'D4'
+| 'D4 Chrome'
+| 'D6'
+| 'D6 Black'
+| 'D6 Blue'
+| 'D6 Chrome'
+| 'D6 Green'
+| 'D6 Red'
+| 'D8'
+| 'D8 Chrome'
+| 'Digital Clock'
+| 'Dragonide'
+| 'Evil Watcher'
+| 'Floor'
+| 'Ghoul'
+| 'Giant Rat'
+| 'Giant Viper'
+| 'Go Board'
+| 'GO Bowl Black'
+| 'GO Bowl White'
+| 'GO Piece Black'
+| 'GO Piece White'
+| 'Goblin'
+| 'Gold 1000'
+| 'Golem'
+| 'Green 50'
+| 'Green Ball'
+| 'Green Pawn'
+| 'Green Triangle'
+| 'Griffon'
+| 'Hydra'
+| 'Joker'
+| 'Kimi Kat'
+| 'King Cast Iron'
+| 'King Chrome'
+| 'King Dark Wood'
+| 'King Light Wood'
+| 'Knight Cast Iron'
+| 'Knight Chrome'
+| 'Knight Dark Wood'
+| 'Knight Light Wood'
+| 'Knight of Knil'
+| 'Kobold'
+| 'Lizard Warrior'
+| 'Loot Bag'
+| 'Manticora'
+| 'Mara'
+| 'Moons Dice'
+| 'Mummy'
+| 'Ogre'
+| 'Orange Pawn'
+| 'Orc'
+| 'Pachisi Board'
+| 'Pawn Cast Iron'
+| 'Pawn Chrome'
+| 'Pawn Dark Wood'
+| 'Pawn Light Wood'
+| 'Pink Ball'
+| 'Pink Pawn'
+| 'Purple Pawn'
+| 'Quarter'
+| 'Queen Cast Iron'
+| 'Queen Chrome'
+| 'Queen Dark Wood'
+| 'Queen Light Wood'
+| 'Random Card'
+| 'Random Domino'
+| 'Random Mahjong'
+| 'Red 100'
+| 'Red Ball'
+| 'Red Checker'
+| 'Red Pawn'
+| 'Red Square'
+| 'Reversi Board'
+| 'Reversi Chip'
+| 'Rock'
+| 'Rook Cast Iron'
+| 'Rook Chrome'
+| 'Rook Dark Wood'
+| 'Rook Light Wood'
+| 'Silver 500'
+| 'Sir Loin'
+| 'Skeleton Knight'
+| 'Standard Deck'
+| 'Suns Dice'
+| 'Table'
+| 'Tree'
+| 'Tree Ent'
+| 'Troll'
+| 'Vampire'
+| 'Wall'
+| 'Werewolf'
+| 'White Backgammon'
+| 'White Ball'
+| 'White Checker'
+| 'White Pawn'
+| 'Wolf'
+| 'Wyvern'
+| 'Yellow Ball'
+| 'Yellow Pawn'
+| 'Zeke Kodoku'
+| 'Zomblor'
+
+declare type CustomObjectType =
+| 'Custom_Assetbundle'
+| 'Custom_Board'
+| 'CardCustom'
+| 'DeckCustom'
+| 'Custom_Dice'
+| 'Figurine_Custom'
+| 'Custom_Model'
+| 'Custom_Tile'
+| 'Custom_Token'
+
+declare type BuiltInObjectType = 
+| BlockObjectType
+| BoardObjectType
+| CardObjectType
+| DeckObjectType
+| CheckerObjectType
+| ChessObjectType
+| ChipObjectType
+| DiceObjectType
+| DominoObjectType
+| FigurineObjectType
+| GoPieceObjectType
+| GraphicsObjectType
+| PiecepackObjectType
+| RPGFigurineObjectType
+| TilesetObjectType
+| ZoneObjectType
+| OtherObjectType
+| SpawnableTypeObjectType
+
+// Always safe to use 'as GObject' as Zone extends GObject and Hand extends Zone and Container extends GObject
+declare type ObjectType = GObject | Zone | Hand | Container
+
 interface GObject {
   /* Common Variables */
 
@@ -570,10 +907,10 @@ interface GObject {
   /**
    * Returns whether the object and the specified other object share at least one tag in common.
    *
-   * @param {GObject} other The other object.
+   * @param {ObjectType} other The other object.
    * @returns {boolean} True if the objects share at least one tag, false if not.
    */
-  hasMatchingTag(this: void, other: GObject): boolean;
+  hasMatchingTag(this: void, other: ObjectType): boolean;
 
   /**
    * Returns whether the object has the specified tag.
@@ -920,9 +1257,9 @@ interface GObject {
    * Sets state of an Object. State ids (indexes) start at 1.
    *
    * @param {number} state_id The state identifier.
-   * @returns {GObject} The new state.
+   * @returns {this} The new state.
    */
-  setState(this: void, state_id: number): GObject;
+  setState(this: void, state_id: number): this;
 
   /**
    * Sets the Object's value. This represents something different depending on the Object's type.
@@ -947,7 +1284,7 @@ interface GObject {
    * @callback AddContextMenuItemCallback
    * @param {ColorLiteral} player_color Player Color who selected the menu item.
    * @param {Vector} object_position Position of object.
-   * @param {GObject} object Object in question.
+   * @param {this} object Object in question.
    */
   /**
    * Adds a menu item to the objects right-click context menu.
@@ -963,7 +1300,7 @@ interface GObject {
       this: void,
       player_color: ColorLiteral,
       object_position: Vector,
-      object: GObject
+      object: this
     ) => void,
     keep_open?: boolean
   ): boolean;
@@ -987,8 +1324,9 @@ interface GObject {
    * Copy/Paste this Object, returning a reference to the new Object.
    *
    * @param {CloneParameters} parameters The parameters.
+   * @returns {this} Cloned object
    */
-  clone(this: void, parameters: CloneParameters): GObject;
+  clone(this: void, parameters: CloneParameters): this;
 
   /**
    * Cuts (splits) a deck at the given card count. In other words, it counts down from the top of the deck and makes a new deck of that size and puts the remaining cards in the other pile.
@@ -1120,9 +1458,9 @@ interface GObject {
    * Most often this is used after using setCustomObject(...) to modify a custom object.
    *
    * @param {RespawnParameters} parameters The parameters.
-   * @returns {GObject} The respawned object.
+   * @returns {this} The respawned object.
    */
-  reload(this: void): GObject;
+  reload(this: void): this;
 
   /**
    * Removes a child with the given index. Use getAttachments() to find out the index property.
@@ -1531,7 +1869,7 @@ type CommonInputParameters = {
   /**
    *
    */
-  function_owner?: GObject;
+  function_owner?: GObject | Global;
 
   /**
    *
@@ -1586,7 +1924,7 @@ type CommonInputParameters = {
   /**
    *
    */
-  alignment?: number;
+  alignment?: Alignment;
 
   /**
    *
@@ -1596,13 +1934,36 @@ type CommonInputParameters = {
   /**
    *
    */
-  validation?: number;
+  validation?: Validation;
 
   /**
    *
    */
-  tab?: number;
+  tab?: TabAction;
 };
+
+declare const enum Alignment {
+  Automatic = 1,
+  Left = 2,
+  Center = 3,
+  Right = 4,
+  Justified = 5
+}
+
+declare const enum Validation {
+  None = 1,
+  Integer = 2,
+  Float = 3,
+  Alphanumeric = 4,
+  Username = 5,
+  Name = 6
+}
+
+declare const enum TabAction {
+  None = 1,
+  SelectNextInput = 2,
+  Indent = 3
+}
 
 type CreateInputParameters = {
   /**

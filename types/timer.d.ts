@@ -39,7 +39,7 @@ type CreateTimer = {
    *
    * Defaults to the calling Object.
    */
-  function_owner?: GObject;
+  function_owner?: GObject | Global;
 
   /**
    * Table containing any data that will be passed to the function.

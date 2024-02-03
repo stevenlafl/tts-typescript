@@ -12,7 +12,7 @@ interface Zone extends Omit<GObject, 'getObjects'> {
   /**
    *
    */
-  getObjects(this: void): GObject[];
+  getObjects(this: void): ObjectType[];
 
   /**
    *

@@ -8,20 +8,6 @@ declare var Global: GlobalConstructor;
 
 declare function type(obj: any): string;
 
-interface os {}
-interface osConstructor {
-  /**
-   *
-   */
-  time(this: void, timeString?: string): number;
-
-  /**
-   *
-   */
-  date(this: void, format: string): string;
-}
-declare var os: osConstructor;
-
 type CustomTableObject = {
   [key: string]: any
 }

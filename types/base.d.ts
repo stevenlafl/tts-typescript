@@ -10,7 +10,7 @@
  * Function to run when menu item is selected.
  *
  * @callback addContextMenuItemCallback
- * @param {string} player_color - Player Color who selected the menu item.
+ * @param {ColorLiteral} player_color - Player Color who selected the menu item.
  * @param {Vector} vector - Global position of the right-click context menu.
  */
 
@@ -25,7 +25,7 @@
  */
 declare function addContextMenuItem(
   label: string,
-  toRunFunc: (player_color: string, vector: Vector) => void,
+  toRunFunc: (player_color: ColorLiteral, vector: Vector) => void,
   keep_open?: boolean,
   require_table?: boolean
 ): boolean;
@@ -41,18 +41,18 @@ declare function clearContextMenu(): boolean;
 /**
  * Copy a list of Objects to the clipboard. Works with {@link paste}.
  *
- * @param {GObject} object_list List of Objects to copy.
+ * @param {ObjectType} object_list List of Objects to copy.
  * @returns {boolean}
  */
-declare function copy(object_list: GObject[]): boolean;
+declare function copy(object_list: ObjectType[]): boolean;
 
 /**
  * Destroy an Object.
  *
- * @param {GObject} obj The Object you wish to delete from the instance.
+ * @param {ObjectType} obj The Object you wish to delete from the instance.
  * @returns {boolean}
  */
-declare function destroyObject(obj: GObject): boolean;
+declare function destroyObject(obj: ObjectType): boolean;
 
 /**
  * Flip the table.
@@ -64,55 +64,55 @@ declare function flipTable(): boolean;
 /**
  * Get all Objects in the instance.
  *
- * @returns {GObject[]} List of all Objects in the instance.
+ * @returns {ObjectType[]} List of all Objects in the instance.
  */
-declare function getAllObjects(): GObject[];
+declare function getAllObjects(): ObjectType[];
 
 /**
  * Returns Object by its GUID. Will return null if this GUID doesn't currently exist.
  *
  * @param {string} guid GUID of the Object to get a reference of.
- * @returns {GObject}
+ * @returns {ObjectType}
  */
-declare function getObjectFromGUID(guid: string): GObject | Zone;
+declare function getObjectFromGUID(guid: string): ObjectType | undefined;
 
 /**
  * Returns a list of all Objects.
  *
- * @returns {GObject[]}
+ * @returns {ObjectType[]}
  */
-declare function getObjects(): GObject[];
+declare function getObjects(): ObjectType[];
 
 /**
  * Returns a list of all Objects with the given tag.
  *
  * @param {string} tag
- * @returns {GObject[]} List of all matching Objects.
+ * @returns {ObjectType[]} List of all matching Objects.
  */
-declare function getObjectsWithTag(tag: string): GObject[];
+declare function getObjectsWithTag(tag: string): ObjectType[];
 
 /**
  * Returns a list of all Objects with any of the given tags.
  *
  * @param {string[]} tags
- * @returns {GObject[]} List of all matching Objects.
+ * @returns {ObjectType[]} List of all matching Objects.
  */
-declare function getObjectsWithAnyTags(tags: string[]): GObject[];
+declare function getObjectsWithAnyTags(tags: string[]): ObjectType[];
 
 /**
  * Returns a list of all Objects with all of the given tags.
  *
  * @param tags
- * @returns {GObject[]} List of all matching Objects.
+ * @returns {ObjectType[]} List of all matching Objects.
  */
-declare function getObjectsWithAllTags(tags: string[]): GObject[];
+declare function getObjectsWithAllTags(tags: string[]): ObjectType[];
 
 /**
  * Returns a list of all seated players.
  *
- * @returns {Player[]} List of all seated players.
+ * @returns {ColorLiteral[]} List of all seated player colors.
  */
-declare function getSeatedPlayers(): Player[];
+declare function getSeatedPlayers(): ColorLiteral[];
 
 /**
  * Groups objects together, like how the `G` key does for players. It returns a table of object references to any decks/stacks formed.
@@ -128,9 +128,9 @@ declare function group(objects: GObject[]): GObject[];
  *  Pastes Objects in-game that were copied to the in-game clipboard. Works with copy(...).
  *
  * @param {PasteParameters} parameters
- * @returns {GObject[]} List of pasted objects.
+ * @returns {ObjectType[]} List of pasted objects.
  */
-declare function paste(parameters: PasteParameters): GObject[];
+declare function paste(parameters: PasteParameters): ObjectType[];
 
 /**
  * Sets whether the instance is looking for players or not. This is the same as the "Looking for Players" toggle in the Instance Settings.
@@ -148,9 +148,9 @@ declare function setLookingForPlayers(lfp: boolean): boolean;
  * If you are spawning a Custom Object, you should immediately call setCustomObject(...) on the object returned from spawnObject(...).
  *
  * @param {SpawnObjectParameters} parameters Parameters for spawning an object. See {@link SpawnObjectParameters}.
- * @returns {GObject} The spawned object.
+ * @returns {ObjectType} The spawned object.
  */
-declare function spawnObject(parameters: SpawnObjectParameters): GObject;
+declare function spawnObject(parameters: SpawnObjectParameters): ObjectType;
 
 /**
  * Spawns an object.
@@ -160,9 +160,9 @@ declare function spawnObject(parameters: SpawnObjectParameters): GObject;
  * If you are spawning a Custom Object, you should immediately call setCustomObject(...) on the object returned from spawnObject(...).
  *
  * @param {SpawnObjectDataParameters} parameters Parameters for spawning an object. See {@link SpawnObjectDataParameters}.
- * @returns {GObject} The spawned object.
+ * @returns {ObjectType} The spawned object.
  */
-declare function spawnObjectData(parameters: SpawnObjectDataParameters): GObject;
+declare function spawnObjectData(parameters: SpawnObjectDataParameters): ObjectType;
 
 /**
  * Spawns an object from an object data table representation.
@@ -170,25 +170,25 @@ declare function spawnObjectData(parameters: SpawnObjectDataParameters): GObject
  * This API gives you complete control over all persistent properties that an object has.
  *
  * @param {SpawnObjectJSONParameters} parameters Parameters for spawning an object. See {@link SpawnObjectJSONParameters}.
- * @returns {GObject} The spawned object.
+ * @returns {ObjectType} The spawned object.
  */
-declare function spawnObjectJSON(parameters: SpawnObjectJSONParameters): GObject;
+declare function spawnObjectJSON(parameters: SpawnObjectJSONParameters): ObjectType;
 
 /**
  * Start a coroutine. A coroutine is similar to a function, but has the unique ability to have its run paused until the next frame of the game using coroutine.yield(0).
  *
- * @param {GObject} function_owner The Object that the function being called is on. Global is a valid target.
+ * @param {ObjectType} function_owner The Object that the function being called is on. Global is a valid target.
  * @param {string} function_name Name of the function being called as a coroutine.
  * @returns {boolean}
  */
-declare function startLuaCoroutine(function_owner: GObject  | Global, function_name: string): boolean;
+declare function startLuaCoroutine(function_owner: ObjectType  | Global, function_name: string): boolean;
 
 /**
  * Converts a Player Color string into a Color Table for tinting.
  *
- * @param {string} player_color A String of a Player Color.
+ * @param {ColorLiteral} player_color A String of a Player Color.
  */
-declare function stringColorToRGB(player_color: string): Color;
+declare function stringColorToRGB(player_color: ColorLiteral): Color;
 
 /* Hotkey */
 
@@ -216,7 +216,7 @@ declare function addHotkey(
   label: string,
   toRunFunc: (
     playerColor: ColorLiteral,
-    hoveredObject: GObject,
+    hoveredObject: ObjectType | undefined,
     pointerPosition: Vector,
     isKeyUp: boolean
   ) => void,
@@ -246,20 +246,20 @@ declare function showHotkeyConfig(): boolean;
  * @param {Color} message_tint  A Table containing the RGB color tint for the text.
  * @returns {boolean}
  */
-declare function broadcastToAll(message: string, message_tint: Color): boolean;
+declare function broadcastToAll(message: string, message_tint?: Color): boolean;
 
 /**
  * Print an on-screen message to a specified Player and their in-game chat.
  *
  * @param {string} message Message to display on-screen.
- * @param {string} player_color Player Color to receive the message.
+ * @param {ColorLiteral} player_color Player Color to receive the message.
  * @param {Color} message_tint RGB color tint for the text.
  * @returns {boolean}
  */
 declare function broadcastToColor(
   message: string,
-  player_color: string,
-  message_tint: Color
+  player_color: ColorLiteral,
+  message_tint?: Color
 ): boolean;
 
 /**
@@ -299,7 +299,7 @@ declare function logString(
  * @param {string} postfix Text to place after this type of log entry.
  * @returns {boolean}
  */
-declare function logStyle(tag: string, tint: Color, prefix: string, postfix: string): boolean;
+declare function logStyle(tag: string, tint: Color, prefix?: string, postfix?: string): boolean;
 
 /**
  * Print a string into chat that only the host is able to see. Used for debugging scripts.
@@ -316,13 +316,13 @@ declare function print(message: string): null;
  * @param {Color} message_tint RGB values for the text's color tint.
  */
 declare function printToAll(message: string, message_tint?: Color): boolean;
-declare function printToColor(message: string, player_colo: string, message_tint: Color): boolean;
+declare function printToColor(message: string, player_color: ColorLiteral, message_tint?: Color): boolean;
 declare function sendExternalMessage(data: any): boolean;
 
 /**
  * PasteParameters
  *
- * @typedef {GObject} PasteParameters
+ * @typedef {ObjectType} PasteParameters
  * @property {Vector} [position] - Position to paste objects to. Defaults to the position of the player's cursor.
  * @property {boolean} [snap_to_grid] - Snap pasted objects to the grid. Defaults to true.
  * @see {@link paste}
@@ -335,7 +335,7 @@ type PasteParameters = {
 /**
  * SpawnObjectParameters
  *
- * @typedef {GObject} SpawnObjectParameters
+ * @typedef {ObjectType} SpawnObjectParameters
  * @property {string} type Built-in or Custom Game Object name.
  * @property {Vector} [position=[0,0,0]] Position where the object will be spawned.
  * @property {Vector} [rotation=[0,0,0]] Rotation of the spawned object.
@@ -346,20 +346,34 @@ type PasteParameters = {
  * @see {@link spawnObject}
  */
 type SpawnObjectParameters = {
-  type: string;
+  type: BuiltInObjectType | CustomObjectType;
   position?: Vector;
   rotation?: Vector;
   scale?: Vector;
   sound?: boolean;
   snap_to_grid?: boolean;
-  callback_function?: (this: void, obj: GObject) => void;
+  callback_function?: (this: void, obj: ObjectType) => void;
+  /**
+   * param table passed to callback, NOT callback_function
+   */
+  params?: CustomTableObject;
+
+  /**
+   * function name for (this: void, obj: ObjectType, data?: CustomTableObject) => void
+   */
+  callback?: string;
+
+  /**
+   * only applies to callback, NOT callback_function
+   */
+  callback_owner?: ObjectType | Global;
 };
 
 /**
  * SpawnObjectDataParameters
  *
- * @typedef {GObject} SpawnObjectDataParameters
- * @property {GObject} data Properties describing the object that will be spawned.
+ * @typedef {ObjectType} SpawnObjectDataParameters
+ * @property {GObjectData} data Properties describing the object that will be spawned.
  * @property {Vector} [position=[0,0,0]] Position where the object will be spawned. When specified, overrides the `Transform` position in `data`.
  * @property {Vector} [rotation=[0,0,0]] Rotation of the spawned object. When specified, overrides the `Transform` rotation in `data`.
  * @property {Vector} [scale=[1,1,1]] Scale of the spawned object. When specified, overrides the `Transform` scale in `data`.
@@ -367,18 +381,32 @@ type SpawnObjectParameters = {
  * @see {@link spawnObjectData}
  */
 type SpawnObjectDataParameters = {
-  data: any;
+  data: GObjectData;
   position?: Vector;
   rotation?: Vector;
   scale?: Vector;
-  callback_function?: (this: void, obj: GObject) => void;
+  callback_function?: (this: void, obj: ObjectType) => void;
+  /**
+   * param table passed to callback, NOT callback_function
+   */
+  params?: CustomTableObject;
+
+  /**
+   * function name for (this: void, obj: ObjectType, data?: CustomTableObject) => void
+   */
+  callback?: string;
+
+  /**
+   * only applies to callback, NOT callback_function
+   */
+  callback_owner?: ObjectType | Global;
 };
 
 /**
  * SpawnObjectJSONParameters
  *
- * @typedef {GObject} SpawnObjectJSONParameters
- * @property {GObject} json - The JSON data of the object to spawn.
+ * @typedef {ObjectType} SpawnObjectJSONParameters
+ * @property {string} json - The JSON data representation of GObjectData for the object to spawn.
  * @property {Vector} [position=[0,0,0]] Position where the object will be spawned. When specified, overrides the `Transform` position in `json`.
  * @property {Vector} [rotation=[0,0,0]] Rotation of the spawned object. When specified, overrides the `Transform` rotation in `json`.
  * @property {Vector} [scale=[1,1,1]] Scale of the spawned object. When specified, overrides the `Transform` scale in `json`.
@@ -386,9 +414,121 @@ type SpawnObjectDataParameters = {
  * @see {@link spawnObjectJSON}
  */
 type SpawnObjectJSONParameters = {
-  json: any;
+  json: string;
   position?: Vector;
   rotation?: Vector;
   scale?: Vector;
-  callback_function?: (this: void, obj: GObject) => void;
+  callback_function?: (this: void, obj: ObjectType) => void;
+  /**
+   * param table passed to callback, NOT callback_function
+   */
+  params?: CustomTableObject;
+
+  /**
+   * function name for (this: void, obj: ObjectType, data?: CustomTableObject) => void
+   */
+  callback?: string;
+
+  /**
+   * only applies to callback, NOT callback_function
+   */
+  callback_owner?: ObjectType | Global;
 };
+
+/*
+* Loosely typed GObjectData because these are the only values i could verify, there could be more
+*/
+type GObjectData = {
+  GUID?: string,
+  Name: BuiltInObjectType | CustomObjectType | string,
+  Transform: {
+    posX: number,
+    posY: number,
+    posZ: number,
+    rotX: number,
+    rotY: number,
+    rotZ: number,
+    scaleX: number,
+    scaleY: number,
+    scaleZ: number
+  },
+  Nickname?: string,
+  Description?: string,
+  GMNotes?: string,
+  AltLookAngle?: VectorLetters,
+  ColorDiffuse?: ColorLetters,
+  LayoutGroupSortIndex?: number,
+  Value?: number,
+  Locked?: boolean,
+  Grid?: boolean,
+  Snap?: boolean,
+  IgnoreFoW?: boolean,
+  HideWhenFaceDown?: boolean,
+  Hands?: boolean,
+  MeasureMovement?: boolean,
+  DragSelectable?: boolean,
+  Autoraise?: boolean,
+  Sticky?: boolean,
+  Tooltip?: boolean,
+  GridProjection?: boolean,
+  CardID?: number,
+  DeckIDs?: number[],
+  SidewaysCard?: boolean,
+  RPGmode?: boolean,
+  RPGdead?: boolean,
+  MaterialIndex?: number,
+  MeshIndex?: number,
+  Number?: number,
+  FogColor?: ColorLiteral | string,
+  FogHidePointers?: boolean,
+  FogReverseHiding?: boolean,
+  FogSeethrough?: boolean,
+  FogOfWar?: {
+    HideGmPointer?: boolean,
+    HideObjects?: boolean,
+    ReHideObjects?: boolean,
+    Height?: number,
+    RevealedLocations?: any, // Unsure what type this is
+    [key: string]: any
+  },
+  Bag?: {
+    Order?: number,
+    [key: string]: any
+  },
+  CustomDeck?: {
+    [key: string]: {
+      FaceURL: string,
+      BackURL: string,
+      NumWidth: number,
+      NumHeight: number,
+      BackIsHidden: boolean,
+      UniqueBack: boolean,
+      Type: number,
+      [key: string]: any
+    }
+  },
+  CustomImage?: {
+    ImageURL?: string,
+    ImageSecondaryURL?: string,
+    ImageScalar?: number,
+    WidthScale?: number,
+    CustomToken?: {
+      Thickness: number,
+      MergeDistancePixels: number,
+      StandUp: boolean,
+      Stackable: boolean,
+      [key: string]: any
+    },
+    [key: string]: any
+  }
+  RotationValues?: { // Dice
+    Value?: string,
+    Rotation?: VectorLetters,
+    [key: string]: any
+  }[]
+  LuaScript?: string,
+  LuaScriptState?: string,
+  XmlUI?: string,
+  ContainedObjects?: GObjectData[]
+  [key: string]: any
+}
