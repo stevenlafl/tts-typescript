@@ -1,3 +1,9 @@
+declare enum HidingState {
+  Default = 1,
+  Reverse = 2,
+  Disable = 3
+}
+
 interface Hand extends Zone {
   /**
    * Whether hand zones are enabled i.e. hold objects.
@@ -16,7 +22,7 @@ interface Hand extends Zone {
    * 2. Reverse. The contents of a player's hands are visible to all other players, but not the owner.
    * 3. Disable. Contents of all player hands are visible to all players.
    */
-  hiding: number;
+  hiding: HidingState;
 
   /**
    * Returns a table of all Hand Zone Objects in the game.
