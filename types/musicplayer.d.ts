@@ -41,28 +41,28 @@ interface MusicPlayerConstructor {
    *
    * @returns {AudioClip} The currently loaded audioclip.
    */
-  getCurrentAudioclip: (this: void) => AudioClip;
+  getCurrentAudioclip(this: void): AudioClip;
 
   /**
    * Gets the current playlist.
    *
    * @returns {AudioClip[]} Playlist table, consisting of zero or more audioclip sub-tables.
    */
-  getPlaylist: (this: void) => AudioClip[];
+  getPlaylist(this: void): AudioClip[];
 
   /**
    * Pauses currently playing audioclip. Returns true if the music player is paused, otherwise returns false.
    *
    * @returns {boolean} True if the music player is paused, otherwise returns false.
    */
-  pause: (this: void) => boolean;
+  pause(this: void): boolean;
 
   /**
    * Plays currently loaded audioclip. Returns true if the music player is playing, otherwise returns false.
    *
    * @returns {boolean} True if the music player is playing, otherwise returns false.
    */
-  play: (this: void) => boolean;
+  play(this: void): boolean;
 
   /**
    * Sets the audioclip to be loaded.
@@ -70,7 +70,7 @@ interface MusicPlayerConstructor {
    * @param {AudioClip} parameters The audioclip to be loaded.
    * @returns {boolean} True if the audioclip was set, false otherwise.
    */
-  setCurrentAudioclip: (this: void, parameters: AudioClip) => boolean;
+  setCurrentAudioclip(this: void, parameters: AudioClip): boolean;
 
   /**
    * Sets the current playlist
@@ -78,21 +78,21 @@ interface MusicPlayerConstructor {
    * @param {AudioClip[]} parameters Playlist table, consisting of zero or more audioclip sub-tables.
    * @returns {boolean} True if the playlist was set, false otherwise.
    */
-  setPlaylist: (this: void, parameters: AudioClip[]) => boolean;
+  setPlaylist(this: void, parameters: AudioClip[]): boolean;
 
   /**
    * Skips to the beginning of the audioclip or if the play time is less than 3 seconds to the previous audioclip in playlist if possible. Returns true if skip was successful, otherwise returns false.
    *
    * @returns {boolean} True if skip was successful, otherwise returns false.
    */
-  skipBack: (this: void) => boolean;
+  skipBack(this: void): boolean;
 
   /**
    * Skips to the next audioclip in playlist if possible. Returns true if skip was successful, otherwise returns false.
    *
    * @returns {boolean} True if skip was successful, otherwise returns false.
    */
-  skipForward: (this: void) => boolean;
+  skipForward(this: void): boolean;
 }
 
 /**

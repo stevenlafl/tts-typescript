@@ -79,7 +79,7 @@ interface WebRequestConstructor {
    * @param {function} callback_function Called when the request completes (or fails).
    * @returns {WebRequest} The WebRequest object.
    */
-  custom: (
+  custom(
     this: void,
     url: string,
     method: string,
@@ -87,7 +87,7 @@ interface WebRequestConstructor {
     data: string,
     headers: Record<string, string>,
     callback_function?: (this: void, request: WebRequest) => void
-  ) => WebRequest;
+  ): WebRequest;
 
   /**
    * Performs a HTTP DELETE request.
@@ -96,11 +96,11 @@ interface WebRequestConstructor {
    * @param {function} callback_function Called when the request completes (or fails).
    * @returns {WebRequest} The WebRequest object.
    */
-  delete: (
+  delete(
     this: void,
     url: string,
     callback_function?: (this: void, request: WebRequest) => void
-  ) => WebRequest;
+  ): WebRequest;
 
   /**
    * Performs a HTTP GET request.
@@ -109,11 +109,11 @@ interface WebRequestConstructor {
    * @param {function} callback_function Called when the request completes (or fails).
    * @returns {WebRequest} The WebRequest object.
    */
-  get: (
+  get(
     this: void,
     url: string,
     callback_function?: (this: void, request: WebRequest) => void
-  ) => WebRequest;
+  ): WebRequest;
 
   /**
    * Performs a HTTP HEAD request.
@@ -122,11 +122,11 @@ interface WebRequestConstructor {
    * @param {function} callback_function Called when the request completes (or fails).
    * @returns {WebRequest} The WebRequest object.
    */
-  head: (
+  head(
     this: void,
     url: string,
     callback_function?: (this: void, request: WebRequest) => void
-  ) => WebRequest;
+  ): WebRequest;
 
   /**
    * Performs a HTTP POST request, sending the specified form.
@@ -138,12 +138,12 @@ interface WebRequestConstructor {
    * @param {function} callback_function Called when the request completes (or fails)
    * @returns {WebRequest} The WebRequest object.
    */
-  post: (
+  post(
     this: void,
     url: string,
     form: Record<string, string> | string,
     callback_function?: (this: void, request: WebRequest) => void
-  ) => WebRequest;
+  ): WebRequest;
 
   /**
    * Performs a HTTP PUT request, sending the specified data.
@@ -155,12 +155,12 @@ interface WebRequestConstructor {
    * @param {function} callback_function Called when the request completes (or fails).
    * @returns {WebRequest} The WebRequest object.
    */
-  put: (
+  put(
     this: void,
     url: string,
     data: string,
     callback_function?: (this: void, request: WebRequest) => void
-  ) => WebRequest;
+  ): WebRequest;
 }
 
 declare var WebRequest: WebRequestConstructor;

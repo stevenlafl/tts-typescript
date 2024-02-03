@@ -318,28 +318,28 @@ interface PlayerConstructor {
    *
    * @returns {string[]} A table of strings of every valid seat color at the current table.
    */
-  getAvailableColors: (this: void) => string[];
+  getAvailableColors(this: void): string[];
 
   /**
    * Returns a table of strings of every possible seat color. Returned colors are in the default order.
    *
    * @returns {string[]} A table of strings of every possible seat color.
    */
-  getColors: (this: void) => string[];
+  getColors(this: void): string[];
 
   /**
    * Returns a table of all Player instances.
    *
    * @returns {Player[]} A table of all Player instances.
    */
-  getPlayers: (this: void) => Player[];
+  getPlayers(this: void): Player[];
 
   /**
    * Returns a table of all spectator (Grey) Player instances.
    *
    * @returns {Player[]} A table of all spectator (Grey) Player instances.
    */
-  getSpectators: (this: void) => Player[];
+  getSpectators(this: void): Player[];
 
   /**
    * The onPlayerAction event allows you to handle player actions. A list of player actions is available as Player.Action.

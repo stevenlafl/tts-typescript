@@ -19,14 +19,14 @@ interface PhysicsConstructor {
    * @param {CastParameters} parameters A Table of parameters used to guide the function.
    * @returns {HitObjects} Table containing information on hit Objects.
    */
-  cast: (this: void, parameters: CastParameters) => HitObjects;
+  cast(this: void, parameters: CastParameters): HitObjects;
 
   /**
    * Returns directional Vector of the direction gravity is pulling.
    *
    * @returns {Vector} The directional Vector of the direction gravity is pulling.
    */
-  getGravity: (this: void) => Vector;
+  getGravity(this: void): Vector;
 
   /**
    * Sets the direction gravity pulls.
@@ -34,7 +34,7 @@ interface PhysicsConstructor {
    * @param {Vector} direction The new direction gravity pulls.
    * @returns {boolean} True if the direction gravity pulls was set, false otherwise.
    */
-  setGravity: (this: void, direction: Vector) => boolean;
+  setGravity(this: void, direction: Vector): boolean;
 }
 
 /**

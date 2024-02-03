@@ -7,21 +7,21 @@ interface TablesConstructor {
    *
    * @returns {string} The image URL of the current Custom Table, or nil if the current table is not a Custom Table.
    */
-  getCustomURL: (this: void) => string;
+  getCustomURL(this: void): string;
 
   /**
    * Returns the current Table's name i.e. equivalent to getTableObject().name.
    *
    * @returns {AllTableNames} The current Table's name.
    */
-  getTable: (this: void) => AllTableNames;
+  getTable(this: void): AllTableNames;
 
   /**
    * Returns the current Table object.
    *
    * @returns {GObject} The current Table object.
    */
-  getTableObject: (this: void) => GObject;
+  getTableObject(this: void): GObject;
 
   /**
    * Sets the image URL for the current Custom Table. Has no effect if the current Table is not a Custom Table.
@@ -29,7 +29,7 @@ interface TablesConstructor {
    * @param {string} url The image URL for the current Custom Table.
    * @returns {boolean} True if the image URL was set, false otherwise.
    */
-  setCustomURL: (this: void, url: string) => boolean;
+  setCustomURL(this: void, url: string): boolean;
 
   /**
    * Replaces the current Table with the Table matching the specified name.
@@ -37,7 +37,7 @@ interface TablesConstructor {
    * @param {AllTableNames} name The name of the Table to switch to.
    * @returns {boolean} True if the Table was switched, false otherwise.
    */
-  setTable: (this: void, name: AllTableNames) => boolean;
+  setTable(this: void, name: AllTableNames): boolean;
 }
 
 /**

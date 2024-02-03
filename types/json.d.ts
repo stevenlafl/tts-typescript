@@ -10,7 +10,7 @@ interface JSON {
    * @param {string} json_string A String that is decoded, generally created by {@link encode}(...) or {@link encode_pretty}(...).
    * @return {any} Value obtained from the encoded string. Can return a number, string or Table.
    */
-  decode: (this: void, json_string: string) => any;
+  decode(this: void, json_string: string): any;
 
   /**
    * Encodes data from a number, string or Table into a JSON string.
@@ -18,7 +18,7 @@ interface JSON {
    * @param {any} data A Var, either String, Int, Float or Table, to encode as a string.
    * @return {string} The encoded JSON string.
    */
-  encode: (this: void, data: any) => string;
+  encode(this: void, data: any): string;
 
   /**
    * Same as {@link encode}(...) but this version is slightly less efficient but is easier to read.
@@ -26,5 +26,5 @@ interface JSON {
    * @param {any} data A Var, either String, Int, Float or Table, to encode as a string.
    * @return {string} The encoded JSON string.
    */
-  encode_pretty: (this: void, data: any) => string;
+  encode_pretty(this: void, data: any): string;
 }

@@ -9,7 +9,7 @@ interface NotesConstructor {
    * @param {AddNotebookTabParameters} parameters A Table containing spawning parameters.
    * @returns {number} The index of the new tab.
    */
-  addNotebookTab: (this: void, parameters: AddNotebookTabParameters) => number;
+  addNotebookTab(this: void, parameters: AddNotebookTabParameters): number;
 
   /**
    * Edit an existing Tab in the notebook. Indexes for notebook tabs begin at 0.
@@ -17,14 +17,14 @@ interface NotesConstructor {
    * @param {EditNotebookTabParameters} parameters A Table containing spawning parameters.
    * @returns {boolean} True if the tab was edited, false otherwise.
    */
-  editNotebookTab: (this: void, parameters: EditNotebookTabParameters) => boolean;
+  editNotebookTab(this: void, parameters: EditNotebookTabParameters): boolean;
 
   /**
    * Returns a Table containing data on all tabs in the notebook. Indexes for notebook tabs begin at 0.
    *
    * @returns {Table} Table containing data on all tabs in the notebook.
    */
-  getNotebookTabs: (this: void) => Required<EditNotebookTabParameters>[];
+  getNotebookTabs(this: void): Required<EditNotebookTabParameters>[];
 
   /**
    * Remove a notebook tab. Notebook tab indexes begin at 0.
@@ -32,7 +32,7 @@ interface NotesConstructor {
    * @param {number} index The index of the tab to remove.
    * @returns {boolean} True if the tab was removed, false otherwise.
    */
-  removeNotebookTab: (this: void, index: number) => boolean;
+  removeNotebookTab(this: void, index: number): boolean;
 
   /* Notes Functions */
 
@@ -41,14 +41,14 @@ interface NotesConstructor {
    *
    * @return {string} The contents of the on-screen notes section.
    */
-  getNotes: (this: void) => string;
+  getNotes(this: void): string;
 
   /**
    * Replace the text in the notes window with the string. The notes is an area which displays text in the lower-right corner of the screen.
    *
    * @param {string} notes The new text for the notes window.
    */
-  setNotes: (this: void, notes: string) => boolean;
+  setNotes(this: void, notes: string): boolean;
 }
 
 /**

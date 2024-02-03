@@ -46,14 +46,14 @@ interface TurnsConstructor {
    *
    * @returns {string} The Player Color string of the next player in the turn order.
    */
-  getNextTurnColor: (this: void) => ColorLiteral;
+  getNextTurnColor(this: void): ColorLiteral;
 
   /**
    * Returns the Player Color string of the previous player in the turn order.
    *
    * @returns {string} The Player Color string of the previous player in the turn order.
    */
-  getPreviousTurnColor: (this: void) => ColorLiteral;
+  getPreviousTurnColor(this: void): ColorLiteral;
 }
 
 /**
