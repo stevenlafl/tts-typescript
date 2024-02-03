@@ -2,11 +2,24 @@
 
 interface Grid {}
 
+declare enum GridType {
+  Rectangles = 1,
+  HorizontalHexes = 2,
+  VerticalHexes = 3
+}
+
+declare enum SnapMethod {
+  Off = 1,
+  Lines = 2,
+  Center = 3,
+  Both = 4
+}
+
 interface GridConstructor {
   /**
    * The type of the grid. 1 = Rectangles, 2 = Horizontal hexes, 3 = Vertical hexes.
    */
-  type: number;
+  type: GridType;
 
   /**
    * Visibility of the grid lines.
@@ -31,7 +44,7 @@ interface GridConstructor {
   /**
    * Method of snapping objects to the grid. 1 = Off, 2 = Lines, 3 = Center, 4 = Both.
    */
-  snapping: number;
+  snapping: SnapMethod;
 
   /**
    * X offset of the grid origin.
