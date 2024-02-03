@@ -2,6 +2,11 @@
 
 interface Lighting {}
 
+declare enum LightSource {
+  Background = 1,
+  Gradient = 2
+}
+
 interface LightingConstructor {
   /**
    * The strength of the ambient light. Range = 0 to 4.
@@ -11,7 +16,7 @@ interface LightingConstructor {
   /**
    * The source of ambient light. 1 = background, 2 = gradient.
    */
-  ambient_type: number;
+  ambient_type: LightSource;
 
   /**
    * The strength of the directional light shining down in the scene. Range = 0 to 4.

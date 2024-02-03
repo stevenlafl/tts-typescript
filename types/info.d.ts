@@ -14,11 +14,13 @@ interface InfoConstructor {
   /**
    * The number of players the current game/mod allows.
    */
+  // TODO Verify type, docs say table
   number_of_players: number;
 
   /**
    * The amount of time the current game/mod takes.
    */
+  // TODO Verify type, docs say table
   playing_time: number;
 
   /**
