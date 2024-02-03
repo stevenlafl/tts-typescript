@@ -51,8 +51,6 @@ type ColorNumbers = {
   [key in ColorNumberKeys]?: number;
 };
 
-type ColorTuple = [number, number, number, number?];
-
 interface Color extends ColorLetters, ColorNumbers, ColorFunctionality {
  /**
   * Sets a component to value and returns self.
@@ -69,10 +67,10 @@ interface Color extends ColorLetters, ColorNumbers, ColorFunctionality {
   * @param {VectorTuple} args The values to set the components to.
   * @returns {this} self
   */
- set?(...args: ColorTuple): this;
+ set?(r: number, g: number, b: number, a?: number): this;
 
  /**
-  * Returns x, y, z components as three separate values.
+  * Returns r, g, b, a components as four separate values.
   * 
   * @returns {ColorLettersGuaranteed} The components.
   */
@@ -90,6 +88,7 @@ interface Color extends ColorLetters, ColorNumbers, ColorFunctionality {
   * 
   * @param includeAlpha Whether to include the alpha component.
   */
+ // TODO check is includeAlpha can be optional
  toHex?(includeAlpha: boolean): string;
 
  /**
@@ -113,10 +112,11 @@ interface Color extends ColorLetters, ColorNumbers, ColorFunctionality {
   * Return a color some part of the way between col and otherCol, numeric arg [0, 1] is the fraction.
   * 
   * @param {Color} otherCol The color to lerp to.
-  * @param {number} num The fraction to lerp by.
+  * @param {number} fraction The fraction to lerp by.
   * @returns {Color} The lerped color.
   */
- lerp?(otherCol: Color, num: number): Color;
+ // TODO check if fraction is optional
+ lerp?(otherCol: Color, fraction: number): Color;
 
  /**
   * Return a string description of a color with an optional `prefix`.
@@ -127,8 +127,12 @@ interface Color extends ColorLetters, ColorNumbers, ColorFunctionality {
  dump?(prefix?: string): string;
 }
 
+// Because capitalization is ignored, and custom colors can be added, a lot more indexers can be used
+// TODO Check if indexing a not known color errors or undefined
 type ColorConstructor = {
   [index in ColorLiteral]: Color;
+} & {
+  [index: string]: Color | undefined;
 } & {
   /**
    * Return a color with specified (r, g, b, a?) components.
@@ -147,6 +151,7 @@ type ColorConstructor = {
    * @param {Color} t The source table.
    * @returns {Color} The color.
    */
+  // TODO check if Color can be string[] or number[]
   (this: void, t: Color): Color;
 
   /**
