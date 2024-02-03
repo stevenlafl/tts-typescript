@@ -70,6 +70,7 @@ interface MusicPlayerConstructor {
    * @param {AudioClip} parameters The audioclip to be loaded.
    * @returns {boolean} True if the audioclip was set, false otherwise.
    */
+  // TODO checj if parameters can be nil
   setCurrentAudioclip(this: void, parameters: AudioClip): boolean;
 
   /**
@@ -78,6 +79,7 @@ interface MusicPlayerConstructor {
    * @param {AudioClip[]} parameters Playlist table, consisting of zero or more audioclip sub-tables.
    * @returns {boolean} True if the playlist was set, false otherwise.
    */
+  // TODO checj if parameters can be nil
   setPlaylist(this: void, parameters: AudioClip[]): boolean;
 
   /**
