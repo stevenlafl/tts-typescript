@@ -1,7 +1,7 @@
 /**
  * The Counter behavior is present on the Counter object.
  */
-interface Counter {
+interface Counter extends GObject {
   /**
    * Resets Counter to 0.
    *

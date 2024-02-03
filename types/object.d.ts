@@ -334,10 +334,24 @@ declare type BuiltInObjectType =
 | OtherObjectType
 | SpawnableTypeObjectType
 
-// Always safe to use 'as GObject' as Zone extends GObject and Hand extends Zone and Container extends GObject
-declare type ObjectType = GObject | Zone | Hand | Container
+// Always safe to use 'as GObject' as GObject is the base for all
+// I put this here to help with casting when dealing with specific types
+declare type ObjectType = 
+| GObject
+| Zone
+| Hand
+| Container
+| AssetBundle
+| Book
+| Browser
+| Clock
+| Container
+| Counter
+| LayoutZone
+| RPGFigurine
+| TextTool
 
-interface GObject {
+interface GObject extends GlobalConstructor {
   /* Common Variables */
 
   /**
@@ -634,27 +648,27 @@ interface GObject {
    * Adds force to an object in a directional Vector.
    *
    * @param {Vector} vector A Vector of the direction and magnitude of force.
-   * @param {number} force_type An Int representing the force type to apply. Options below.
+   * @param {ForceType} force_type An Int representing the force type to apply. Options below.
    *  - 1: Continuous force, uses mass. (Force)
    *  - 2: Continuous acceleration, ignores mass. (Acceleration)
    *  - 3: Instant force impulse, uses mass. (Impulse)
    *  - 4: Instant velocity change, ignores mass. (Velocity Change)
    * @returns {boolean} - True if the force was applied, false if not.
    */
-  addForce(this: void, vector: Vector, force_type?: number): boolean;
+  addForce(this: void, vector: Vector, force_type?: ForceType): boolean;
 
   /**
    * Adds torque to an object in a rotational Vector.
    *
    * @param {Vector} vector The direction and magnitude of the torque to apply.
-   * @param {number} force_type The type of torque to apply. One of:
+   * @param {ForceType} force_type The type of torque to apply. One of:
    *  - 1: Continuous force, uses mass. (Force)
    *  - 2: Continuous acceleration, ignores mass. (Acceleration)
    *  - 3: Instant force impulse, uses mass. (Impulse)
    *  - 4: Instant velocity change, ignores mass. (Velocity Change)
    * @returns {boolean} - True if the torque was applied, false if not.
    */
-  addTorque(this: void, vector: Vector, force_type?: number): boolean;
+  addTorque(this: void, vector: Vector, force_type?: ForceType): boolean;
 
   /**
    * Returns a Vector of the current angular velocity.
@@ -693,7 +707,7 @@ interface GObject {
    *
    * @returns {Vector} The current smooth move target.
    */
-  getPositionSmooth(this: void): Vector;
+  getPositionSmooth(this: void): Vector | undefined;
 
   /**
    * Returns a Vector of the current rotation.
@@ -1240,7 +1254,7 @@ interface GObject {
   /**
    * Sets the Object's rotation value i.e. physically rotates the object.
    *
-   * @param {Vector | number | string} rotation_value A rotation value. Should be a int, or float.
+   * @param {Vector | number | string} rotation_value A rotation value.
    * @returns {boolean} True if it succeeds, false if it fails.
    */
   setRotationValue(this: void, rotation_value: Vector | number | string): boolean;
@@ -1542,6 +1556,7 @@ interface GObject {
    * @param {TakeObjectParameters} parameters A Table of parameters used to determine how takeObject will act.
    * @returns {GObject} The taken object.
    */
+  // TODO test is parameters can be nil
   takeObject(this: void, parameters: TakeObjectParameters): GObject;
 
   /**
@@ -1625,135 +1640,20 @@ interface GObject {
    *
    * @param {string} id The unique name for this hiding effect.
    * @param {boolean} hidden If the hiding effect is enabled or not.
-   * @param {Player[]} [players] A table containing colors to hide the Object from.
+   * @param {ColorLiteral[]} [players] A table containing colors to hide the Object from.
    * @returns {boolean} True if it succeeds, false if it fails.
    */
-  attachHider(this: void, id: string, hidden: boolean, players?: Player[]): boolean;
+  attachHider(this: void, id: string, hidden: boolean, players?: ColorLiteral[]): boolean;
 
   /**
    * A more advanced version of setInvisibleTo(...). This function is also used to hide objects as if they were in a hidden zone. It allows you to identify multiple sources of "hiding" by an ID and toggle the effect on/off easily.
    *
    * @param {string} id The unique name for this hiding effect.
    * @param {boolean} hidden If the hiding effect is enabled or not.
-   * @param {Player[]} [players] A table containing colors to hide the Object from.
+   * @param {ColorLiteral[]} [players] A table containing colors to hide the Object from.
    * @returns {boolean} True if it succeeds, false if it fails.
    */
-  attachInvisibleHider(this: void, id: string, hidden: boolean, players?: Player[]): boolean;
-
-  /* Global Functions */
-
-  /**
-   * Add a Decal onto an object or the game world.
-   *
-   * @important When using this function, the vector parameters (position, rotation) are relative to what the decal is being placed on. For example, if you put a decal at {0,0,0} on Global, it will attach to the center of the game room. If you do the same to an object, it will place the decal on the origin point of the object.
-   * @param {AddDecalParameters} parameters A Table of parameters used to determine how the function will act.
-   * @returns {boolean} True if it succeeds, false if it fails.
-   */
-  addDecal(this: void, parameters: AddDecalParameters): boolean;
-
-  /**
-   * Used to call a Lua function on another entity.
-   *
-   * @param {string} func_name Function name you want to activate.
-   * @param {any} [func_params] A Table containing any data you want to pass to that function.
-   * @returns {any} Var is only returned if the function called has a return. Otherwise return is nil. See example.
-   */
-  call(this: void, func_name: string, func_params?: any): any;
-
-  /**
-   * Returns information on all decals attached to this object or the world.
-   *
-   * @returns {AddDecalParameters[]} Returns a table of sub-tables, each sub-table representing one decal.
-   */
-  getDecals(this: void): AddDecalParameters[];
-
-  /**
-   * Get a Lua script as a string from the entity.
-   *
-   * @returns {string} The lua script.
-   */
-  getLuaScript(this: void): string;
-
-  /**
-   * Returns a table representing a list of snap points.
-   *
-   * @returns {SnapPoint[]} The returned value is a list (numerically indexed table) of sub-tables, where each sub-table represents a snap point.
-   */
-  getSnapPoints(this: void): SnapPoint[];
-
-  /**
-   * Data value of a variable in another Object's script. Can only return a table.
-   *
-   * @param {string} table_name Name of the table.
-   * @returns {any} The table.
-   */
-  getTable(this: void, table_name: string): any;
-
-  /**
-   * Data value of a variable in another entity's script. Cannot return a table.
-   *
-   * @param {string} var_name Name of the variable.
-   * @returns {any} The variable.
-   */
-  getVar(this: void, var_name: string): any;
-
-  /**
-   * Returns Table of data representing the current Vector Lines on this entity. See setVectorLines for table format.
-   *
-   * @returns {VectorLine[]} The vector lines.
-   */
-  getVectorLines(this: void): VectorLine[];
-
-  /**
-   * Sets which decals are on an object. This removes other decals already present, and can remove all decals as well.
-   *
-   * @important Using this function with an empty table will remove all decals from Global or the object it is used on. Global.setDecals({})
-   * @param {AddDecalParameters[]} parameters The main table, which will contain all of the sub-tables consisting of each decal's parameters.
-   * @returns {boolean} True if it succeeds, false if it fails.
-   */
-  setDecals(this: void, parameters: AddDecalParameters[]): boolean;
-
-  /**
-   * Input a string as an entity's Lua script. Generally only used after spawning a new Object.
-   *
-   * @param {string} script The script.
-   * @returns {boolean} True if it succeeds, false if it fails.
-   */
-  setLuaScript(this: void, script: string): boolean;
-
-  /**
-   * Replaces existing snap points with the specified list of snap points.
-   *
-   * @param {SnapPoint[]} snap_points The snap points.
-   * @returns {boolean} True if it succeeds, false if it fails.
-   */
-  setSnapPoints(this: void, snap_points: SnapPoint[]): boolean;
-
-  /**
-   * Creates/updates a variable in another entity's script. Only used for tables.
-   *
-   * @param {string} func_name Name of the function.
-   * @param {any} data The data.
-   * @returns {boolean} True if it succeeds, false if it fails.
-   */
-  setTable(this: void, func_name: string, data: any): boolean;
-
-  /**
-   * Creates/updates a variable in another entity's script. Cannot set a table.
-   *
-   * @param {string} func_name Name of the function.
-   * @param {any} data The data.
-   * @returns {boolean} True if it succeeds, false if it fails.
-   */
-  setVar(this: void, func_name: string, data: any): boolean;
-
-  /**
-   * Spawns Vector Lines from a list of parameters on this entity.
-   *
-   * @param {VectorLineParameter[]} parameters The parameters.
-   * @returns {boolean} True if it succeeds, false if it fails.
-   */
-  setVectorLines(this: void, parameters: VectorLineParameter): boolean;
+  attachInvisibleHider(this: void, id: string, hidden: boolean, players?: ColorLiteral[]): boolean;
 
   UI: UI;
 }
@@ -1862,6 +1762,7 @@ type CreateButtonParameters = {
   /**
    *
    */
+  // TODO Check is click_function is string
   click_function: (obj: GObject, player_clicker_color: ColorLiteral, alt_click: boolean) => void;
 } & CommonButtonParameters;
 
@@ -1969,9 +1870,10 @@ type CreateInputParameters = {
   /**
    *
    */
+  // TODO Check is input_function is string
   input_function: (
     obj: GObject,
-    player_clicker_color: string,
+    player_clicker_color: ColorLiteral,
     input_value: string,
     selected: boolean
   ) => void;
@@ -1986,7 +1888,8 @@ type EditButtonParameters = {
   /**
    *
    */
-  click_function?: (obj: GObject, player_clicker_color: string, alt_click: boolean) => void;
+  // TODO Check is click_function is string
+  click_function?: (obj: GObject, player_clicker_color: ColorLiteral, alt_click: boolean) => void;
 } & CommonButtonParameters;
 
 type EditInputParameters = {
@@ -1998,9 +1901,10 @@ type EditInputParameters = {
   /**
    *
    */
+  // TODO Check is input_function is string
   input_function?: (
     obj: GObject,
-    player_clicker_color: string,
+    player_clicker_color: ColorLiteral,
     input_value: string,
     selected: boolean
   ) => void;
@@ -2641,6 +2545,7 @@ type TakeObjectParameters = {
   callback_owner?: GObject | Global;
 };
 
+// TODO find out which (if any are not required)
 type AddDecalParameters = {
   /**
    * The name of the decal being placed.
@@ -2750,3 +2655,10 @@ type JointHinge = {
 };
 
 type JointToParameters = JointFixed | JointSpring | JointHinge;
+
+declare enum ForceType {
+  Force = 1,
+  Acceleration = 2,
+  Impulse = 3,
+  VelocityChange = 4
+}

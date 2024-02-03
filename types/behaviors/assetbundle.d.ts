@@ -1,7 +1,7 @@
 /**
  * The AssetBundle behavior is present on Objects that were created from a custom AssetBundle.
  */
-interface AssetBundle {
+interface AssetBundle extends GObject {
   /**
    * Index of the currently looping effect. Indexes starts at 0.
    *
