@@ -95,9 +95,9 @@ interface Color extends ColorLetters, ColorNumbers, ColorFunctionality {
   * Returns a color string if matching this instance, nil otherwise, optional numeric tolerance param.
   * 
   * @param {number} tolerance The tolerance to use.
-  * @returns {string} A string representation of the color or null.
+  * @returns {undefined} A string representation of the color or undefined.
   */
- toString?(tolerance?: number): string | null;
+ toString?(tolerance?: number): string | undefined;
 
  /**
   * Returns true if otherCol same as self, false otherwise, optional numeric tolerance param.

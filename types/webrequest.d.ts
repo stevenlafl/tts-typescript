@@ -55,9 +55,9 @@ interface WebRequest {
    * Returns the value of the specified response header, or nil if no such header exists.
    *
    * @param {string} name The name of the header to retrieve.
-   * @returns {string | null} The value of the specified response header, or nil if no such header exists.
+   * @returns {string | undefined} The value of the specified response header, or nil if no such header exists.
    */
-  getResponseHeader(this: void, name: string): string | null;
+  getResponseHeader(this: void, name: string): string | undefined;
 
   /**
    * Returns the table of response headers. Keys and values are both strings.

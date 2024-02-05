@@ -34,4 +34,3 @@
 /// <reference path="./vector.d.ts" />
 /// <reference path="./wait.d.ts" />
 /// <reference path="./webrequest.d.ts" />
-/// <reference path="./zone.d.ts" />

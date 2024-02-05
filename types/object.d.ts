@@ -599,6 +599,11 @@ interface GObject extends GlobalConstructor {
   Browser?: Browser;
 
   /**
+   * "Bag", "Stack" and "Deck" objects.
+   */
+  Container?: Container;
+
+  /**
    * "Digital Clock" objects.
    */
   Clock?: Clock;

@@ -69,7 +69,7 @@ declare function flipTable(): boolean;
 declare function getAllObjects(): GObject[];
 
 /**
- * Returns Object by its GUID. Will return null if this GUID doesn't currently exist.
+ * Returns Object by its GUID. Will return undefined if this GUID doesn't currently exist.
  *
  * @param {string} guid GUID of the Object to get a reference of.
  * @returns {GObject}
@@ -307,7 +307,7 @@ declare function logStyle(tag: string, tint: Color, prefix?: string, postfix?: s
  * @param message Text to print into the chat log.
  * @returns {boolean}
  */
-declare function print(message: string): null;
+declare function print(message: string): undefined;
 
 /**
  * Print a message into the in-game chat of all connected players.
@@ -342,7 +342,7 @@ type PasteParameters = {
  * @property {Vector} [scale=[1,1,1]] Scale of the spawned object.
  * @property {boolean} [sound=true] Whether a sound will be played as the object spawns.
  * @property {boolean} [snap_to_grid=false] Whether upon spawning, the object will snap to nearby grid lines (or snap points).
- * @property {function} [callback_function=null] Called when the object has finished spawning. The spawned object will be passed as the first and only parameter.
+ * @property {function} [callback_function=undefined] Called when the object has finished spawning. The spawned object will be passed as the first and only parameter.
  * @see {@link spawnObject}
  */
 type SpawnObjectParameters = {
@@ -377,7 +377,7 @@ type SpawnObjectParameters = {
  * @property {Vector} [position=[0,0,0]] Position where the object will be spawned. When specified, overrides the `Transform` position in `data`.
  * @property {Vector} [rotation=[0,0,0]] Rotation of the spawned object. When specified, overrides the `Transform` rotation in `data`.
  * @property {Vector} [scale=[1,1,1]] Scale of the spawned object. When specified, overrides the `Transform` scale in `data`.
- * @property {function} [callback_function=null] Called when the object has finished spawning. The spawned object will be passed as the first and only parameter.
+ * @property {function} [callback_function=undefined] Called when the object has finished spawning. The spawned object will be passed as the first and only parameter.
  * @see {@link spawnObjectData}
  */
 type SpawnObjectDataParameters = {
@@ -410,7 +410,7 @@ type SpawnObjectDataParameters = {
  * @property {Vector} [position=[0,0,0]] Position where the object will be spawned. When specified, overrides the `Transform` position in `json`.
  * @property {Vector} [rotation=[0,0,0]] Rotation of the spawned object. When specified, overrides the `Transform` rotation in `json`.
  * @property {Vector} [scale=[1,1,1]] Scale of the spawned object. When specified, overrides the `Transform` scale in `json`.
- * @property {function} [callback_function=null] Called when the object has finished spawning. The spawned object will be passed as the first and only parameter.
+ * @property {function} [callback_function=undefined] Called when the object has finished spawning. The spawned object will be passed as the first and only parameter.
  * @see {@link spawnObjectJSON}
  */
 type SpawnObjectJSONParameters = {
