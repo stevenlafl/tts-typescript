@@ -3,7 +3,7 @@
 /**
  * The TextTool behavior is present on 3DText objects i.e those created with the text tool.
  */
-interface TextTool extends GObject {
+interface TextTool {
   /**
    * Returns Table of font Color.
    */

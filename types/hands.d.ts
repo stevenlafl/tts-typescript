@@ -4,7 +4,7 @@ declare enum HidingState {
   Disable = 3
 }
 
-interface Hand extends Zone {
+interface Hand {
   /**
    * Whether hand zones are enabled i.e. hold objects.
    */

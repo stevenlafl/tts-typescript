@@ -107,5 +107,5 @@ type HitObjects = {
    * An Object reference to the Object hit by the cast.
    */
   // TODO check what object types get hit
-  hit_object: ObjectType;
+  hit_object: GObject;
 };

@@ -1,7 +1,7 @@
 /**
  * The AssetBundle behavior is present on Objects that were created from a custom AssetBundle.
  */
-interface AssetBundle extends GObject {
+interface AssetBundle {
   /**
    * Index of the currently looping effect. Indexes starts at 0.
    *
@@ -39,10 +39,6 @@ interface AssetBundle extends GObject {
    */
   playTriggerEffect(this: void, index: number): null;
 }
-
-interface AssetBundleConstructor {}
-
-declare var AssetBundle: AssetBundleConstructor;
 
 type LoopingEffect = {
   /**

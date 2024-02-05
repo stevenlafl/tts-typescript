@@ -1,5 +1,3 @@
-/// <reference path="zone.d.ts" />
-
 /*
 * Derived from https://api.tabletopsimulator.com/built-in-object/ and https://api.tabletopsimulator.com/custom-game-objects/
 */
@@ -334,23 +332,6 @@ declare type BuiltInObjectType =
 | OtherObjectType
 | SpawnableTypeObjectType
 
-// Always safe to use 'as GObject' as GObject is the base for all
-// I put this here to help with casting when dealing with specific types
-declare type ObjectType = 
-| GObject
-| Zone
-| Hand
-| Container
-| AssetBundle
-| Book
-| Browser
-| Clock
-| Container
-| Counter
-| LayoutZone
-| RPGFigurine
-| TextTool
-
 interface GObject extends GlobalConstructor {
   /* Common Variables */
 
@@ -605,37 +586,37 @@ interface GObject extends GlobalConstructor {
   /**
    * Custom "AssetBundle" objects.
    */
-  AssetBundle: AssetBundle;
+  AssetBundle?: AssetBundle;
 
   /**
    * "Custom PDF" objects.
    */
-  Book: Book;
+  Book?: Book;
 
   /**
    * "Tablet" objects.
    */
-  Browser: Browser;
+  Browser?: Browser;
 
   /**
    * "Digital Clock" objects.
    */
-  Clock: Clock;
+  Clock?: Clock;
 
   /**
    * "Counter" objects.
    */
-  Counter: Counter;
+  Counter?: Counter;
 
   /**
    * Layout zones.
    */
-  LayoutZone: LayoutZone;
+  LayoutZone?: LayoutZone;
 
   /**
    * "RPG Kit" animated figurine objects i.e. type "rpgFigurine".
    */
-  RPGFigurine: RPGFigurine;
+  RPGFigurine?: RPGFigurine;
 
   /**
    * 3D Text objects e.g. text created with the in-game Text tool.
@@ -921,10 +902,10 @@ interface GObject extends GlobalConstructor {
   /**
    * Returns whether the object and the specified other object share at least one tag in common.
    *
-   * @param {ObjectType} other The other object.
+   * @param {GObject} other The other object.
    * @returns {boolean} True if the objects share at least one tag, false if not.
    */
-  hasMatchingTag(this: void, other: ObjectType): boolean;
+  hasMatchingTag(this: void, other: GObject): boolean;
 
   /**
    * Returns whether the object has the specified tag.
@@ -1182,9 +1163,9 @@ interface GObject extends GlobalConstructor {
   /**
    * Returns a list of zones that the object is currently occupying.
    *
-   * @returns {Zone[]} The zones.
+   * @returns {GObject[]} The zones.
    */
-  getZones(this: void): Zone[];
+  getZones(this: void): GObject[];
 
   /**
    * Returns true if the Object is (or will be) destroyed.

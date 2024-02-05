@@ -3,7 +3,7 @@
 /**
  * The RPGFigurine behavior is present on Objects that are figurines with built-in animations i.e. RPG Kit objects.
  */
-interface RPGFigurine extends GObject {
+interface RPGFigurine {
   // settable callbacks
 
   /**

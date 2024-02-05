@@ -1,7 +1,7 @@
 /**
  * The Browser behavior is present on the Tablet Object.
  */
-interface Browser extends GObject {
+interface Browser {
   /**
    * URL which currently wants to display.
    */

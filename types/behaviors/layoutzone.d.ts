@@ -1,7 +1,7 @@
 /**
  * The LayoutZone behavior is present on Layout Zones.
  */
-interface LayoutZone extends Zone {
+interface LayoutZone {
   /**
    * Returns the layout zone's {@link LayoutZoneOptions[options}.
    *

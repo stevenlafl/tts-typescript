@@ -1,7 +1,7 @@
 /**
  * The Clock behavior is present on the Digital Clock object.
  */
-interface Clock extends GObject {
+interface Clock {
   /**
    * If the clock timer is paused.
    */

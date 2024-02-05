@@ -84,10 +84,10 @@ interface Player {
   /**
    * Makes the Player take the Copy action with the specified Objects.
    *
-   * @param {ObjectType[]} objects A Table of Objects.
+   * @param {GObject[]} objects A Table of Objects.
    * @returns {boolean} True if the copy action was taken, false otherwise.
    */
-  copy(this: void, objects: ObjectType[]): boolean;
+  copy(this: void, objects: GObject[]): boolean;
 
   /**
    * Number of hand zones owned by this color.
