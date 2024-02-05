@@ -48,6 +48,7 @@ interface NotesConstructor {
    *
    * @param {string} notes The new text for the notes window.
    */
+  // TODO check if notes can be undefined
   setNotes(this: void, notes: string): boolean;
 }
 

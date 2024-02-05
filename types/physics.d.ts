@@ -44,6 +44,12 @@ interface PhysicsConstructor {
  */
 declare var Physics: PhysicsConstructor;
 
+declare enum CastType {
+  Ray = 1,
+  Sphere = 2,
+  Box = 3
+}
+
 type CastParameters = {
   /**
    * Position of the starting point. Defaults to {x=0, y=0, z=0}.
@@ -58,7 +64,7 @@ type CastParameters = {
   /**
    * The type of cast. 1 = Ray, 2 = Sphere, 3 = Box. Defaults to 1.
    */
-  type?: number;
+  type?: CastType;
 
   /**
    * Size of the cast shape. Sphere/Box only. Defaults to {x=0, y=0, z=0}.
@@ -100,5 +106,6 @@ type HitObjects = {
   /**
    * An Object reference to the Object hit by the cast.
    */
-  hit_object: GObject;
+  // TODO check what object types get hit
+  hit_object: ObjectType;
 };

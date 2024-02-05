@@ -47,15 +47,15 @@ interface Player {
   /**
    * The team of the player.
    */
-  team: TeamType;
+  team: Team;
 
   /**
    * Makes a Player's camera follow an Object.
    *
-   * @param {attachCameraToObjectParameters} parameters A Table with parameters which guide the function. Defaults to {x=0, y=0, z=0}.
+   * @param {AttachCameraToObjectParameters} parameters A Table with parameters which guide the function. Defaults to {x=0, y=0, z=0}.
    * @returns {boolean} True if the camera was attached, false otherwise.
    */
-  attachCameraToObject(this: void, parameters: attachCameraToObjectParameters): boolean;
+  attachCameraToObject(this: void, parameters: AttachCameraToObjectParameters): boolean;
 
   /**
    * Print message on Player's screen and their game chat log.
@@ -157,9 +157,9 @@ interface Player {
   /**
    * Moves a Player's camera, forcing 3'rd person camera mode.
    *
-   * @param {lookAtParameters} parameters A Table of controlling parameters to point the player camera.
+   * @param {LookAtParameters} parameters A Table of controlling parameters to point the player camera.
    */
-  lookAt(this: void, parameters: lookAtParameters): boolean;
+  lookAt(this: void, parameters: LookAtParameters): boolean;
 
   /**
    * Mutes or unmutes Player, preventing/allowing voice chat.
@@ -370,7 +370,7 @@ declare enum Action {
 /**
  * A Table with parameters which guide the function.
  */
-type attachCameraToObjectParameters = {
+type AttachCameraToObjectParameters = {
   /**
    * The Object to attach the camera to.
    */
@@ -414,7 +414,7 @@ type Transform = {
   up: Vector;
 };
 
-type lookAtParameters = {
+type LookAtParameters = {
   /**
    * Position to center the camera on.
    */
@@ -436,4 +436,4 @@ type lookAtParameters = {
   distance?: number;
 };
 
-declare type TeamType = "None" | "Clubs" | "Diamonds" | "Hearts" | "Spades" | "Jokers";
+declare type Team = "None" | "Clubs" | "Diamonds" | "Hearts" | "Spades" | "Jokers";
