@@ -707,7 +707,7 @@ interface GObject extends GlobalConstructor {
    *
    * @returns {Vector} The current smooth rotation target.
    */
-  getRotationSmooth(this: void): Vector;
+  getRotationSmooth(this: void): Vector | undefined;
 
   /**
    * Returns a Vector of the current scale.
@@ -1039,7 +1039,7 @@ interface GObject extends GlobalConstructor {
    *
    * @returns {CustomObject} The custom object.
    */
-  getCustomObject(this: void): CustomObject;
+  getCustomObject(this: void): Required<CustomObject>;
 
   /**
    * Returns a table data structure representation of the object. Works with spawnObjectData(...).
@@ -1111,10 +1111,13 @@ interface GObject extends GlobalConstructor {
    * Returns data describing the objects contained within in the zone/bag/deck.
    *
    * The format of the data returned depends on the kind of object.
+   * 
+   * Bags/Decks return ObjectData[]
+   * Zones return GObject[]
    *
-   * @returns {ObjectData[]} The objects.
+   * @returns {ObjectData[] | GObject[]} The objects.
    */
-  getObjects(this: void): ObjectData[];
+  getObjects(this: void): ObjectData[] | GObject[];
 
   /**
    * Returns the number of objects contained within (if the Object is a bag, deck or stack), otherwise -1.
@@ -1156,14 +1159,14 @@ interface GObject extends GlobalConstructor {
    *
    * @returns {State[]} The states.
    */
-  getStates(this: void): State[];
+  getStates(this: void): State[] | undefined;
 
   /**
    * Returns the Object's value. This represents something different depending on the Object's type.
    *
    * @returns {string | number} The value.
    */
-  getValue(this: void): string | number;
+  getValue(this: void): string | number | undefined;
 
   /**
    * Returns a list of zones that the object is currently occupying.
@@ -1259,7 +1262,7 @@ interface GObject extends GlobalConstructor {
    * @param {number} state_id The state identifier.
    * @returns {this} The new state.
    */
-  setState(this: void, state_id: number): this;
+  setState(this: void, state_id: number): this | undefined;
 
   /**
    * Sets the Object's value. This represents something different depending on the Object's type.
@@ -1677,12 +1680,11 @@ type Bounds = {
   offset: Vector;
 };
 
-type CreateButtonParameters = {
+type CommonButtonParameters = {
   /**
-  *
-  */
-  // TODO Check is click_function is string
-  click_function?: (obj: GObject, player_clicker_color: ColorLiteral, alt_click: boolean) => void;
+   * function name for (obj: GObject, player_clicker_color: ColorLiteral, alt_click: boolean) => void
+   */
+  click_function?: string;
 
   /**
    *
@@ -1750,17 +1752,16 @@ type CreateButtonParameters = {
   tooltip?: string;
 };
 
-type CreateInputParameters = {
+type CommonInputParameters = {
   /**
-   *
+   * function name for (
+   *   obj: GObject,
+   *   player_clicker_color: ColorLiteral,
+   *   input_value: string,
+   *   selected: boolean
+   * ) => void;
    */
-  // TODO Check is input_function is string
-  input_function?: (
-    obj: GObject,
-    player_clicker_color: ColorLiteral,
-    input_value: string,
-    selected: boolean
-  ) => void;
+  input_function?: string;
 
   /**
    *
@@ -1838,6 +1839,25 @@ type CreateInputParameters = {
   tab?: TabAction;
 };
 
+type CreateButtonParameters = {
+  /**
+   * function name for (obj: GObject, player_clicker_color: ColorLiteral, alt_click: boolean) => void
+   */
+  click_function: string;
+} & CommonButtonParameters;
+
+type CreateInputParameters = {
+  /**
+   * function name for (
+   *   obj: GObject,
+   *   player_clicker_color: ColorLiteral,
+   *   input_value: string,
+   *   selected: boolean
+   * ) => void;
+   */
+  input_function: string;
+} & CommonInputParameters;
+
 declare type Alignment = 1 | 2 | 3 | 4 | 5
 declare type Validation = 1 | 2 | 3 | 4 | 5 | 6
 declare type TabAction = 1 | 2 | 3
@@ -1847,14 +1867,14 @@ type EditButtonParameters = {
    *
    */
   index: number;
-} & CreateButtonParameters;
+} & CommonButtonParameters;
 
 type EditInputParameters = {
   /**
    *
    */
   index: number;
-} & CreateInputParameters;
+} & CommonInputParameters;
 
 type RequiredButtonParameters = Required<EditButtonParameters>;
 type RequiredInputParameters = Required<EditInputParameters>;
@@ -2353,7 +2373,7 @@ type RotationValuePair = {
    *
    * If `value` is a string starting with "#", then it will not be displayed in the Object's tooltip.
    */
-  value: string;
+  value: string | number;
 
   /**
    *  The rotation of the Object that corresponds with the provided value.
