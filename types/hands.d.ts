@@ -1,8 +1,4 @@
-declare enum HidingState {
-  Default = 1,
-  Reverse = 2,
-  Disable = 3
-}
+declare type HidingState = 1 | 2 | 3
 
 interface Hand {
   /**

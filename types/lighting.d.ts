@@ -2,10 +2,7 @@
 
 interface Lighting {}
 
-declare enum LightSource {
-  Background = 1,
-  Gradient = 2
-}
+declare type LightSource = 1 | 2
 
 interface LightingConstructor {
   /**

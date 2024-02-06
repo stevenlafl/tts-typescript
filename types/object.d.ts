@@ -1677,7 +1677,13 @@ type Bounds = {
   offset: Vector;
 };
 
-type CommonButtonParameters = {
+type CreateButtonParameters = {
+  /**
+  *
+  */
+  // TODO Check is click_function is string
+  click_function?: (obj: GObject, player_clicker_color: ColorLiteral, alt_click: boolean) => void;
+
   /**
    *
    */
@@ -1744,15 +1750,18 @@ type CommonButtonParameters = {
   tooltip?: string;
 };
 
-type CreateButtonParameters = {
+type CreateInputParameters = {
   /**
    *
    */
-  // TODO Check is click_function is string
-  click_function: (obj: GObject, player_clicker_color: ColorLiteral, alt_click: boolean) => void;
-} & CommonButtonParameters;
+  // TODO Check is input_function is string
+  input_function?: (
+    obj: GObject,
+    player_clicker_color: ColorLiteral,
+    input_value: string,
+    selected: boolean
+  ) => void;
 
-type CommonInputParameters = {
   /**
    *
    */
@@ -1829,72 +1838,23 @@ type CommonInputParameters = {
   tab?: TabAction;
 };
 
-declare const enum Alignment {
-  Automatic = 1,
-  Left = 2,
-  Center = 3,
-  Right = 4,
-  Justified = 5
-}
-
-declare const enum Validation {
-  None = 1,
-  Integer = 2,
-  Float = 3,
-  Alphanumeric = 4,
-  Username = 5,
-  Name = 6
-}
-
-declare const enum TabAction {
-  None = 1,
-  SelectNextInput = 2,
-  Indent = 3
-}
-
-type CreateInputParameters = {
-  /**
-   *
-   */
-  // TODO Check is input_function is string
-  input_function: (
-    obj: GObject,
-    player_clicker_color: ColorLiteral,
-    input_value: string,
-    selected: boolean
-  ) => void;
-} & CommonInputParameters;
+declare type Alignment = 1 | 2 | 3 | 4 | 5
+declare type Validation = 1 | 2 | 3 | 4 | 5 | 6
+declare type TabAction = 1 | 2 | 3
 
 type EditButtonParameters = {
   /**
    *
    */
   index: number;
-
-  /**
-   *
-   */
-  // TODO Check is click_function is string
-  click_function?: (obj: GObject, player_clicker_color: ColorLiteral, alt_click: boolean) => void;
-} & CommonButtonParameters;
+} & CreateButtonParameters;
 
 type EditInputParameters = {
   /**
    *
    */
   index: number;
-
-  /**
-   *
-   */
-  // TODO Check is input_function is string
-  input_function?: (
-    obj: GObject,
-    player_clicker_color: ColorLiteral,
-    input_value: string,
-    selected: boolean
-  ) => void;
-} & CommonInputParameters;
+} & CreateInputParameters;
 
 type RequiredButtonParameters = Required<EditButtonParameters>;
 type RequiredInputParameters = Required<EditInputParameters>;
@@ -2642,9 +2602,4 @@ type JointHinge = {
 
 type JointToParameters = JointFixed | JointSpring | JointHinge;
 
-declare enum ForceType {
-  Force = 1,
-  Acceleration = 2,
-  Impulse = 3,
-  VelocityChange = 4
-}
+declare type ForceType = 1 | 2 | 3 | 4
