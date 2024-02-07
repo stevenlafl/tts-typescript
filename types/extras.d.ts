@@ -27,7 +27,7 @@ interface GlobalConstructor {
    *
    * @returns {AddDecalParameters[]} Returns a table of sub-tables, each sub-table representing one decal.
    */
-  getDecals(this: void): AddDecalParameters[];
+  getDecals(this: void): Required<AddDecalParameters>[];
 
   /**
    * Get a Lua script as a string from the entity.
@@ -41,7 +41,7 @@ interface GlobalConstructor {
    *
    * @returns {SnapPoint[]} The returned value is a list (numerically indexed table) of sub-tables, where each sub-table represents a snap point.
    */
-  getSnapPoints(this: void): SnapPoint[];
+  getSnapPoints(this: void): Required<SnapPoint>[];
 
   /**
    * Data value of a variable in another Object's script. Can only return a table.
@@ -62,9 +62,9 @@ interface GlobalConstructor {
   /**
    * Returns Table of data representing the current Vector Lines on this entity. See setVectorLines for table format.
    *
-   * @returns {VectorLine[]} The vector lines.
+   * @returns {VectorLine[] | undefined} The vector lines.
    */
-  getVectorLines(this: void): VectorLine[];
+  getVectorLines(this: void): VectorLine[] | undefined;
 
   /**
    * Sets which decals are on an object. This removes other decals already present, and can remove all decals as well.
@@ -98,7 +98,7 @@ interface GlobalConstructor {
    * @param {any} data The data.
    * @returns {boolean} True if it succeeds, false if it fails.
    */
-  setTable(this: void, func_name: string, data: any): boolean;
+  setTable(this: void, func_name: string, data: CustomTableObject): boolean;
 
   /**
    * Creates/updates a variable in another entity's script. Cannot set a table.
@@ -115,7 +115,7 @@ interface GlobalConstructor {
    * @param {VectorLineParameter[]} parameters The parameters.
    * @returns {boolean} True if it succeeds, false if it fails.
    */
-  setVectorLines(this: void, parameters: VectorLineParameter): boolean;
+  setVectorLines(this: void, parameters: VectorLineParameter[]): boolean;
 }
 declare var Global: GlobalConstructor;
 

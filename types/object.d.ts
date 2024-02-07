@@ -2533,39 +2533,39 @@ type AddDecalParameters = {
   /**
    * Position to place Object.
    */
-  position: Vector;
+  position?: Vector;
 
   /**
    * Rotation of the Object.
    */
-  rotation: Vector;
+  rotation?: Vector;
 
   /**
    * Image scale multiplier. 1 is normal scale.
    */
-  scale: Vector;
+  scale?: Vector;
 };
 
 type SnapPoint = {
   /**
    * Local Position of the snap point. When attached to an object, position is relative to the object's center.
    */
-  position: Vector;
+  position?: Vector;
 
   /**
    * Local Rotation of the snap point. When attached to an object, rotation is relative to the object's rotation.
    */
-  rotation: Vector;
+  rotation?: Vector;
 
   /**
    * Whether the snap point is a rotation snap point.
    */
-  rotation_snap: false;
+  rotation_snap?: boolean;
 
   /**
    * Table of representing the tags associated with the snap point.
    */
-  tags: string[];
+  tags?: string[];
 };
 
 type VectorLineParameter = {
