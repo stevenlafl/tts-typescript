@@ -1560,9 +1560,9 @@ interface GObject extends GlobalConstructor {
    * Returns a child GameObject matching the specified name.
    *
    * @param {string} name The name.
-   * @returns {GameObject} The child.
+   * @returns {GameObject | undefined} The child. or undefined if the name cannot be found.
    */
-  getChild(this: void, name: string): GameObject;
+  getChild(this: void, name: string): GameObject | undefined;
 
   /**
    * Returns the list of children GameObjects.
@@ -1575,9 +1575,9 @@ interface GObject extends GlobalConstructor {
    * Returns a Component matching the specified name from the Object's list of Components.
    *
    * @param {string} name The name.
-   * @returns {Component} The component.
+   * @returns {Component | undefined} The component. or undefined if the name cannot be found.
    */
-  getComponent(this: void, name: string): Component;
+  getComponent(this: void, name: string): Component | undefined;
 
   /**
    * Returns a Component matching the specified name. Found by searching the Components of the Object and its children recursively (depth first).
@@ -1591,17 +1591,17 @@ interface GObject extends GlobalConstructor {
    * Returns the Object's list of Components. name is optional, when specified only Components with specified name will be included.
    *
    * @param {string} name The name.
-   * @returns {Component[]} The components.
+   * @returns {Component[] | undefined} The components. or undefined if the name cannot be found.
    */
-  getComponents(this: void, name: string): Component[];
+  getComponents(this: void, name?: string): Component[] | undefined;
 
   /**
    * Returns a list of Components found by searching the Object and its children recursively (depth first). name is optional, when specified only Components with specified name will be included.
    *
    * @param {string} name The name.
-   * @returns {Component[]} The components in children.
+   * @returns {Component[] | undefined} The components in children. or undefined if the name cannot be found.
    */
-  getComponentsInChildren(this: void, name: string): Component[];
+  getComponentsInChildren(this: void, name?: string): Component[] | undefined;
 
   /* Hide Functions */
 
@@ -1611,7 +1611,7 @@ interface GObject extends GlobalConstructor {
    * @param {Player[]} players A table containing colors to hide the Object from.
    * @returns {boolean} True if it succeeds, false if it fails.
    */
-  setHiddenFrom(this: void, players: Player[]): boolean;
+  setHiddenFrom(this: void, players?: ColorLiteral[]): boolean;
 
   /**
    * Hides the Object from the specified players, as if it were in a hidden zone. Using an empty table will cause the Object to remove the hiding effect.
@@ -1619,7 +1619,7 @@ interface GObject extends GlobalConstructor {
    * @param {Player[]} players A table containing colors to hide the Object from.
    * @returns {boolean} True if it succeeds, false if it fails.
    */
-  setInvisibleTo(this: void, players: Player[]): boolean;
+  setInvisibleTo(this: void, players?: ColorLiteral[]): boolean;
 
   /**
    * A more advanced version of setHiddenFrom(...). This function is also used to hide objects as if they were in a hand zone. It allows you to identify multiple sources of "hiding" by an ID and toggle the effect on/off easily.
