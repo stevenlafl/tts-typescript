@@ -1355,14 +1355,14 @@ interface GObject extends GlobalConstructor {
   /**
    * Deals from a deck to a position relative to the hand zone.
    *
-   * @param {number} offset The x/y/z offset to deal to around the given hand zone.
+   * @param {Vector} offset The x/y/z offset to deal to around the given hand zone.
    * @param {boolean} flip If the card is flipped over when dealt.
    * @param {ColorLiteral} player_color Hand zone Player Color to offset dealing to.
    * @returns {GObject} The new deal to color with offset.
    */
   dealToColorWithOffset(
     this: void,
-    offset: number,
+    offset: Vector,
     flip: boolean,
     player_color: ColorLiteral
   ): GObject;
@@ -1512,9 +1512,9 @@ interface GObject extends GlobalConstructor {
   /**
    * Returns an Object reference to a new state after randomly selecting and changing to one.
    *
-   * @returns {GObject} The new state.
+   * @returns {GObject | undefined} The new state. or undefined if no states exist.
    */
-  shuffleStates(this: void): GObject;
+  shuffleStates(this: void): GObject | undefined;
 
   /**
    * Splits a deck, as evenly as possible, into a number of piles.
@@ -1523,9 +1523,9 @@ interface GObject extends GlobalConstructor {
    * - If no value is provided, it is split into two piles.
    * - Minimum Value: 2
    * - Maximum Value: Number-Of-Cards-In-Deck / 2
-   * @returns {GObject[]} The split objects.
+   * @returns {GObject[] | undefined} The split objects. or undefined if the object cannot be split
    */
-  split(this: void, piles?: number): GObject[];
+  split(this: void, piles?: number): GObject[] | undefined;
 
   /**
    * Uses the spread action on a deck.
@@ -1533,9 +1533,9 @@ interface GObject extends GlobalConstructor {
    * @important Cards take a frame to be created. This means trying to act on them immediately will not work. Use a coroutine or timer to add a delay.
    * @param {number} [distance=0.6] How far apart should the cards be.
    * - Negative values will spread to the left instead of the right.
-   * @returns {GObject[]} The spread objects.
+   * @returns {GObject[] | undefined} The spread objects. or undefined if the object cannot be spread
    */
-  spread(this: void, distance?: number): GObject[];
+  spread(this: void, distance?: number): GObject[] | undefined;
 
   /**
    * Takes an object out of a container (bag/deck/chip stack), returning a reference to the object that was taken out.
@@ -1543,10 +1543,9 @@ interface GObject extends GlobalConstructor {
    * Objects that are taken out of a container will take one or more frames to spawn. Certain interactions (e.g. physics) will not be able to take place until the object has finished spawning.
    *
    * @param {TakeObjectParameters} parameters A Table of parameters used to determine how takeObject will act.
-   * @returns {GObject} The taken object.
+   * @returns {GObject | undefined} The taken object. or undefined if no object can be taken
    */
-  // TODO test is parameters can be nil
-  takeObject(this: void, parameters: TakeObjectParameters): GObject;
+  takeObject(this: void, parameters?: TakeObjectParameters): GObject | undefined;
 
   /**
    * Unregisters this object for Global collision events.
@@ -2454,7 +2453,7 @@ type CloneParameters = {
   callback_owner?: GObject | Global;
 };
 
-type TakeObjectParameters = {
+type CommonTakeObjectParameters = {
   /**
    *
    */
@@ -2469,16 +2468,6 @@ type TakeObjectParameters = {
    *
    */
   flip?: boolean;
-
-  /**
-   *
-   */
-  guid?: string;
-
-  /**
-   *
-   */
-  index?: number;
 
   /**
    *
@@ -2510,6 +2499,24 @@ type TakeObjectParameters = {
    */
   callback_owner?: GObject | Global;
 };
+
+type IndexTakeObjectParameters = {
+  /**
+   *
+   */
+  index?: number;
+  guid?: never;
+} & CommonTakeObjectParameters
+
+type GUIDTakeObjectParameters = {
+  /**
+   *
+   */
+  guid?: string;
+  index?: never;
+} & CommonTakeObjectParameters
+
+type TakeObjectParameters = IndexTakeObjectParameters | GUIDTakeObjectParameters
 
 // TODO find out which (if any are not required)
 type AddDecalParameters = {
@@ -2591,35 +2598,40 @@ type VectorLineParameter = {
 
 type VectorLine = Required<VectorLineParameter>;
 
-type JointFixed = {
-  type: string;
-  collision: boolean;
-  break_force: number;
+type JointCommon = {
+  type: 'Fixed' | 'Spring' | 'Hinge';
+  collision?: boolean;
+  break_force?: number;
 };
 
 type JointSpring = {
-  type: string;
-  collision: boolean;
-  break_force: number;
-  break_torque: number;
-  spring: number;
-  damper: number;
-  max_distance: number;
-  min_distance: number;
-};
+  type: 'Spring';
+  break_torque?: number;
+  spring?: number;
+  damper?: number;
+  max_distance?: number;
+  min_distance?: number;
+  axis?: never;
+  anchor?: never;
+  motor_force?: never;
+  motor_velocity?: never;
+  motor_free_spin?: never;
+} & JointCommon;
 
 type JointHinge = {
-  type: string;
-  collision: boolean;
-  axis: Vector;
-  anchor: Vector;
-  break_force: number;
-  break_torque: number;
-  motor_force: number;
-  motor_velocity: number;
-  motor_free_spin: boolean;
-};
+  type: 'Hinge';
+  axis?: Vector;
+  anchor?: Vector;
+  break_torque?: number;
+  motor_force?: number;
+  motor_velocity?: number;
+  motor_free_spin?: boolean;
+  spring?: never;
+  damper?: never;
+  max_distance?: never;
+  min_distance?: never;
+} & JointCommon;
 
-type JointToParameters = JointFixed | JointSpring | JointHinge;
+type JointToParameters = JointCommon | JointSpring | JointHinge;
 
 declare type ForceType = 1 | 2 | 3 | 4
