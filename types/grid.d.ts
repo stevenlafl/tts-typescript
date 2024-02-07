@@ -19,7 +19,7 @@ interface GridConstructor {
   /**
    * Color of the grid lines.
    */
-  color: Color;
+  color: ColorInput;
 
   /**
    * Opacity of the grid lines.

@@ -64,7 +64,7 @@ interface Player {
    * @param {Color} message_color The color of the message. Defaults to {r=1, g=1, b=1}.
    * @returns {boolean} True if the message was broadcast, false otherwise.
    */
-  broadcast(this: void, message: string, message_color?: Color): boolean;
+  broadcast(this: void, message: string, message_color?: ColorInput): boolean;
 
   /**
    * Changes player to this Player Color.
@@ -191,7 +191,7 @@ interface Player {
    * @param {Color} message_color  Color for the message text to be tinted. Defaults to {r=1, g=1, b=1}.
    * @returns {boolean} True if the message was printed, false otherwise.
    */
-  print(this: void, message: string, message_color?: Color): boolean;
+  print(this: void, message: string, message_color?: ColorInput): boolean;
 
   /**
    * Promotes/demotes a Player. Promoted players have access to most host privileges.
@@ -307,7 +307,7 @@ interface Player {
    */
   showColorDialog(
     this: void,
-    default_color: Color,
+    default_color: ColorInput,
     callback: (this: void, color: Color, player_color: ColorLiteral) => void
   ): boolean;
 }

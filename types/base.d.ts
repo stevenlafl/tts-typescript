@@ -246,7 +246,7 @@ declare function showHotkeyConfig(): boolean;
  * @param {Color} message_tint  A Table containing the RGB color tint for the text.
  * @returns {boolean}
  */
-declare function broadcastToAll(message: string, message_tint?: Color): boolean;
+declare function broadcastToAll(message: string, message_tint?: ColorInput): boolean;
 
 /**
  * Print an on-screen message to a specified Player and their in-game chat.
@@ -259,7 +259,7 @@ declare function broadcastToAll(message: string, message_tint?: Color): boolean;
 declare function broadcastToColor(
   message: string,
   player_color: ColorLiteral,
-  message_tint?: Color
+  message_tint?: ColorInput
 ): boolean;
 
 /**
@@ -299,7 +299,7 @@ declare function logString(
  * @param {string} postfix Text to place after this type of log entry.
  * @returns {boolean}
  */
-declare function logStyle(tag: string, tint: Color, prefix?: string, postfix?: string): boolean;
+declare function logStyle(tag: string, tint: ColorInput, prefix?: string, postfix?: string): boolean;
 
 /**
  * Print a string into chat that only the host is able to see. Used for debugging scripts.
@@ -315,8 +315,8 @@ declare function print(message: string): undefined;
  * @param {string} message Message to place into players' in-game chats.
  * @param {Color} message_tint RGB values for the text's color tint.
  */
-declare function printToAll(message: string, message_tint?: Color): boolean;
-declare function printToColor(message: string, player_color: ColorLiteral, message_tint?: Color): boolean;
+declare function printToAll(message: string, message_tint?: ColorInput): boolean;
+declare function printToColor(message: string, player_color: ColorLiteral, message_tint?: ColorInput): boolean;
 declare function sendExternalMessage(data: any): boolean;
 
 /**

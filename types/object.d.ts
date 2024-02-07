@@ -1190,7 +1190,7 @@ interface GObject extends GlobalConstructor {
    * @param {Color} Color The color.
    * @returns {boolean} True if it succeeds, false if it fails.
    */
-  setColorTint(this: void, Color: Color): boolean;
+  setColorTint(this: void, Color: ColorInput): boolean;
 
   /**
    * Sets a custom Object's properties.
@@ -1445,7 +1445,7 @@ interface GObject extends GlobalConstructor {
    * @param {Color} [color] The color.
    * @returns {boolean} True if it succeeds, false if it fails.
    */
-  randomize(this: void, color?: Color): boolean;
+  randomize(this: void, color?: ColorLiteral): boolean;
 
   /**
    * Registers this object for Global collision events.

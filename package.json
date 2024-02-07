@@ -39,5 +39,8 @@
     "tsx": "^3.12.6",
     "typescript": "^5.0.2",
     "typescript-to-lua": "^1.14.0"
+  },
+  "dependencies": {
+    "@typescript-to-lua/language-extensions": "^1.19.0"
   }
 }

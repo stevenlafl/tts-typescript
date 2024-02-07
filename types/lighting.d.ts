@@ -80,28 +80,28 @@ interface LightingConstructor {
    *
    * @param {Color} tint The new color of the gradient equator.
    */
-  setAmbientEquatorColor(this: void, tint: Color): boolean;
+  setAmbientEquatorColor(this: void, tint: ColorInput): boolean;
 
   /**
    * Sets the color of the gradient ground. Not used if {@link ambient_type} = 1.
    *
    * @param {Color} tint The new color of the gradient ground.
    */
-  setAmbientGroundColor(this: void, tint: Color): boolean;
+  setAmbientGroundColor(this: void, tint: ColorInput): boolean;
 
   /**
    * Sets the color of the gradient sky. Not used if {@link ambient_type} = 1.
    *
    * @param {Color} tint The new color of the gradient sky.
    */
-  setAmbientSkyColor(this: void, tint: Color): boolean;
+  setAmbientSkyColor(this: void, tint: ColorInput): boolean;
 
   /**
    * Sets the color of the directional light, which shines straight down on the table.
    *
    * @param {Color} tint The new color of the directional light.
    */
-  setLightColor(this: void, tint: Color): boolean;
+  setLightColor(this: void, tint: ColorInput): boolean;
 }
 
 /**
