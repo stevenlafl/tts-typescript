@@ -64,7 +64,10 @@ interface Color extends ColorLetters, ColorNumbers, ColorFunctionality {
  /**
   * Sets r, b, g, a components to given values and returns self.
   * 
-  * @param {VectorTuple} args The values to set the components to.
+   * @param {number} r Red component.
+   * @param {number} g Green component.
+   * @param {number} b Blue component.
+   * @param {number} a Alpha component.
   * @returns {this} self
   */
  set?(r: number, g: number, b: number, a?: number): this;
