@@ -2518,7 +2518,6 @@ type GUIDTakeObjectParameters = {
 
 type TakeObjectParameters = IndexTakeObjectParameters | GUIDTakeObjectParameters
 
-// TODO find out which (if any are not required)
 type AddDecalParameters = {
   /**
    * The name of the decal being placed.
