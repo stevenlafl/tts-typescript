@@ -4,7 +4,7 @@ declare const enum HidingState {
   Disable = 3
 }
 
-interface Hand {
+interface HandsConstructor {
   /**
    * Whether hand zones are enabled i.e. hold objects.
    */
@@ -27,7 +27,9 @@ interface Hand {
   /**
    * Returns a table of all Hand Zone Objects in the game.
    *
-   * @returns {Zone[]} A table of all Hand Zone Objects in the game.
+   * @returns {GObject[]} A table of all Hand Zone Objects in the game.
    */
-  getHands(this: void): Hand[];
+  getHands(this: void): GObject[];
 }
+
+declare var Hands: HandsConstructor;
