@@ -44,7 +44,11 @@ interface PhysicsConstructor {
  */
 declare var Physics: PhysicsConstructor;
 
-declare type CastType = 1 | 2 | 3
+declare const enum CastType {
+  Ray = 1,
+  Sphere = 2,
+  Box = 3
+}
 
 type CastParameters = {
   /**

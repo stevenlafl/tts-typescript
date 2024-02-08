@@ -1857,9 +1857,28 @@ type CreateInputParameters = {
   input_function: string;
 } & CommonInputParameters;
 
-declare type Alignment = 1 | 2 | 3 | 4 | 5
-declare type Validation = 1 | 2 | 3 | 4 | 5 | 6
-declare type TabAction = 1 | 2 | 3
+declare const enum Alignment {
+  Automatic = 1,
+  Left = 2,
+  Center = 3,
+  Right = 4,
+  Justified = 5
+}
+
+declare const enum Validation {
+  None = 1,
+  Integer = 2,
+  Float = 3,
+  Alphanumeric = 4,
+  Username = 5,
+  Name = 6
+}
+
+declare const enum TabAction {
+  None = 1,
+  SelectNextInput = 2,
+  Indent = 3
+}
 
 type EditButtonParameters = {
   /**

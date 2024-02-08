@@ -2,8 +2,18 @@
 
 interface Grid {}
 
-declare type GridType = 1 | 2 | 3
-declare type SnapMethod = 1 | 2 | 3 | 4
+declare const enum GridType {
+  Rectangles = 1,
+  HorizontalHexes = 2,
+  VerticalHexes = 3
+}
+
+declare const enum SnapMethod {
+  Off = 1,
+  Lines = 2,
+  Center = 3,
+  Both = 4
+}
 
 interface GridConstructor {
   /**
@@ -19,7 +29,7 @@ interface GridConstructor {
   /**
    * Color of the grid lines.
    */
-  color: ColorInput;
+  color: Color;
 
   /**
    * Opacity of the grid lines.

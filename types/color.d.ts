@@ -100,7 +100,6 @@ interface Color extends ColorInput {
   * @param {number} fraction The fraction to lerp by.
   * @returns {Color} The lerped color.
   */
- // TODO check if fraction is optional
  lerp(otherCol: Color, fraction: number): Color;
 
  /**

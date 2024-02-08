@@ -2,7 +2,10 @@
 
 interface Lighting {}
 
-declare type LightSource = 1 | 2
+declare const enum LightSource {
+  Background = 1,
+  Gradient = 2
+}
 
 interface LightingConstructor {
   /**

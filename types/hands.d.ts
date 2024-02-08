@@ -1,4 +1,8 @@
-declare type HidingState = 1 | 2 | 3
+declare const enum HidingState {
+  Default = 1,
+  Reverse = 2,
+  Disable = 3
+}
 
 interface Hand {
   /**
