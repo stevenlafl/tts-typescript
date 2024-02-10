@@ -1643,7 +1643,7 @@ interface GObject extends GlobalConstructor {
    */
   attachInvisibleHider(this: void, id: string, hidden: boolean, players?: ColorLiteral[]): boolean;
 
-  UI: UI;
+  UI: UIConstructor;
 }
 
 interface GObjectConstructor {

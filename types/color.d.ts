@@ -112,7 +112,6 @@ interface Color extends ColorInput {
 }
 
 // Because capitalization is ignored, and custom colors can be added, a lot more indexers can be used
-// TODO Check if indexing a not known color errors or undefined
 type ColorConstructor = {
   [index in ColorLiteralIgnoreCase]: Color;
 } & {

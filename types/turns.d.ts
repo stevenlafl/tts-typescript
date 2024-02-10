@@ -9,12 +9,12 @@ interface TurnsConstructor {
   /**
    * If the turn order is automatic or custom. 1=auto, 2=custom.
    */
-  type: number;
+  type: TurnOrderType;
 
   /**
    * A table of strings, representing the player turn order.
    */
-  order: string[];
+  order: ColorLiteral[];
 
   /**
    * Enable/disable reversing turn rotation direction.
@@ -54,6 +54,11 @@ interface TurnsConstructor {
    * @returns {string} The Player Color string of the previous player in the turn order.
    */
   getPreviousTurnColor(this: void): ColorLiteral;
+}
+
+declare const enum TurnOrderType {
+  Auto = 1,
+  Custom = 2
 }
 
 /**
