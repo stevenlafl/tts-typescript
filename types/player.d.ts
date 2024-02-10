@@ -2,12 +2,12 @@ interface Player {
   /**
    * If the player is promoted or the host of the game. Read only.
    */
-  readonly admin: boolean;
+  readonly admin: boolean | undefined;
 
   /**
    * If the player is blindfolded.
    */
-  blindfolded: boolean;
+  blindfolded: boolean | undefined;
 
   /**
    * The player's Player Color. Read only.
@@ -17,17 +17,17 @@ interface Player {
   /**
    * If the player is the host. Read only.
    */
-  readonly host: boolean;
+  readonly host: boolean | undefined;
 
   /**
-   * The lift height for the player. This is how far an object is raised when held in a player's hand. Value is ranged 0 to 1.
+   * The lift height for the player. This is how far an object is raised when held in a player's hand. Value is ranged 0 to 1. Can be -1 if player is not seated.
    */
   lift_height: number;
 
   /**
    * If the current player is promoted.
    */
-  promoted: boolean;
+  promoted: boolean | undefined;
 
   /**
    * If a player is currently seated at this color. Read only.
@@ -37,17 +37,17 @@ interface Player {
   /**
    * The Steam ID of the player. This is unique to each player's Steam account. Read only.
    */
-  readonly steam_id: string;
+  readonly steam_id: string | undefined;
 
   /**
    * The Steam name of the player. Read only.
    */
-  readonly steam_name: string;
+  readonly steam_name: string | undefined;
 
   /**
    * The team of the player.
    */
-  team: Team;
+  team: Team | undefined;
 
   /**
    * Makes a Player's camera follow an Object.
@@ -211,11 +211,11 @@ interface Player {
   /**
    * Sets transform elements of a hand zone.
    *
-   * @param {Transform} parameters The Table of data to transform the hand zone with.
+   * @param {TransformInput} parameters The Table of data to transform the hand zone with.
    * @param {number} hand_index Index, representing which hand zone to modify. Defaults to 1.
    * @returns {boolean} True if the transform was set, false otherwise.
    */
-  setHandTransform(this: void, parameters: Transform, hand_index?: number): boolean;
+  setHandTransform(this: void, parameters: TransformInput, hand_index?: number): boolean;
 
   /**
    * Sets the UI theme for the player.
@@ -289,7 +289,7 @@ interface Player {
     this: void,
     description: string,
     options: string[],
-    default_value: string,
+    default_value: string | number,
     callback: (
       this: void,
       selected_text: string,
@@ -316,16 +316,16 @@ interface PlayerConstructor {
   /**
    * Returns a table of strings of every valid seat color at the current table. Returned colors are in the default order.
    *
-   * @returns {string[]} A table of strings of every valid seat color at the current table.
+   * @returns {ColorLiteral[]} A table of strings of every valid seat color at the current table.
    */
-  getAvailableColors(this: void): string[];
+  getAvailableColors(this: void): ColorLiteral[];
 
   /**
    * Returns a table of strings of every possible seat color. Returned colors are in the default order.
    *
-   * @returns {string[]} A table of strings of every possible seat color.
+   * @returns {ColorLiteral[]} A table of strings of every possible seat color.
    */
-  getColors(this: void): string[];
+  getColors(this: void): ColorLiteral[];
 
   /**
    * Returns a table of all Player instances.
@@ -343,28 +343,29 @@ interface PlayerConstructor {
 
   /**
    * The onPlayerAction event allows you to handle player actions. A list of player actions is available as Player.Action.
+   * The type is any beause it doesn't represent a list or value, instead 'LuaGlobalPlayer+LuaAction' which there is no type for
    */
-  Action: Action;
+  Action: any;
 }
 
 declare var Player: PlayerConstructor & Record<ColorLiteral, Player>;
 
-declare enum Action {
-  Copy,
-  Cut,
-  Delete,
-  FlipIncrementalLeft,
-  FlipIncrementalRight,
-  FlipOver,
-  Group,
-  Paste,
-  PickUp,
-  Randomize,
-  RotateIncrementalLeft,
-  RotateIncrementalRight,
-  RotateOver,
-  Select,
-  Under,
+declare const enum PlayerAction {
+  Copy = 0,
+  Cut = 1,
+  Delete = 2,
+  FlipIncrementalLeft = 3,
+  FlipIncrementalRight = 4,
+  FlipOver = 5,
+  Group = 6,
+  Paste = 7,
+  PickUp = 8,
+  Randomize = 9,
+  RotateIncrementalLeft = 10,
+  RotateIncrementalRight = 11,
+  RotateOver = 12,
+  Select = 13,
+  Under = 14,
 }
 
 /**
@@ -382,21 +383,24 @@ type AttachCameraToObjectParameters = {
   offset?: Vector;
 };
 
-type Transform = {
+type TransformInput = {
   /**
    * Position of the hand zone.
    */
-  position: Vector;
+  position?: Vector;
 
   /**
    * Rotation of the hand zone.
    */
-  rotation: Vector;
+  rotation?: Vector;
 
   /**
    * Scale of the hand zone.
    */
-  scale: Vector;
+  scale?: Vector;
+}
+
+type Transform = Required<TransformInput> & {
 
   /**
    * Forward direction of the hand zone.

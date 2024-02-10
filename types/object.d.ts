@@ -1923,7 +1923,7 @@ type CustomAssetBundle = {
    * - 6: Bag
    * - 7: Infinite bag
    */
-  type?: number;
+  type?: CustomObjectTypeOption;
 
   /**
    * An Int representing the Object's material. Defaults to 0.
@@ -1934,7 +1934,7 @@ type CustomAssetBundle = {
    * - 2: Metal
    * - 3: Cardboard
    */
-  material?: number;
+  material?: MaterialType;
 };
 
 type CustomBoard = {
@@ -1955,7 +1955,7 @@ type CustomCard = {
    * - 3: Hex
    * - 4: Circle
    */
-  type?: number;
+  type?: ShapeType;
 
   /**
    * The path/URL of the face image.
@@ -2047,7 +2047,7 @@ type CustomDice = {
    * - 4: 12-sided
    * - 5: 20-sided
    */
-  type?: number;
+  type?: DiceSideType;
 };
 
 type CustomFigurine = {
@@ -2108,7 +2108,7 @@ type CustomModel = {
    * - 6: Bag
    * - 7: Infinite bag
    */
-  type?: number;
+  type?: CustomObjectTypeOption;
 
   /**
    * An Int representing the Object's material. Defaults to 0.
@@ -2119,7 +2119,7 @@ type CustomModel = {
    * - 2: Metal
    * - 3: Cardboard
    */
-  material?: number;
+  material?: MaterialType;
 
   /**
    * The specular intensity. Defaults to 0.1.
@@ -2169,7 +2169,7 @@ type CustomTile = {
    * - 1: Hex
    * - 2: Circle
    */
-  type?: number;
+  type?: ShapeSimpleType;
 
   /**
    * The path/URL for the bottom-side image.
@@ -2220,6 +2220,53 @@ type CustomToken = {
    */
   stackable?: boolean;
 };
+
+declare const enum CustomObjectTypeOption {
+  Generic = 0,
+  Figurine = 1,
+  Dice = 2,
+  Coin = 3, 
+  Board = 4,
+  Chip = 5,
+  Bag = 6,
+  InfiniteBag = 7
+}
+
+declare const enum MaterialType {
+  Plastic = 0,
+  Wood = 1,
+  Metal = 2,
+  Cardboard = 3
+}
+
+declare const enum ShapeType {
+  RectangleRounded = 0,
+  Rectangle = 1,
+  HexRounded = 2,
+  Hex = 3,
+  Circle = 4
+}
+
+declare const enum DiceSideType {
+  FourSided = 0,
+  SixSided = 1,
+  EightSided = 2,
+  TenSided = 3,
+  TwelveSided = 4,
+  TwentySided = 5,
+  '4Sided' = 0,
+  '6Sided' = 1,
+  '8Sided' = 2,
+  '10Sided' = 3,
+  '12Sided' = 4,
+  '20Sided' = 5
+}
+
+declare const enum ShapeSimpleType {
+  SquareRectangle = 0,
+  Hex = 1,
+  Circle = 2
+}
 
 type CustomObject =
   | CustomAssetBundle

@@ -19,7 +19,7 @@ interface PhysicsConstructor {
    * @param {CastParameters} parameters A Table of parameters used to guide the function.
    * @returns {HitObjects} Table containing information on hit Objects.
    */
-  cast(this: void, parameters: CastParameters): HitObjects;
+  cast(this: void, parameters: CastParameters): HitObjects[];
 
   /**
    * Returns directional Vector of the direction gravity is pulling.
@@ -106,6 +106,5 @@ type HitObjects = {
   /**
    * An Object reference to the Object hit by the cast.
    */
-  // TODO check what object types get hit
   hit_object: GObject;
 };

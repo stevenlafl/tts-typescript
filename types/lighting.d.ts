@@ -36,7 +36,7 @@ interface LightingConstructor {
   /**
    * The URL of the LUT.
    */
-  lut_url: string;
+  lut_url: string | undefined;
 
   /**
    * The strength of the reflections from the background. Range = 0 to 1.
