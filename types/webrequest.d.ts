@@ -1,3 +1,13 @@
+declare type RequestMethod =
+| 'CONNECT'
+| 'DELETE'
+| 'GET'
+| 'HEAD'
+| 'OPTIONS'
+| 'POST'
+| 'PUT'
+| 'TRACE'
+
 interface WebRequest {
   /**
    * Download percentage, represented as a number in the range 0-1.
@@ -64,7 +74,7 @@ interface WebRequest {
    *
    * @returns {Record<string, string>} The table of response headers.
    */
-  getRequestHeaders(this: void): Record<string, string>;
+  getResponseHeaders(this: void): Record<string, string>;
 }
 
 interface WebRequestConstructor {
@@ -72,7 +82,7 @@ interface WebRequestConstructor {
    * Performs a HTTP request using the specified method, data and headers.
    *
    * @param {string} url The URL to request.
-   * @param {string} method The HTTP method to use.
+   * @param {RequestMethod} method The HTTP method to use.
    * @param {boolean} download Whether you want to handle the response body. Must be true if you intend to read the response text.
    * @param {string} data The request body.
    * @param {Record<string, string>} headers Table of request headers. The table's keys and values must both be string.
@@ -82,7 +92,7 @@ interface WebRequestConstructor {
   custom(
     this: void,
     url: string,
-    method: string,
+    method: RequestMethod,
     download: boolean,
     data: string,
     headers: Record<string, string>,
@@ -134,14 +144,14 @@ interface WebRequestConstructor {
    * The form will be sent as the body of the request (Content-Type: application/x-www-form-urlencoded).
    *
    * @param {string} url The URL to request.
-   * @param {Record<string, string> | string} form The form to post.
+   * @param {Record<string, string | number | boolean> | string} form The form to post. boolean and number types are converted to string.
    * @param {function} callback_function Called when the request completes (or fails)
    * @returns {WebRequest} The WebRequest object.
    */
   post(
     this: void,
     url: string,
-    form: Record<string, string> | string,
+    form: Record<string, string | number | boolean> | string,
     callback_function?: (this: void, request: WebRequest) => void
   ): WebRequest;
 

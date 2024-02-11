@@ -17,10 +17,10 @@ interface GlobalConstructor {
    * Used to call a Lua function on another entity.
    *
    * @param {string} func_name Function name you want to activate.
-   * @param {CustomTableObject} [func_params] A Table containing any data you want to pass to that function.
+   * @param {Record<string, any>} [func_params] A Table containing any data you want to pass to that function.
    * @returns {any} Var is only returned if the function called has a return. Otherwise return is nil. See example.
    */
-  call(this: void, func_name: string, func_params?: CustomTableObject): any;
+  call(this: void, func_name: string, func_params?: Record<string, any>): any;
 
   /**
    * Returns information on all decals attached to this object or the world.
@@ -95,10 +95,10 @@ interface GlobalConstructor {
    * Creates/updates a variable in another entity's script. Only used for tables.
    *
    * @param {string} func_name Name of the function.
-   * @param {any} data The data.
+   * @param {Record<string, any>} data The data.
    * @returns {boolean} True if it succeeds, false if it fails.
    */
-  setTable(this: void, func_name: string, data: CustomTableObject): boolean;
+  setTable(this: void, func_name: string, data: Record<string, any>): boolean;
 
   /**
    * Creates/updates a variable in another entity's script. Cannot set a table.
@@ -122,7 +122,3 @@ declare var Global: GlobalConstructor;
 //declare const _G: Record<string, any>;
 
 declare function type(obj: any): string;
-
-type CustomTableObject = {
-  [key: string]: any
-}

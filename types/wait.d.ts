@@ -13,7 +13,7 @@ interface WaitConstructor {
   condition(
     this: void,
     toRunFunc: (this: void) => void,
-    conditionFunc: (this: void) => void,
+    conditionFunc: (this: void) => boolean,
     timeout?: number,
     timeoutFunc?: (this: void) => void
   ): number;

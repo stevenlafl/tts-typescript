@@ -60,7 +60,7 @@ interface Color extends ColorInput {
   * 
   * @returns {ColorLettersGuaranteed} The components.
   */
- get(): LuaMultiReturn<[number, number, number, number]>;
+ get(): LuaMultiReturn<Required<ColorTuple>>;
  
  /**
   * Returns a separate Color with identical component values. 	

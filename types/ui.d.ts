@@ -9,17 +9,17 @@ interface UIConstructor {
    *
    * @param {string} id The Id that was assigned, as an attribute, to the desired XML UI element.
    * @param {string} attribute  The name of the attribute you wish to get the value of.
-   * @returns {any} The value of the attribute.
+   * @returns {string | undefined} The value of the attribute.
    */
-  getAttribute(this: void, id: string, attribute: string): any;
+  getAttribute(this: void, id: string, attribute: string): string | undefined;
 
   /**
    * Returns the attributes and their values of a UI element. It only returns the attributes (and values) for elements that have had those attributes set by the user.
    *
    * @param {string} id The Id that was assigned, as an attribute, to the desired XML UI element.
-   * @returns {Record<string, any>} A table of attributes and their values.
+   * @returns {Record<string, string | undefined>} A table of attributes and their values.
    */
-  getAttributes(this: void, id: string): Record<string, any>;
+  getAttributes(this: void, id: string): Record<string, string | undefined>;
 
   /**
    * Returns a table/array of custom assets.
@@ -32,9 +32,9 @@ interface UIConstructor {
    * Obtains the value between elements tags, like: <Text>ValueToGet</Text>
    *
    * @param {string} id The Id that was assigned, as an attribute, to the desired XML UI element.
-   * @returns {string} The value between elements tags.
+   * @returns {string | undefined} The value between elements tags.
    */
-  getValue(this: void, id: string): string;
+  getValue(this: void, id: string): string | undefined;
 
   /**
    * Returns the contents of the current UI formatted as XML.
@@ -46,9 +46,9 @@ interface UIConstructor {
   /**
    * Returns the contents of the current UI formatted as a table.
    *
-   * @returns {XMLData} The contents of the current UI formatted as a table.
+   * @returns {XMLData[]} The contents of the current UI formatted as a table.
    */
-  getXmlTable(this: void): XMLData;
+  getXmlTable(this: void): XMLData[];
 
   /**
    * Hides the given UI element. Unlike the "active" attribute, hide triggers animations.
@@ -63,19 +63,19 @@ interface UIConstructor {
    *
    * @param {string} id The Id that was assigned, as an attribute, to the desired XML UI element.
    * @param {string} attribute  The name of the attribute you want to set the value of.
-   * @param {any} value The value to set for the attribute.
+   * @param {string | number | boolean} value The value to set for the attribute.
    * @returns {boolean} True if the attribute was set, false otherwise.
    */
-  setAttribute(this: void, id: string, attribute: string, value: any): boolean;
+  setAttribute(this: void, id: string, attribute: string, value: string | number | boolean): boolean;
 
   /**
    * Updates the value of the supplied attributes of a UI element. You do not need to set every attribute with the data table, an element will continue using any previous values you do not overwrite.
    *
    * @param {string} id The Id that was assigned, as an attribute, to the desired XML UI element.
-   * @param {Record<string, any>} data A Table with key/value pairs representing attributes and their values.
+   * @param {Record<string, string | number | boolean>} data A Table with key/value pairs representing attributes and their values.
    * @returns {boolean} True if the attributes were set, false otherwise.
    */
-  setAttributes(this: void, id: string, data: Record<string, any>): boolean;
+  setAttributes(this: void, id: string, data: Record<string, string | number | boolean>): boolean;
 
   /**
    * Replaces all classes on a UI element.
@@ -107,19 +107,19 @@ interface UIConstructor {
    * Sets/replaces the UI with the contents of the provided XML.
    *
    * @param {string} xml A string containing XML representing the desired UI.
-   * @param {CustomAsset} assets A table/array containing sub-tables which each represent a custom asset.
+   * @param {CustomAsset[]} assets A table/array containing sub-tables which each represent a custom asset.
    * @returns {boolean} True if the UI was set, false otherwise.
    */
-  setXml(this: void, xml: string, assets: CustomAsset): boolean;
+  setXml(this: void, xml: string, assets?: CustomAsset[]): boolean;
 
   /**
    * Sets/replaces the UI with the contents of the provided UI table.
    *
-   * @param {XMLData} data The UI table to set the UI to.
-   * @param {CustomAsset} assets A table/array of custom assets.
+   * @param {XMLData[]} data The UI table to set the UI to.
+   * @param {CustomAsset[]} assets A table/array of custom assets.
    * @returns {boolean} True if the UI was set, false otherwise.
    */
-  setXmlTable(this: void, data: XMLData, assets?: CustomAsset[]): boolean;
+  setXmlTable(this: void, data: XMLData[], assets?: CustomAsset[]): boolean;
 
   /**
    * Displays the given UI element. Unlike the "active" attribute, show triggers animations.
@@ -155,7 +155,7 @@ type XMLData = {
    *
    * Defaults to not being used
    */
-  attributes?: any[];
+  attributes?: Record<string, any>;
 
   /**
    * Text that appears <Text>Here</Text>, between the <> and ``.

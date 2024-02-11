@@ -171,18 +171,18 @@ interface Player {
   /**
    * Makes the Player take the Paste action at the specified position
    *
-   * @param {Vector} position The position to paste the copied Objects at.
+   * @param {VectorInput} position The position to paste the copied Objects at.
    * @returns {boolean} True if the paste action was taken, false otherwise.
    */
-  paste(this: void, position: Vector): boolean;
+  paste(this: void, position: VectorInput): boolean;
 
   /**
    * Emulates the player using the ping tool at the given position (tapping Tab).
    *
-   * @param {Vector} position The position to ping.
+   * @param {VectorInput} position The position to ping.
    * @returns {boolean} True if the ping was successful, false otherwise.
    */
-  pingTable(this: void, position: Vector): boolean;
+  pingTable(this: void, position: VectorInput): boolean;
 
   /**
    * Prints a message into the Player's game chat.
@@ -380,27 +380,41 @@ type AttachCameraToObjectParameters = {
   /**
    * A Vector to offset the camera by.
    */
-  offset?: Vector;
+  offset?: VectorInput;
 };
 
 type TransformInput = {
   /**
    * Position of the hand zone.
    */
-  position?: Vector;
+  position?: VectorInput;
 
   /**
    * Rotation of the hand zone.
    */
-  rotation?: Vector;
+  rotation?: VectorInput;
 
   /**
    * Scale of the hand zone.
    */
-  scale?: Vector;
+  scale?: VectorInput;
 }
 
-type Transform = Required<TransformInput> & {
+type Transform = {
+  /**
+   * Position of the hand zone.
+   */
+  position: Vector;
+
+  /**
+   * Rotation of the hand zone.
+   */
+  rotation: Vector;
+
+  /**
+   * Scale of the hand zone.
+   */
+  scale: Vector;
 
   /**
    * Forward direction of the hand zone.
@@ -422,7 +436,7 @@ type LookAtParameters = {
   /**
    * Position to center the camera on.
    */
-  position: Vector;
+  position: VectorInput;
 
   /**
    * Pitch angle of the camera. 0 to 90.

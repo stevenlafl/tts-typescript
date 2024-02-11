@@ -323,12 +323,12 @@ declare function sendExternalMessage(data: any): boolean;
  * PasteParameters
  *
  * @typedef {GObject} PasteParameters
- * @property {Vector} [position] - Position to paste objects to. Defaults to the position of the player's cursor.
+ * @property {VectorInput} [position] - Position to paste objects to. Defaults to the position of the player's cursor.
  * @property {boolean} [snap_to_grid] - Snap pasted objects to the grid. Defaults to true.
  * @see {@link paste}
  */
 type PasteParameters = {
-  position?: Vector;
+  position?: VectorInput;
   snap_to_grid?: boolean;
 };
 
@@ -337,9 +337,9 @@ type PasteParameters = {
  *
  * @typedef {GObject} SpawnObjectParameters
  * @property {string} type Built-in or Custom Game Object name.
- * @property {Vector} [position=[0,0,0]] Position where the object will be spawned.
- * @property {Vector} [rotation=[0,0,0]] Rotation of the spawned object.
- * @property {Vector} [scale=[1,1,1]] Scale of the spawned object.
+ * @property {VectorInput} [position=[0,0,0]] Position where the object will be spawned.
+ * @property {VectorInput} [rotation=[0,0,0]] Rotation of the spawned object.
+ * @property {VectorInput} [scale=[1,1,1]] Scale of the spawned object.
  * @property {boolean} [sound=true] Whether a sound will be played as the object spawns.
  * @property {boolean} [snap_to_grid=false] Whether upon spawning, the object will snap to nearby grid lines (or snap points).
  * @property {function} [callback_function=undefined] Called when the object has finished spawning. The spawned object will be passed as the first and only parameter.
@@ -347,19 +347,19 @@ type PasteParameters = {
  */
 type SpawnObjectParameters = {
   type: BuiltInObjectType | CustomObjectType;
-  position?: Vector;
-  rotation?: Vector;
-  scale?: Vector;
+  position?: VectorInput;
+  rotation?: VectorInput;
+  scale?: VectorInput;
   sound?: boolean;
   snap_to_grid?: boolean;
   callback_function?: (this: void, obj: GObject) => void;
   /**
    * param table passed to callback, NOT callback_function
    */
-  params?: CustomTableObject;
+  params?: Record<string, any>;
 
   /**
-   * function name for (this: void, obj: GObject, data?: CustomTableObject) => void
+   * function name for (this: void, obj: GObject, data?: Record<string, any>) => void
    */
   callback?: string;
 
@@ -374,25 +374,25 @@ type SpawnObjectParameters = {
  *
  * @typedef {GObject} SpawnObjectDataParameters
  * @property {GObjectData} data Properties describing the object that will be spawned.
- * @property {Vector} [position=[0,0,0]] Position where the object will be spawned. When specified, overrides the `Transform` position in `data`.
- * @property {Vector} [rotation=[0,0,0]] Rotation of the spawned object. When specified, overrides the `Transform` rotation in `data`.
- * @property {Vector} [scale=[1,1,1]] Scale of the spawned object. When specified, overrides the `Transform` scale in `data`.
+ * @property {VectorInput} [position=[0,0,0]] Position where the object will be spawned. When specified, overrides the `Transform` position in `data`.
+ * @property {VectorInput} [rotation=[0,0,0]] Rotation of the spawned object. When specified, overrides the `Transform` rotation in `data`.
+ * @property {VectorInput} [scale=[1,1,1]] Scale of the spawned object. When specified, overrides the `Transform` scale in `data`.
  * @property {function} [callback_function=undefined] Called when the object has finished spawning. The spawned object will be passed as the first and only parameter.
  * @see {@link spawnObjectData}
  */
 type SpawnObjectDataParameters = {
   data: GObjectData;
-  position?: Vector;
-  rotation?: Vector;
-  scale?: Vector;
+  position?: VectorInput;
+  rotation?: VectorInput;
+  scale?: VectorInput;
   callback_function?: (this: void, obj: GObject) => void;
   /**
    * param table passed to callback, NOT callback_function
    */
-  params?: CustomTableObject;
+  params?: Record<string, any>;
 
   /**
-   * function name for (this: void, obj: GObject, data?: CustomTableObject) => void
+   * function name for (this: void, obj: GObject, data?: Record<string, any>) => void
    */
   callback?: string;
 
@@ -407,25 +407,25 @@ type SpawnObjectDataParameters = {
  *
  * @typedef {GObject} SpawnObjectJSONParameters
  * @property {string} json - The JSON data representation of GObjectData for the object to spawn.
- * @property {Vector} [position=[0,0,0]] Position where the object will be spawned. When specified, overrides the `Transform` position in `json`.
- * @property {Vector} [rotation=[0,0,0]] Rotation of the spawned object. When specified, overrides the `Transform` rotation in `json`.
- * @property {Vector} [scale=[1,1,1]] Scale of the spawned object. When specified, overrides the `Transform` scale in `json`.
+ * @property {VectorInput} [position=[0,0,0]] Position where the object will be spawned. When specified, overrides the `Transform` position in `json`.
+ * @property {VectorInput} [rotation=[0,0,0]] Rotation of the spawned object. When specified, overrides the `Transform` rotation in `json`.
+ * @property {VectorInput} [scale=[1,1,1]] Scale of the spawned object. When specified, overrides the `Transform` scale in `json`.
  * @property {function} [callback_function=undefined] Called when the object has finished spawning. The spawned object will be passed as the first and only parameter.
  * @see {@link spawnObjectJSON}
  */
 type SpawnObjectJSONParameters = {
   json: string;
-  position?: Vector;
-  rotation?: Vector;
-  scale?: Vector;
+  position?: VectorInput;
+  rotation?: VectorInput;
+  scale?: VectorInput;
   callback_function?: (this: void, obj: GObject) => void;
   /**
    * param table passed to callback, NOT callback_function
    */
-  params?: CustomTableObject;
+  params?: Record<string, any>;
 
   /**
-   * function name for (this: void, obj: GObject, data?: CustomTableObject) => void
+   * function name for (this: void, obj: GObject, data?: Record<string, any>) => void
    */
   callback?: string;
 

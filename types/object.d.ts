@@ -633,7 +633,7 @@ interface GObject extends GlobalConstructor {
   /**
    * Adds force to an object in a directional Vector.
    *
-   * @param {Vector} vector A Vector of the direction and magnitude of force.
+   * @param {VectorInput} vector A Vector of the direction and magnitude of force.
    * @param {ForceType} force_type An Int representing the force type to apply. Options below.
    *  - 1: Continuous force, uses mass. (Force)
    *  - 2: Continuous acceleration, ignores mass. (Acceleration)
@@ -641,12 +641,12 @@ interface GObject extends GlobalConstructor {
    *  - 4: Instant velocity change, ignores mass. (Velocity Change)
    * @returns {boolean} - True if the force was applied, false if not.
    */
-  addForce(this: void, vector: Vector, force_type?: ForceType): boolean;
+  addForce(this: void, vector: VectorInput, force_type?: ForceType): boolean;
 
   /**
    * Adds torque to an object in a rotational Vector.
    *
-   * @param {Vector} vector The direction and magnitude of the torque to apply.
+   * @param {VectorInput} vector The direction and magnitude of the torque to apply.
    * @param {ForceType} force_type The type of torque to apply. One of:
    *  - 1: Continuous force, uses mass. (Force)
    *  - 2: Continuous acceleration, ignores mass. (Acceleration)
@@ -654,7 +654,7 @@ interface GObject extends GlobalConstructor {
    *  - 4: Instant velocity change, ignores mass. (Velocity Change)
    * @returns {boolean} - True if the torque was applied, false if not.
    */
-  addTorque(this: void, vector: Vector, force_type?: ForceType): boolean;
+  addTorque(this: void, vector: VectorInput, force_type?: ForceType): boolean;
 
   /**
    * Returns a Vector of the current angular velocity.
@@ -767,40 +767,40 @@ interface GObject extends GlobalConstructor {
    *
    * A world Vector is a positional Vector using the world's coordinate system. A Local Vector is a positional Vector that is relative to the position of the given object.
    *
-   * @param {Vector} vector The world position to convert into a local position.
+   * @param {VectorInput} vector The world position to convert into a local position.
    * @returns {Vector} The Local Position Vector.
    */
-  positionToLocal(this: void, vector: Vector): Vector;
+  positionToLocal(this: void, vector: VectorInput): Vector;
 
   /**
    * Returns a Vector after converting a local Vector (Local Position) to a world Vector (World Position).
    *
    * A world Vector is a positional Vector using the world's coordinate system. A Local Vector is a positional Vector that is relative to the position of the given object.
    *
-   * @param {Vector} vector The local position to convert into a world position.
+   * @param {VectorInput} vector The local position to convert into a world position.
    * @returns {Vector} The World Position Vector.
    */
-  positionToWorld(this: void, vector: Vector): Vector;
+  positionToWorld(this: void, vector: VectorInput): Vector;
 
   /**
    * Rotates Object smoothly in the direction of the given Vector.
    *
    * This does not set the Object to face a specific rotation, it rotates the Object around by the number of degrees given for x/y/z.
    *
-   * @param {Vector} vector The amount of x/y/z to rotate by.
+   * @param {VectorInput} vector The amount of x/y/z to rotate by.
    * @returns {boolean} True if the rotation was applied, false if not.
    */
-  rotate(this: void, vector: Vector): boolean;
+  rotate(this: void, vector: VectorInput): boolean;
 
   /**
    * Scales Object by a multiple.
    *
    * This does not set the Object to a specific scale, it scales the Object by the given multiple.
    *
-   * @param {Vector} scale Multiplier for scale. {x=1, y=1, z=1} would not change the scale
+   * @param {VectorInput} scale Multiplier for scale. {x=1, y=1, z=1} would not change the scale
    * @returns {boolean} True if the scale was applied, false if not.
    */
-  scale(this: void, scale: Vector): boolean;
+  scale(this: void, scale: VectorInput): boolean;
 
   /**
    * Scales Object by a multiple.
@@ -815,70 +815,70 @@ interface GObject extends GlobalConstructor {
   /**
    * Sets a Vector as the current angular velocity.
    *
-   * @param {Vector} vector The Vector to set as the current angular velocity.
+   * @param {VectorInput} vector The Vector to set as the current angular velocity.
    * @returns {boolean} True if the angular velocity was applied, false if not.
    */
-  setAngularVelocity(this: void, vector: Vector): boolean;
+  setAngularVelocity(this: void, vector: VectorInput): boolean;
 
   /**
    * Instantly moves an Object to the given Vector. The Vector is interpreted as World Position.
    *
-   * @param {Vector} vector The World Position Vector to move to.
+   * @param {VectorInput} vector The World Position Vector to move to.
    * @returns {boolean} True if the position was applied, false if not.
    */
-  setPosition(this: void, vector: Vector): boolean;
+  setPosition(this: void, vector: VectorInput): boolean;
 
   /**
    * Moves the Object smoothly to the given Vector. The Vector is interpreted as World Position.
    *
-   * @param {Vector} vector The World Position Vector to move to.
+   * @param {VectorInput} vector The World Position Vector to move to.
    * @param {boolean} collide If the Object will collide with other Objects while moving.
    * @param {boolean} fast If the Object is moved quickly.
    * @returns {boolean} True if the position was applied, false if not.
    */
-  setPositionSmooth(this: void, vector: Vector, collide?: boolean, fast?: boolean): boolean;
+  setPositionSmooth(this: void, vector: VectorInput, collide?: boolean, fast?: boolean): boolean;
 
   /**
    * Instantly rotates an Object to the given Vector.
    *
-   * @param {Vector} vector The Vector to rotate to.
+   * @param {VectorInput} vector The Vector to rotate to.
    * @returns {boolean} True if the rotation was applied, false if not.
    */
-  setRotation(this: void, vector: Vector): boolean;
+  setRotation(this: void, vector: VectorInput): boolean;
 
   /**
    * Rotates the Object smoothly to the given Vector.
    *
-   * @param {Vector} vector The Vector to rotate to.
+   * @param {VectorInput} vector The Vector to rotate to.
    * @param {boolean} collide If the Object will collide with other Objects while rotating.
    * @param {boolean} fast If the Object is rotated quickly.
    * @returns {boolean} True if the rotation was applied, false if not.
    */
-  setRotationSmooth(this: void, vector: Vector, collide?: boolean, fast?: boolean): boolean;
+  setRotationSmooth(this: void, vector: VectorInput, collide?: boolean, fast?: boolean): boolean;
 
   /**
    * Sets a Vector as the current scale.
    *
-   * @param {Vector} vector The Vector to set as the current scale.
+   * @param {VectorInput} vector The Vector to set as the current scale.
    * @returns {boolean} True if the scale was applied, false if not.
    */
-  setScale(this: void, vector: Vector): boolean;
+  setScale(this: void, vector: VectorInput): boolean;
 
   /**
    * Sets a Vector as the current velocity.
    *
-   * @param {Vector} vector The Vector to set as the current velocity.
+   * @param {VectorInput} vector The Vector to set as the current velocity.
    * @returns {boolean} True if the velocity was applied, false if not.
    */
-  setVelocity(this: void, vector: Vector): boolean;
+  setVelocity(this: void, vector: VectorInput): boolean;
 
   /**
    * Smoothly moves Object by the given Vector offset.
    *
-   * @param {Vector} vector The Vector to move by.
+   * @param {VectorInput} vector The Vector to move by.
    * @param {boolean} collide Whether or not to collide with other objects.
    */
-  translate(this: void, vector: Vector): boolean;
+  translate(this: void, vector: VectorInput): boolean;
 
   /* Tag Functions */
 
@@ -1243,10 +1243,10 @@ interface GObject extends GlobalConstructor {
   /**
    * Sets the Object's rotation value i.e. physically rotates the object.
    *
-   * @param {Vector | number | string} rotation_value A rotation value.
+   * @param {VectorInput | number | string} rotation_value A rotation value.
    * @returns {boolean} True if it succeeds, false if it fails.
    */
-  setRotationValue(this: void, rotation_value: Vector | number | string): boolean;
+  setRotationValue(this: void, rotation_value: VectorInput | number | string): boolean;
 
   /**
    * Sets rotation values of an object. Rotation values are used to give value to different rotations (like dice).
@@ -1698,17 +1698,17 @@ type CommonButtonParameters = {
   /**
    *
    */
-  position?: Vector;
+  position?: VectorInput;
 
   /**
    *
    */
-  rotation?: Vector;
+  rotation?: VectorInput;
 
   /**
    *
    */
-  scale?: Vector;
+  scale?: VectorInput;
 
   /**
    *
@@ -1775,17 +1775,17 @@ type CommonInputParameters = {
   /**
    *
    */
-  position?: Vector;
+  position?: VectorInput;
 
   /**
    *
    */
-  rotation?: Vector;
+  rotation?: VectorInput;
 
   /**
    *
    */
-  scale?: Vector;
+  scale?: VectorInput;
 
   /**
    *
@@ -2489,7 +2489,7 @@ type CloneParameters = {
    *
    * Defaults to {x=0, y=3, z=0}
    */
-  position?: Vector;
+  position?: VectorInput;
 
   /**
    * If the Object snaps to grid.
@@ -2506,10 +2506,10 @@ type CloneParameters = {
   /**
    * param table passed to callback, NOT callback_function
    */
-  params?: CustomTableObject;
+  params?: Record<string, any>;
 
   /**
-   * function name for (this: void, obj: GObject, data?: CustomTableObject) => void
+   * function name for (this: void, obj: GObject, data?: Record<string, any>) => void
    */
   callback?: string;
 
@@ -2523,12 +2523,12 @@ type CommonTakeObjectParameters = {
   /**
    *
    */
-  position?: Vector;
+  position?: VectorInput;
 
   /**
    *
    */
-  rotation?: Vector;
+  rotation?: VectorInput;
 
   /**
    *
@@ -2553,10 +2553,10 @@ type CommonTakeObjectParameters = {
   /**
    * param table passed to callback, NOT callback_function
    */
-  params?: CustomTableObject;
+  params?: Record<string, any>;
 
   /**
-   * function name for (this: void, obj: GObject, data?: CustomTableObject) => void
+   * function name for (this: void, obj: GObject, data?: Record<string, any>) => void
    */
   callback?: string;
 
@@ -2598,17 +2598,17 @@ type AddDecalParameters = {
   /**
    * Position to place Object.
    */
-  position?: Vector;
+  position?: VectorInput;
 
   /**
    * Rotation of the Object.
    */
-  rotation?: Vector;
+  rotation?: VectorInput;
 
   /**
    * Image scale multiplier. 1 is normal scale.
    */
-  scale?: Vector;
+  scale?: VectorInput;
 };
 
 type SnapPoint = {
@@ -2637,7 +2637,7 @@ type VectorLineParameter = {
   /**
    * Table containing Vector positions for each "point" on the line.
    */
-  points: Vector[];
+  points: VectorInput[];
 
   /**
    * Color the line will be.
@@ -2658,7 +2658,7 @@ type VectorLineParameter = {
    *
    * Defaults to {0,0,0}
    */
-  rotation?: Vector;
+  rotation?: VectorInput;
 };
 
 type VectorLine = Required<VectorLineParameter>;
@@ -2685,8 +2685,8 @@ type JointSpring = {
 
 type JointHinge = {
   type: 'Hinge';
-  axis?: Vector;
-  anchor?: Vector;
+  axis?: VectorInput;
+  anchor?: VectorInput;
   break_torque?: number;
   motor_force?: number;
   motor_velocity?: number;

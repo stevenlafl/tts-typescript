@@ -46,7 +46,7 @@ type CreateTimer = {
    *
    * Will not be used by default
    */
-  parameters?: CustomTableObject;
+  parameters?: Record<string, any>;
 
   /**
    * Length of time in seconds before the function is triggered.
