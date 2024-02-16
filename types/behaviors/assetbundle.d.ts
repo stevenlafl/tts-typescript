@@ -14,35 +14,31 @@ interface AssetBundle {
    *
    * @returns {LoopingEffect[]} A Table with the keys "index" and "name" for each looping effect.
    */
-  getLoopingEffects(this: void): LoopingEffect[];
+  getLoopingEffects(this: void): LoopingEffect[] | undefined;
 
   /**
    * Returns a Table with the keys "index" and "name" for each trigger effect.
    *
    * @returns {LoopingEffect[]} A Table with the keys "index" and "name" for each trigger effect.
    */
-  getTriggerEffects(this: void): LoopingEffect[];
+  getTriggerEffects(this: void): LoopingEffect[] | undefined;
 
   /**
    * Starts playing a looping effect. Indexes starts at 0.
    *
    * @param {number} index Index of the looping effect to play.
-   * @returns {null}
+   * @returns {boolean}
    */
-  playLoopingEffect(this: void, index: number): null;
+  playLoopingEffect(this: void, index: number): boolean;
 
   /**
    * Starts playing a trigger effect. Indexes starts at 0.
    *
    * @param {number} index Index of the trigger effect to play.
-   * @returns {null}
+   * @returns {boolean}
    */
-  playTriggerEffect(this: void, index: number): null;
+  playTriggerEffect(this: void, index: number): boolean;
 }
-
-interface AssetBundleConstructor {}
-
-declare var AssetBundle: AssetBundleConstructor;
 
 type LoopingEffect = {
   /**

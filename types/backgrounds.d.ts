@@ -9,14 +9,14 @@ interface BackgroundsConstructor {
    *
    * @return {string} The current background name.
    */
-  getBackground: (this: void) => string;
+  getBackground(this: void): string;
 
   /**
    * Returns the image URL of the current custom background, or nil if the current background is not custom.
    *
    * @return {string} The image URL of the current custom background, or nil if the current background is not custom.
    */
-  getCustomURL: (this: void) => string;
+  getCustomURL(this: void): string | undefined;
 
   /**
    * Replaces the current background with the background matching the specified name.
@@ -24,7 +24,7 @@ interface BackgroundsConstructor {
    * @param {string} name The name of the background to set.
    * @return {boolean} True if the background was set successfully, false otherwise.
    */
-  setBackground: (this: void, name: string) => boolean;
+  setBackground(this: void, name: string): boolean;
 
   /**
    * Replaces the current background with a custom background loaded from the specified url.
@@ -32,7 +32,7 @@ interface BackgroundsConstructor {
    * @param {string} url The url of the image to use as the background.
    * @return {boolean} True if the background was set successfully, false otherwise.
    */
-  setCustomURL: (this: void, url: string) => boolean;
+  setCustomURL(this: void, url: string): boolean;
 }
 
 /**

@@ -1,6 +1,338 @@
-/// <reference path="zone.d.ts" />
+/*
+* Derived from https://api.tabletopsimulator.com/built-in-object/ and https://api.tabletopsimulator.com/custom-game-objects/
+*/
+declare type BlockObjectType =
+| 'BlockRectangle'
+| 'BlockSquare'
+| 'BlockTriangle'
 
-interface GObject {
+declare type BoardObjectType =
+| 'backgammon_board'
+| 'CardBot_Board'
+| 'Checker_Board'
+| 'Chess_Board'
+| 'Chinese_Checkers_Board'
+| 'Go_Board'
+| 'Pachisi_board'
+| 'reversi_board'
+
+declare type CardObjectType =
+| 'Card'
+
+declare type DeckObjectType =
+| 'Deck'
+| 'Deck_CardBot_Head'
+| 'Deck_CardBot_Main'
+
+declare type CheckerObjectType =
+| 'Checker_black'
+| 'Checker_red'
+| 'Checker_white'
+| 'Chinese_Checkers_Piece'
+
+declare type ChessObjectType =
+| 'Chess_Bishop'
+| 'Chess_King'
+| 'Chess_Knight'
+| 'Chess_Pawn'
+| 'Chess_Queen'
+| 'Chess_Rook'
+
+declare type ChipObjectType =
+| 'Chip_10'
+| 'Chip_50'
+| 'Chip_100'
+| 'Chip_500'
+| 'Chip_1000'
+
+declare type DiceObjectType =
+| 'Die_4'
+| 'Die_6'
+| 'Die_6_Rounded'
+| 'Die_8'
+| 'Die_10'
+| 'Die_12'
+| 'Die_20'
+| 'Die_Piecepack'
+
+declare type DominoObjectType =
+| 'Domino'
+| 'Mahjong_Coin'
+| 'Mahjong_Stick'
+| 'Mahjong_Tile'
+
+declare type FigurineObjectType =
+| 'Figurine_Card_Bot'
+| 'Figurine_Kimi_Kat'
+| 'Figurine_Knil'
+| 'Figurine_Mara'
+| 'Figurine_Sir_Loin'
+| 'Figurine_Zeke'
+| 'Figurine_Zomblor'
+| 'Metal Ball'
+| 'PlayerPawn'
+
+declare type GoPieceObjectType =
+| 'go_game_piece_black'
+| 'go_game_piece_white'
+| 'go_game_bowl_black'
+| 'go_game_bowl_white'
+
+declare type GraphicsObjectType =
+| '3DText'
+
+declare type PiecepackObjectType =
+| 'PiecePack_Arms'
+| 'PiecePack_Crowns'
+| 'PiecePack_Moons'
+| 'PiecePack_Suns'
+
+declare type RPGFigurineObjectType =
+| 'rpg_BARGHEST'
+| 'rpg_BASILISK'
+| 'rpg_BEAR'
+| 'rpg_BLACK_DRAGON'
+| 'rpg_CENTAUR'
+| 'rpg_CERBERUS'
+| 'rpg_CHIMERA'
+| 'rpg_CRASC'
+| 'rpg_CYCLOP'
+| 'rpg_DARKNESS_WARLORD'
+| 'rpg_DRAGONIDE'
+| 'rpg_EVIL_WATCHER'
+| 'rpg_GHOUL'
+| 'rpg_GIANT_VIPER'
+| 'rpg_GOBLIN'
+| 'rpg_GOLEM'
+| 'rpg_GRIFFON'
+| 'rpg_HYDRA'
+| 'rpg_KNIGHT'
+| 'rpg_KOBOLD'
+| 'rpg_LIZARD_WARRIOR'
+| 'rpg_MAGE'
+| 'rpg_MANTICORA'
+| 'rpg_MUMMY'
+| 'rpg_OGRE'
+| 'rpg_ORC'
+| 'rpg_RANGER'
+| 'rpg_RAT'
+| 'rpg_SKELETON_KNIGHT'
+| 'rpg_TEMPLATE'
+| 'rpg_THIEF'
+| 'rpg_TREE_ENT'
+| 'rpg_TROLL'
+| 'rpg_VAMPIRE'
+| 'rpg_WARRIRO'
+| 'rpg_WEREWOLF'
+| 'rpg_WYVERN'
+
+declare type TilesetObjectType =
+| 'Tileset_Barrel'
+| 'Tileset_Chair'
+| 'Tileset_Chest'
+| 'Tileset_Corner'
+| 'Tileset_Floor'
+| 'Tileset_Rock'
+| 'Tileset_Table'
+| 'Tileset_Tree'
+| 'Tileset_Wall'
+
+declare type ZoneObjectType =
+| 'Fog'
+| 'FogOfWar'
+| 'Hand'
+| 'Layout'
+| 'Randomize'
+| 'Scripting'
+
+declare type OtherObjectType =
+| 'backgammon_piece_brown'
+| 'backgammon_piece_white'
+| 'Bag'
+| 'Bowl'
+| 'Calculator'
+| 'Counter'
+| 'Digital_Clock'
+| 'Infinite_Bag'
+| 'Notecard'
+| 'Quarter'
+| 'reversi_chip'
+| 'Tablet'
+
+declare type SpawnableTypeObjectType =
+| 'Arms Dice'
+| 'Backgammon Board'
+| 'Barrel'
+| 'Bear'
+| 'Bishop Cast Iron'
+| 'Bishop Chrome'
+| 'Bishop Dark Wood'
+| 'Bishop Light Wood'
+| 'Black Ball'
+| 'Black Checker'
+| 'Black Pawn'
+| 'Blue 10'
+| 'Blue Ball'
+| 'Blue Pawn'
+| 'Blue Rectangle'
+| 'Brown Backgammon'
+| 'CardBot'
+| 'CardBots Head Deck'
+| 'CardBots Main Deck'
+| 'Chair'
+| 'Checkers Board'
+| 'Chess Board'
+| 'Chest'
+| 'Chimera'
+| 'Chinese Checkers Board'
+| 'Corner'
+| 'Crowns Dice'
+| 'Custom Board'
+| 'Custom Deck'
+| 'Custom Figurine'
+| 'Custom Model'
+| 'Cyclops'
+| 'D10'
+| 'D10 Chrome'
+| 'D12'
+| 'D12 Chrome'
+| 'D20'
+| 'D20 Chrome'
+| 'D4'
+| 'D4 Chrome'
+| 'D6'
+| 'D6 Black'
+| 'D6 Blue'
+| 'D6 Chrome'
+| 'D6 Green'
+| 'D6 Red'
+| 'D8'
+| 'D8 Chrome'
+| 'Digital Clock'
+| 'Dragonide'
+| 'Evil Watcher'
+| 'Floor'
+| 'Ghoul'
+| 'Giant Rat'
+| 'Giant Viper'
+| 'Go Board'
+| 'GO Bowl Black'
+| 'GO Bowl White'
+| 'GO Piece Black'
+| 'GO Piece White'
+| 'Goblin'
+| 'Gold 1000'
+| 'Golem'
+| 'Green 50'
+| 'Green Ball'
+| 'Green Pawn'
+| 'Green Triangle'
+| 'Griffon'
+| 'Hydra'
+| 'Joker'
+| 'Kimi Kat'
+| 'King Cast Iron'
+| 'King Chrome'
+| 'King Dark Wood'
+| 'King Light Wood'
+| 'Knight Cast Iron'
+| 'Knight Chrome'
+| 'Knight Dark Wood'
+| 'Knight Light Wood'
+| 'Knight of Knil'
+| 'Kobold'
+| 'Lizard Warrior'
+| 'Loot Bag'
+| 'Manticora'
+| 'Mara'
+| 'Moons Dice'
+| 'Mummy'
+| 'Ogre'
+| 'Orange Pawn'
+| 'Orc'
+| 'Pachisi Board'
+| 'Pawn Cast Iron'
+| 'Pawn Chrome'
+| 'Pawn Dark Wood'
+| 'Pawn Light Wood'
+| 'Pink Ball'
+| 'Pink Pawn'
+| 'Purple Pawn'
+| 'Quarter'
+| 'Queen Cast Iron'
+| 'Queen Chrome'
+| 'Queen Dark Wood'
+| 'Queen Light Wood'
+| 'Random Card'
+| 'Random Domino'
+| 'Random Mahjong'
+| 'Red 100'
+| 'Red Ball'
+| 'Red Checker'
+| 'Red Pawn'
+| 'Red Square'
+| 'Reversi Board'
+| 'Reversi Chip'
+| 'Rock'
+| 'Rook Cast Iron'
+| 'Rook Chrome'
+| 'Rook Dark Wood'
+| 'Rook Light Wood'
+| 'Silver 500'
+| 'Sir Loin'
+| 'Skeleton Knight'
+| 'Standard Deck'
+| 'Suns Dice'
+| 'Table'
+| 'Tree'
+| 'Tree Ent'
+| 'Troll'
+| 'Vampire'
+| 'Wall'
+| 'Werewolf'
+| 'White Backgammon'
+| 'White Ball'
+| 'White Checker'
+| 'White Pawn'
+| 'Wolf'
+| 'Wyvern'
+| 'Yellow Ball'
+| 'Yellow Pawn'
+| 'Zeke Kodoku'
+| 'Zomblor'
+
+declare type CustomObjectType =
+| 'Custom_Assetbundle'
+| 'Custom_Board'
+| 'CardCustom'
+| 'DeckCustom'
+| 'Custom_Dice'
+| 'Figurine_Custom'
+| 'Custom_Model'
+| 'Custom_Tile'
+| 'Custom_Token'
+
+declare type BuiltInObjectType = 
+| BlockObjectType
+| BoardObjectType
+| CardObjectType
+| DeckObjectType
+| CheckerObjectType
+| ChessObjectType
+| ChipObjectType
+| DiceObjectType
+| DominoObjectType
+| FigurineObjectType
+| GoPieceObjectType
+| GraphicsObjectType
+| PiecepackObjectType
+| RPGFigurineObjectType
+| TilesetObjectType
+| ZoneObjectType
+| OtherObjectType
+| SpawnableTypeObjectType
+
+interface GObject extends GlobalConstructor {
   /* Common Variables */
 
   /**
@@ -58,7 +390,7 @@ interface GObject {
   /**
    * The Color of the Player that is holding the object.
    */
-  held_by_color: string;
+  held_by_color: ColorLiteral;
 
   /**
    * 0-23 value. Changes when a Player hits flip or alt + rotate.
@@ -254,37 +586,42 @@ interface GObject {
   /**
    * Custom "AssetBundle" objects.
    */
-  AssetBundle: AssetBundle;
+  AssetBundle?: AssetBundle;
 
   /**
    * "Custom PDF" objects.
    */
-  Book: Book;
+  Book?: Book;
 
   /**
    * "Tablet" objects.
    */
-  Browser: Browser;
+  Browser?: Browser;
+
+  /**
+   * "Bag", "Stack" and "Deck" objects.
+   */
+  Container?: Container;
 
   /**
    * "Digital Clock" objects.
    */
-  Clock: Clock;
+  Clock?: Clock;
 
   /**
    * "Counter" objects.
    */
-  Counter: Counter;
+  Counter?: Counter;
 
   /**
    * Layout zones.
    */
-  LayoutZone: LayoutZone;
+  LayoutZone?: LayoutZone;
 
   /**
    * "RPG Kit" animated figurine objects i.e. type "rpgFigurine".
    */
-  RPGFigurine: RPGFigurine;
+  RPGFigurine?: RPGFigurine;
 
   /**
    * 3D Text objects e.g. text created with the in-game Text tool.
@@ -296,28 +633,28 @@ interface GObject {
   /**
    * Adds force to an object in a directional Vector.
    *
-   * @param {Vector} vector A Vector of the direction and magnitude of force.
-   * @param {number} force_type An Int representing the force type to apply. Options below.
+   * @param {VectorInput} vector A Vector of the direction and magnitude of force.
+   * @param {ForceType} force_type An Int representing the force type to apply. Options below.
    *  - 1: Continuous force, uses mass. (Force)
    *  - 2: Continuous acceleration, ignores mass. (Acceleration)
    *  - 3: Instant force impulse, uses mass. (Impulse)
    *  - 4: Instant velocity change, ignores mass. (Velocity Change)
    * @returns {boolean} - True if the force was applied, false if not.
    */
-  addForce(this: void, vector: Vector, force_type?: number): boolean;
+  addForce(this: void, vector: VectorInput, force_type?: ForceType): boolean;
 
   /**
    * Adds torque to an object in a rotational Vector.
    *
-   * @param {Vector} vector The direction and magnitude of the torque to apply.
-   * @param {number} force_type The type of torque to apply. One of:
+   * @param {VectorInput} vector The direction and magnitude of the torque to apply.
+   * @param {ForceType} force_type The type of torque to apply. One of:
    *  - 1: Continuous force, uses mass. (Force)
    *  - 2: Continuous acceleration, ignores mass. (Acceleration)
    *  - 3: Instant force impulse, uses mass. (Impulse)
    *  - 4: Instant velocity change, ignores mass. (Velocity Change)
    * @returns {boolean} - True if the torque was applied, false if not.
    */
-  addTorque(this: void, vector: Vector, force_type?: number): boolean;
+  addTorque(this: void, vector: VectorInput, force_type?: ForceType): boolean;
 
   /**
    * Returns a Vector of the current angular velocity.
@@ -356,7 +693,7 @@ interface GObject {
    *
    * @returns {Vector} The current smooth move target.
    */
-  getPositionSmooth(this: void): Vector;
+  getPositionSmooth(this: void): Vector | undefined;
 
   /**
    * Returns a Vector of the current rotation.
@@ -370,7 +707,7 @@ interface GObject {
    *
    * @returns {Vector} The current smooth rotation target.
    */
-  getRotationSmooth(this: void): Vector;
+  getRotationSmooth(this: void): Vector | undefined;
 
   /**
    * Returns a Vector of the current scale.
@@ -430,40 +767,40 @@ interface GObject {
    *
    * A world Vector is a positional Vector using the world's coordinate system. A Local Vector is a positional Vector that is relative to the position of the given object.
    *
-   * @param {Vector} vector The world position to convert into a local position.
+   * @param {VectorInput} vector The world position to convert into a local position.
    * @returns {Vector} The Local Position Vector.
    */
-  positionToLocal(this: void, vector: Vector): Vector;
+  positionToLocal(this: void, vector: VectorInput): Vector;
 
   /**
    * Returns a Vector after converting a local Vector (Local Position) to a world Vector (World Position).
    *
    * A world Vector is a positional Vector using the world's coordinate system. A Local Vector is a positional Vector that is relative to the position of the given object.
    *
-   * @param {Vector} vector The local position to convert into a world position.
+   * @param {VectorInput} vector The local position to convert into a world position.
    * @returns {Vector} The World Position Vector.
    */
-  positionToWorld(this: void, vector: Vector): Vector;
+  positionToWorld(this: void, vector: VectorInput): Vector;
 
   /**
    * Rotates Object smoothly in the direction of the given Vector.
    *
    * This does not set the Object to face a specific rotation, it rotates the Object around by the number of degrees given for x/y/z.
    *
-   * @param {Vector} vector The amount of x/y/z to rotate by.
+   * @param {VectorInput} vector The amount of x/y/z to rotate by.
    * @returns {boolean} True if the rotation was applied, false if not.
    */
-  rotate(this: void, vector: Vector): boolean;
+  rotate(this: void, vector: VectorInput): boolean;
 
   /**
    * Scales Object by a multiple.
    *
    * This does not set the Object to a specific scale, it scales the Object by the given multiple.
    *
-   * @param {Vector} scale Multiplier for scale. {x=1, y=1, z=1} would not change the scale
+   * @param {VectorInput} scale Multiplier for scale. {x=1, y=1, z=1} would not change the scale
    * @returns {boolean} True if the scale was applied, false if not.
    */
-  scale(this: void, scale: Vector): boolean;
+  scale(this: void, scale: VectorInput): boolean;
 
   /**
    * Scales Object by a multiple.
@@ -478,70 +815,70 @@ interface GObject {
   /**
    * Sets a Vector as the current angular velocity.
    *
-   * @param {Vector} vector The Vector to set as the current angular velocity.
+   * @param {VectorInput} vector The Vector to set as the current angular velocity.
    * @returns {boolean} True if the angular velocity was applied, false if not.
    */
-  setAngularVelocity(this: void, vector: Vector): boolean;
+  setAngularVelocity(this: void, vector: VectorInput): boolean;
 
   /**
    * Instantly moves an Object to the given Vector. The Vector is interpreted as World Position.
    *
-   * @param {Vector} vector The World Position Vector to move to.
+   * @param {VectorInput} vector The World Position Vector to move to.
    * @returns {boolean} True if the position was applied, false if not.
    */
-  setPosition(this: void, vector: Vector): boolean;
+  setPosition(this: void, vector: VectorInput): boolean;
 
   /**
    * Moves the Object smoothly to the given Vector. The Vector is interpreted as World Position.
    *
-   * @param {Vector} vector The World Position Vector to move to.
+   * @param {VectorInput} vector The World Position Vector to move to.
    * @param {boolean} collide If the Object will collide with other Objects while moving.
    * @param {boolean} fast If the Object is moved quickly.
    * @returns {boolean} True if the position was applied, false if not.
    */
-  setPositionSmooth(this: void, vector: Vector, collide?: boolean, fast?: boolean): boolean;
+  setPositionSmooth(this: void, vector: VectorInput, collide?: boolean, fast?: boolean): boolean;
 
   /**
    * Instantly rotates an Object to the given Vector.
    *
-   * @param {Vector} vector The Vector to rotate to.
+   * @param {VectorInput} vector The Vector to rotate to.
    * @returns {boolean} True if the rotation was applied, false if not.
    */
-  setRotation(this: void, vector: Vector): boolean;
+  setRotation(this: void, vector: VectorInput): boolean;
 
   /**
    * Rotates the Object smoothly to the given Vector.
    *
-   * @param {Vector} vector The Vector to rotate to.
+   * @param {VectorInput} vector The Vector to rotate to.
    * @param {boolean} collide If the Object will collide with other Objects while rotating.
    * @param {boolean} fast If the Object is rotated quickly.
    * @returns {boolean} True if the rotation was applied, false if not.
    */
-  setRotationSmooth(this: void, vector: Vector, collide?: boolean, fast?: boolean): boolean;
+  setRotationSmooth(this: void, vector: VectorInput, collide?: boolean, fast?: boolean): boolean;
 
   /**
    * Sets a Vector as the current scale.
    *
-   * @param {Vector} vector The Vector to set as the current scale.
+   * @param {VectorInput} vector The Vector to set as the current scale.
    * @returns {boolean} True if the scale was applied, false if not.
    */
-  setScale(this: void, vector: Vector): boolean;
+  setScale(this: void, vector: VectorInput): boolean;
 
   /**
    * Sets a Vector as the current velocity.
    *
-   * @param {Vector} vector The Vector to set as the current velocity.
+   * @param {VectorInput} vector The Vector to set as the current velocity.
    * @returns {boolean} True if the velocity was applied, false if not.
    */
-  setVelocity(this: void, vector: Vector): boolean;
+  setVelocity(this: void, vector: VectorInput): boolean;
 
   /**
    * Smoothly moves Object by the given Vector offset.
    *
-   * @param {Vector} vector The Vector to move by.
+   * @param {VectorInput} vector The Vector to move by.
    * @param {boolean} collide Whether or not to collide with other objects.
    */
-  translate(this: void, vector: Vector): boolean;
+  translate(this: void, vector: VectorInput): boolean;
 
   /* Tag Functions */
 
@@ -702,7 +1039,7 @@ interface GObject {
    *
    * @returns {CustomObject} The custom object.
    */
-  getCustomObject(this: void): CustomObject;
+  getCustomObject(this: void): Required<CustomObject>;
 
   /**
    * Returns a table data structure representation of the object. Works with spawnObjectData(...).
@@ -774,10 +1111,13 @@ interface GObject {
    * Returns data describing the objects contained within in the zone/bag/deck.
    *
    * The format of the data returned depends on the kind of object.
+   * 
+   * Bags/Decks return ObjectData[]
+   * Zones return GObject[]
    *
-   * @returns {ObjectData[]} The objects.
+   * @returns {ObjectData[] | GObject[]} The objects.
    */
-  getObjects(this: void): ObjectData[];
+  getObjects(this: void): ObjectData[] | GObject[];
 
   /**
    * Returns the number of objects contained within (if the Object is a bag, deck or stack), otherwise -1.
@@ -819,21 +1159,21 @@ interface GObject {
    *
    * @returns {State[]} The states.
    */
-  getStates(this: void): State[];
+  getStates(this: void): State[] | undefined;
 
   /**
    * Returns the Object's value. This represents something different depending on the Object's type.
    *
    * @returns {string | number} The value.
    */
-  getValue(this: void): string | number;
+  getValue(this: void): string | number | undefined;
 
   /**
    * Returns a list of zones that the object is currently occupying.
    *
-   * @returns {Zone[]} The zones.
+   * @returns {GObject[]} The zones.
    */
-  getZones(this: void): Zone[];
+  getZones(this: void): GObject[];
 
   /**
    * Returns true if the Object is (or will be) destroyed.
@@ -850,7 +1190,7 @@ interface GObject {
    * @param {Color} Color The color.
    * @returns {boolean} True if it succeeds, false if it fails.
    */
-  setColorTint(this: void, Color: Color): boolean;
+  setColorTint(this: void, Color: ColorInput): boolean;
 
   /**
    * Sets a custom Object's properties.
@@ -903,10 +1243,10 @@ interface GObject {
   /**
    * Sets the Object's rotation value i.e. physically rotates the object.
    *
-   * @param {Vector | number | string} rotation_value A rotation value. Should be a int, or float.
+   * @param {VectorInput | number | string} rotation_value A rotation value.
    * @returns {boolean} True if it succeeds, false if it fails.
    */
-  setRotationValue(this: void, rotation_value: Vector | number | string): boolean;
+  setRotationValue(this: void, rotation_value: VectorInput | number | string): boolean;
 
   /**
    * Sets rotation values of an object. Rotation values are used to give value to different rotations (like dice).
@@ -920,9 +1260,9 @@ interface GObject {
    * Sets state of an Object. State ids (indexes) start at 1.
    *
    * @param {number} state_id The state identifier.
-   * @returns {GObject} The new state.
+   * @returns {this} The new state.
    */
-  setState(this: void, state_id: number): GObject;
+  setState(this: void, state_id: number): this | undefined;
 
   /**
    * Sets the Object's value. This represents something different depending on the Object's type.
@@ -947,7 +1287,7 @@ interface GObject {
    * @callback AddContextMenuItemCallback
    * @param {ColorLiteral} player_color Player Color who selected the menu item.
    * @param {Vector} object_position Position of object.
-   * @param {GObject} object Object in question.
+   * @param {this} object Object in question.
    */
   /**
    * Adds a menu item to the objects right-click context menu.
@@ -963,7 +1303,7 @@ interface GObject {
       this: void,
       player_color: ColorLiteral,
       object_position: Vector,
-      object: GObject
+      object: this
     ) => void,
     keep_open?: boolean
   ): boolean;
@@ -987,8 +1327,9 @@ interface GObject {
    * Copy/Paste this Object, returning a reference to the new Object.
    *
    * @param {CloneParameters} parameters The parameters.
+   * @returns {this} Cloned object
    */
-  clone(this: void, parameters: CloneParameters): GObject;
+  clone(this: void, parameters: CloneParameters): this;
 
   /**
    * Cuts (splits) a deck at the given card count. In other words, it counts down from the top of the deck and makes a new deck of that size and puts the remaining cards in the other pile.
@@ -1014,14 +1355,14 @@ interface GObject {
   /**
    * Deals from a deck to a position relative to the hand zone.
    *
-   * @param {number} offset The x/y/z offset to deal to around the given hand zone.
+   * @param {Vector} offset The x/y/z offset to deal to around the given hand zone.
    * @param {boolean} flip If the card is flipped over when dealt.
    * @param {ColorLiteral} player_color Hand zone Player Color to offset dealing to.
    * @returns {GObject} The new deal to color with offset.
    */
   dealToColorWithOffset(
     this: void,
-    offset: number,
+    offset: Vector,
     flip: boolean,
     player_color: ColorLiteral
   ): GObject;
@@ -1104,7 +1445,7 @@ interface GObject {
    * @param {Color} [color] The color.
    * @returns {boolean} True if it succeeds, false if it fails.
    */
-  randomize(this: void, color?: Color): boolean;
+  randomize(this: void, color?: ColorLiteral): boolean;
 
   /**
    * Registers this object for Global collision events.
@@ -1120,9 +1461,9 @@ interface GObject {
    * Most often this is used after using setCustomObject(...) to modify a custom object.
    *
    * @param {RespawnParameters} parameters The parameters.
-   * @returns {GObject} The respawned object.
+   * @returns {this} The respawned object.
    */
-  reload(this: void): GObject;
+  reload(this: void): this;
 
   /**
    * Removes a child with the given index. Use getAttachments() to find out the index property.
@@ -1171,9 +1512,9 @@ interface GObject {
   /**
    * Returns an Object reference to a new state after randomly selecting and changing to one.
    *
-   * @returns {GObject} The new state.
+   * @returns {GObject | undefined} The new state. or undefined if no states exist.
    */
-  shuffleStates(this: void): GObject;
+  shuffleStates(this: void): GObject | undefined;
 
   /**
    * Splits a deck, as evenly as possible, into a number of piles.
@@ -1182,9 +1523,9 @@ interface GObject {
    * - If no value is provided, it is split into two piles.
    * - Minimum Value: 2
    * - Maximum Value: Number-Of-Cards-In-Deck / 2
-   * @returns {GObject[]} The split objects.
+   * @returns {GObject[] | undefined} The split objects. or undefined if the object cannot be split
    */
-  split(this: void, piles?: number): GObject[];
+  split(this: void, piles?: number): GObject[] | undefined;
 
   /**
    * Uses the spread action on a deck.
@@ -1192,9 +1533,9 @@ interface GObject {
    * @important Cards take a frame to be created. This means trying to act on them immediately will not work. Use a coroutine or timer to add a delay.
    * @param {number} [distance=0.6] How far apart should the cards be.
    * - Negative values will spread to the left instead of the right.
-   * @returns {GObject[]} The spread objects.
+   * @returns {GObject[] | undefined} The spread objects. or undefined if the object cannot be spread
    */
-  spread(this: void, distance?: number): GObject[];
+  spread(this: void, distance?: number): GObject[] | undefined;
 
   /**
    * Takes an object out of a container (bag/deck/chip stack), returning a reference to the object that was taken out.
@@ -1202,9 +1543,9 @@ interface GObject {
    * Objects that are taken out of a container will take one or more frames to spawn. Certain interactions (e.g. physics) will not be able to take place until the object has finished spawning.
    *
    * @param {TakeObjectParameters} parameters A Table of parameters used to determine how takeObject will act.
-   * @returns {GObject} The taken object.
+   * @returns {GObject | undefined} The taken object. or undefined if no object can be taken
    */
-  takeObject(this: void, parameters: TakeObjectParameters): GObject;
+  takeObject(this: void, parameters?: TakeObjectParameters): GObject | undefined;
 
   /**
    * Unregisters this object for Global collision events.
@@ -1219,9 +1560,9 @@ interface GObject {
    * Returns a child GameObject matching the specified name.
    *
    * @param {string} name The name.
-   * @returns {GameObject} The child.
+   * @returns {GameObject | undefined} The child. or undefined if the name cannot be found.
    */
-  getChild(this: void, name: string): GameObject;
+  getChild(this: void, name: string): GameObject | undefined;
 
   /**
    * Returns the list of children GameObjects.
@@ -1234,9 +1575,9 @@ interface GObject {
    * Returns a Component matching the specified name from the Object's list of Components.
    *
    * @param {string} name The name.
-   * @returns {Component} The component.
+   * @returns {Component | undefined} The component. or undefined if the name cannot be found.
    */
-  getComponent(this: void, name: string): Component;
+  getComponent(this: void, name: string): Component | undefined;
 
   /**
    * Returns a Component matching the specified name. Found by searching the Components of the Object and its children recursively (depth first).
@@ -1250,17 +1591,17 @@ interface GObject {
    * Returns the Object's list of Components. name is optional, when specified only Components with specified name will be included.
    *
    * @param {string} name The name.
-   * @returns {Component[]} The components.
+   * @returns {Component[] | undefined} The components. or undefined if the name cannot be found.
    */
-  getComponents(this: void, name: string): Component[];
+  getComponents(this: void, name?: string): Component[] | undefined;
 
   /**
    * Returns a list of Components found by searching the Object and its children recursively (depth first). name is optional, when specified only Components with specified name will be included.
    *
    * @param {string} name The name.
-   * @returns {Component[]} The components in children.
+   * @returns {Component[] | undefined} The components in children. or undefined if the name cannot be found.
    */
-  getComponentsInChildren(this: void, name: string): Component[];
+  getComponentsInChildren(this: void, name?: string): Component[] | undefined;
 
   /* Hide Functions */
 
@@ -1270,7 +1611,7 @@ interface GObject {
    * @param {Player[]} players A table containing colors to hide the Object from.
    * @returns {boolean} True if it succeeds, false if it fails.
    */
-  setHiddenFrom(this: void, players: Player[]): boolean;
+  setHiddenFrom(this: void, players?: ColorLiteral[]): boolean;
 
   /**
    * Hides the Object from the specified players, as if it were in a hidden zone. Using an empty table will cause the Object to remove the hiding effect.
@@ -1278,7 +1619,7 @@ interface GObject {
    * @param {Player[]} players A table containing colors to hide the Object from.
    * @returns {boolean} True if it succeeds, false if it fails.
    */
-  setInvisibleTo(this: void, players: Player[]): boolean;
+  setInvisibleTo(this: void, players?: ColorLiteral[]): boolean;
 
   /**
    * A more advanced version of setHiddenFrom(...). This function is also used to hide objects as if they were in a hand zone. It allows you to identify multiple sources of "hiding" by an ID and toggle the effect on/off easily.
@@ -1287,137 +1628,22 @@ interface GObject {
    *
    * @param {string} id The unique name for this hiding effect.
    * @param {boolean} hidden If the hiding effect is enabled or not.
-   * @param {Player[]} [players] A table containing colors to hide the Object from.
+   * @param {ColorLiteral[]} [players] A table containing colors to hide the Object from.
    * @returns {boolean} True if it succeeds, false if it fails.
    */
-  attachHider(this: void, id: string, hidden: boolean, players?: Player[]): boolean;
+  attachHider(this: void, id: string, hidden: boolean, players?: ColorLiteral[]): boolean;
 
   /**
    * A more advanced version of setInvisibleTo(...). This function is also used to hide objects as if they were in a hidden zone. It allows you to identify multiple sources of "hiding" by an ID and toggle the effect on/off easily.
    *
    * @param {string} id The unique name for this hiding effect.
    * @param {boolean} hidden If the hiding effect is enabled or not.
-   * @param {Player[]} [players] A table containing colors to hide the Object from.
+   * @param {ColorLiteral[]} [players] A table containing colors to hide the Object from.
    * @returns {boolean} True if it succeeds, false if it fails.
    */
-  attachInvisibleHider(this: void, id: string, hidden: boolean, players?: Player[]): boolean;
+  attachInvisibleHider(this: void, id: string, hidden: boolean, players?: ColorLiteral[]): boolean;
 
-  /* Global Functions */
-
-  /**
-   * Add a Decal onto an object or the game world.
-   *
-   * @important When using this function, the vector parameters (position, rotation) are relative to what the decal is being placed on. For example, if you put a decal at {0,0,0} on Global, it will attach to the center of the game room. If you do the same to an object, it will place the decal on the origin point of the object.
-   * @param {AddDecalParameters} parameters A Table of parameters used to determine how the function will act.
-   * @returns {boolean} True if it succeeds, false if it fails.
-   */
-  addDecal(this: void, parameters: AddDecalParameters): boolean;
-
-  /**
-   * Used to call a Lua function on another entity.
-   *
-   * @param {string} func_name Function name you want to activate.
-   * @param {any} [func_params] A Table containing any data you want to pass to that function.
-   * @returns {any} Var is only returned if the function called has a return. Otherwise return is nil. See example.
-   */
-  call(this: void, func_name: string, func_params?: any): any;
-
-  /**
-   * Returns information on all decals attached to this object or the world.
-   *
-   * @returns {AddDecalParameters[]} Returns a table of sub-tables, each sub-table representing one decal.
-   */
-  getDecals(this: void): AddDecalParameters[];
-
-  /**
-   * Get a Lua script as a string from the entity.
-   *
-   * @returns {string} The lua script.
-   */
-  getLuaScript(this: void): string;
-
-  /**
-   * Returns a table representing a list of snap points.
-   *
-   * @returns {SnapPoint[]} The returned value is a list (numerically indexed table) of sub-tables, where each sub-table represents a snap point.
-   */
-  getSnapPoints(this: void): SnapPoint[];
-
-  /**
-   * Data value of a variable in another Object's script. Can only return a table.
-   *
-   * @param {string} table_name Name of the table.
-   * @returns {any} The table.
-   */
-  getTable(this: void, table_name: string): any;
-
-  /**
-   * Data value of a variable in another entity's script. Cannot return a table.
-   *
-   * @param {string} var_name Name of the variable.
-   * @returns {any} The variable.
-   */
-  getVar(this: void, var_name: string): any;
-
-  /**
-   * Returns Table of data representing the current Vector Lines on this entity. See setVectorLines for table format.
-   *
-   * @returns {VectorLine[]} The vector lines.
-   */
-  getVectorLines(this: void): VectorLine[];
-
-  /**
-   * Sets which decals are on an object. This removes other decals already present, and can remove all decals as well.
-   *
-   * @important Using this function with an empty table will remove all decals from Global or the object it is used on. Global.setDecals({})
-   * @param {AddDecalParameters[]} parameters The main table, which will contain all of the sub-tables consisting of each decal's parameters.
-   * @returns {boolean} True if it succeeds, false if it fails.
-   */
-  setDecals(this: void, parameters: AddDecalParameters[]): boolean;
-
-  /**
-   * Input a string as an entity's Lua script. Generally only used after spawning a new Object.
-   *
-   * @param {string} script The script.
-   * @returns {boolean} True if it succeeds, false if it fails.
-   */
-  setLuaScript(this: void, script: string): boolean;
-
-  /**
-   * Replaces existing snap points with the specified list of snap points.
-   *
-   * @param {SnapPoint[]} snap_points The snap points.
-   * @returns {boolean} True if it succeeds, false if it fails.
-   */
-  setSnapPoints(this: void, snap_points: SnapPoint[]): boolean;
-
-  /**
-   * Creates/updates a variable in another entity's script. Only used for tables.
-   *
-   * @param {string} func_name Name of the function.
-   * @param {any} data The data.
-   * @returns {boolean} True if it succeeds, false if it fails.
-   */
-  setTable(this: void, func_name: string, data: any): boolean;
-
-  /**
-   * Creates/updates a variable in another entity's script. Cannot set a table.
-   *
-   * @param {string} func_name Name of the function.
-   * @param {any} data The data.
-   * @returns {boolean} True if it succeeds, false if it fails.
-   */
-  setVar(this: void, func_name: string, data: any): boolean;
-
-  /**
-   * Spawns Vector Lines from a list of parameters on this entity.
-   *
-   * @param {VectorLineParameter[]} parameters The parameters.
-   * @returns {boolean} True if it succeeds, false if it fails.
-   */
-  setVectorLines(this: void, parameters: VectorLineParameter): boolean;
-
-  UI: UI;
+  UI: UIConstructor;
 }
 
 interface GObjectConstructor {
@@ -1455,6 +1681,11 @@ type Bounds = {
 
 type CommonButtonParameters = {
   /**
+   * function name for (obj: GObject, player_clicker_color: ColorLiteral, alt_click: boolean) => void
+   */
+  click_function?: string;
+
+  /**
    *
    */
   function_owner?: GObject | Global;
@@ -1467,17 +1698,17 @@ type CommonButtonParameters = {
   /**
    *
    */
-  position?: Vector;
+  position?: VectorInput;
 
   /**
    *
    */
-  rotation?: Vector;
+  rotation?: VectorInput;
 
   /**
    *
    */
-  scale?: Vector;
+  scale?: VectorInput;
 
   /**
    *
@@ -1520,18 +1751,21 @@ type CommonButtonParameters = {
   tooltip?: string;
 };
 
-type CreateButtonParameters = {
-  /**
-   *
-   */
-  click_function: (obj: GObject, player_clicker_color: ColorLiteral, alt_click: boolean) => void;
-} & CommonButtonParameters;
-
 type CommonInputParameters = {
   /**
+   * function name for (
+   *   obj: GObject,
+   *   player_clicker_color: ColorLiteral,
+   *   input_value: string,
+   *   selected: boolean
+   * ) => void;
+   */
+  input_function?: string;
+
+  /**
    *
    */
-  function_owner?: GObject;
+  function_owner?: GObject | Global;
 
   /**
    *
@@ -1541,17 +1775,17 @@ type CommonInputParameters = {
   /**
    *
    */
-  position?: Vector;
+  position?: VectorInput;
 
   /**
    *
    */
-  rotation?: Vector;
+  rotation?: VectorInput;
 
   /**
    *
    */
-  scale?: Vector;
+  scale?: VectorInput;
 
   /**
    *
@@ -1586,7 +1820,7 @@ type CommonInputParameters = {
   /**
    *
    */
-  alignment?: number;
+  alignment?: Alignment;
 
   /**
    *
@@ -1596,36 +1830,61 @@ type CommonInputParameters = {
   /**
    *
    */
-  validation?: number;
+  validation?: Validation;
 
   /**
    *
    */
-  tab?: number;
+  tab?: TabAction;
 };
+
+type CreateButtonParameters = {
+  /**
+   * function name for (obj: GObject, player_clicker_color: ColorLiteral, alt_click: boolean) => void
+   */
+  click_function: string;
+} & CommonButtonParameters;
 
 type CreateInputParameters = {
   /**
-   *
+   * function name for (
+   *   obj: GObject,
+   *   player_clicker_color: ColorLiteral,
+   *   input_value: string,
+   *   selected: boolean
+   * ) => void;
    */
-  input_function: (
-    obj: GObject,
-    player_clicker_color: string,
-    input_value: string,
-    selected: boolean
-  ) => void;
+  input_function: string;
 } & CommonInputParameters;
+
+declare const enum Alignment {
+  Automatic = 1,
+  Left = 2,
+  Center = 3,
+  Right = 4,
+  Justified = 5
+}
+
+declare const enum Validation {
+  None = 1,
+  Integer = 2,
+  Float = 3,
+  Alphanumeric = 4,
+  Username = 5,
+  Name = 6
+}
+
+declare const enum TabAction {
+  None = 1,
+  SelectNextInput = 2,
+  Indent = 3
+}
 
 type EditButtonParameters = {
   /**
    *
    */
   index: number;
-
-  /**
-   *
-   */
-  click_function?: (obj: GObject, player_clicker_color: string, alt_click: boolean) => void;
 } & CommonButtonParameters;
 
 type EditInputParameters = {
@@ -1633,16 +1892,6 @@ type EditInputParameters = {
    *
    */
   index: number;
-
-  /**
-   *
-   */
-  input_function?: (
-    obj: GObject,
-    player_clicker_color: string,
-    input_value: string,
-    selected: boolean
-  ) => void;
 } & CommonInputParameters;
 
 type RequiredButtonParameters = Required<EditButtonParameters>;
@@ -1674,7 +1923,7 @@ type CustomAssetBundle = {
    * - 6: Bag
    * - 7: Infinite bag
    */
-  type?: number;
+  type?: CustomObjectTypeOption;
 
   /**
    * An Int representing the Object's material. Defaults to 0.
@@ -1685,7 +1934,7 @@ type CustomAssetBundle = {
    * - 2: Metal
    * - 3: Cardboard
    */
-  material?: number;
+  material?: MaterialType;
 };
 
 type CustomBoard = {
@@ -1706,7 +1955,7 @@ type CustomCard = {
    * - 3: Hex
    * - 4: Circle
    */
-  type?: number;
+  type?: ShapeType;
 
   /**
    * The path/URL of the face image.
@@ -1798,7 +2047,7 @@ type CustomDice = {
    * - 4: 12-sided
    * - 5: 20-sided
    */
-  type?: number;
+  type?: DiceSideType;
 };
 
 type CustomFigurine = {
@@ -1859,7 +2108,7 @@ type CustomModel = {
    * - 6: Bag
    * - 7: Infinite bag
    */
-  type?: number;
+  type?: CustomObjectTypeOption;
 
   /**
    * An Int representing the Object's material. Defaults to 0.
@@ -1870,7 +2119,7 @@ type CustomModel = {
    * - 2: Metal
    * - 3: Cardboard
    */
-  material?: number;
+  material?: MaterialType;
 
   /**
    * The specular intensity. Defaults to 0.1.
@@ -1920,7 +2169,7 @@ type CustomTile = {
    * - 1: Hex
    * - 2: Circle
    */
-  type?: number;
+  type?: ShapeSimpleType;
 
   /**
    * The path/URL for the bottom-side image.
@@ -1971,6 +2220,53 @@ type CustomToken = {
    */
   stackable?: boolean;
 };
+
+declare const enum CustomObjectTypeOption {
+  Generic = 0,
+  Figurine = 1,
+  Dice = 2,
+  Coin = 3, 
+  Board = 4,
+  Chip = 5,
+  Bag = 6,
+  InfiniteBag = 7
+}
+
+declare const enum MaterialType {
+  Plastic = 0,
+  Wood = 1,
+  Metal = 2,
+  Cardboard = 3
+}
+
+declare const enum ShapeType {
+  RectangleRounded = 0,
+  Rectangle = 1,
+  HexRounded = 2,
+  Hex = 3,
+  Circle = 4
+}
+
+declare const enum DiceSideType {
+  FourSided = 0,
+  SixSided = 1,
+  EightSided = 2,
+  TenSided = 3,
+  TwelveSided = 4,
+  TwentySided = 5,
+  '4Sided' = 0,
+  '6Sided' = 1,
+  '8Sided' = 2,
+  '10Sided' = 3,
+  '12Sided' = 4,
+  '20Sided' = 5
+}
+
+declare const enum ShapeSimpleType {
+  SquareRectangle = 0,
+  Hex = 1,
+  Circle = 2
+}
 
 type CustomObject =
   | CustomAssetBundle
@@ -2142,7 +2438,7 @@ type RotationValuePair = {
    *
    * If `value` is a string starting with "#", then it will not be displayed in the Object's tooltip.
    */
-  value: string;
+  value: string | number;
 
   /**
    *  The rotation of the Object that corresponds with the provided value.
@@ -2193,7 +2489,7 @@ type CloneParameters = {
    *
    * Defaults to {x=0, y=3, z=0}
    */
-  position?: Vector;
+  position?: VectorInput;
 
   /**
    * If the Object snaps to grid.
@@ -2210,10 +2506,10 @@ type CloneParameters = {
   /**
    * param table passed to callback, NOT callback_function
    */
-  params?: CustomTableObject;
+  params?: Record<string, any>;
 
   /**
-   * function name for (this: void, obj: GObject, data?: CustomTableObject) => void
+   * function name for (this: void, obj: GObject, data?: Record<string, any>) => void
    */
   callback?: string;
 
@@ -2223,31 +2519,21 @@ type CloneParameters = {
   callback_owner?: GObject | Global;
 };
 
-type TakeObjectParameters = {
+type CommonTakeObjectParameters = {
   /**
    *
    */
-  position?: Vector;
+  position?: VectorInput;
 
   /**
    *
    */
-  rotation?: Vector;
+  rotation?: VectorInput;
 
   /**
    *
    */
   flip?: boolean;
-
-  /**
-   *
-   */
-  guid?: string;
-
-  /**
-   *
-   */
-  index?: number;
 
   /**
    *
@@ -2267,10 +2553,10 @@ type TakeObjectParameters = {
   /**
    * param table passed to callback, NOT callback_function
    */
-  params?: CustomTableObject;
+  params?: Record<string, any>;
 
   /**
-   * function name for (this: void, obj: GObject, data?: CustomTableObject) => void
+   * function name for (this: void, obj: GObject, data?: Record<string, any>) => void
    */
   callback?: string;
 
@@ -2279,6 +2565,24 @@ type TakeObjectParameters = {
    */
   callback_owner?: GObject | Global;
 };
+
+type IndexTakeObjectParameters = {
+  /**
+   *
+   */
+  index?: number;
+  guid?: never;
+} & CommonTakeObjectParameters
+
+type GUIDTakeObjectParameters = {
+  /**
+   *
+   */
+  guid?: string;
+  index?: never;
+} & CommonTakeObjectParameters
+
+type TakeObjectParameters = IndexTakeObjectParameters | GUIDTakeObjectParameters
 
 type AddDecalParameters = {
   /**
@@ -2294,46 +2598,46 @@ type AddDecalParameters = {
   /**
    * Position to place Object.
    */
-  position: Vector;
+  position?: VectorInput;
 
   /**
    * Rotation of the Object.
    */
-  rotation: Vector;
+  rotation?: VectorInput;
 
   /**
    * Image scale multiplier. 1 is normal scale.
    */
-  scale: Vector;
+  scale?: VectorInput;
 };
 
 type SnapPoint = {
   /**
    * Local Position of the snap point. When attached to an object, position is relative to the object's center.
    */
-  position: Vector;
+  position?: Vector;
 
   /**
    * Local Rotation of the snap point. When attached to an object, rotation is relative to the object's rotation.
    */
-  rotation: Vector;
+  rotation?: Vector;
 
   /**
    * Whether the snap point is a rotation snap point.
    */
-  rotation_snap: false;
+  rotation_snap?: boolean;
 
   /**
    * Table of representing the tags associated with the snap point.
    */
-  tags: string[];
+  tags?: string[];
 };
 
 type VectorLineParameter = {
   /**
    * Table containing Vector positions for each "point" on the line.
    */
-  points: Vector[];
+  points: VectorInput[];
 
   /**
    * Color the line will be.
@@ -2354,38 +2658,45 @@ type VectorLineParameter = {
    *
    * Defaults to {0,0,0}
    */
-  rotation?: Vector;
+  rotation?: VectorInput;
 };
 
 type VectorLine = Required<VectorLineParameter>;
 
-type JointFixed = {
-  type: string;
-  collision: boolean;
-  break_force: number;
+type JointCommon = {
+  type: 'Fixed' | 'Spring' | 'Hinge';
+  collision?: boolean;
+  break_force?: number;
 };
 
 type JointSpring = {
-  type: string;
-  collision: boolean;
-  break_force: number;
-  break_torque: number;
-  spring: number;
-  damper: number;
-  max_distance: number;
-  min_distance: number;
-};
+  type: 'Spring';
+  break_torque?: number;
+  spring?: number;
+  damper?: number;
+  max_distance?: number;
+  min_distance?: number;
+  axis?: never;
+  anchor?: never;
+  motor_force?: never;
+  motor_velocity?: never;
+  motor_free_spin?: never;
+} & JointCommon;
 
 type JointHinge = {
-  type: string;
-  collision: boolean;
-  axis: Vector;
-  anchor: Vector;
-  break_force: number;
-  break_torque: number;
-  motor_force: number;
-  motor_velocity: number;
-  motor_free_spin: boolean;
-};
+  type: 'Hinge';
+  axis?: VectorInput;
+  anchor?: VectorInput;
+  break_torque?: number;
+  motor_force?: number;
+  motor_velocity?: number;
+  motor_free_spin?: boolean;
+  spring?: never;
+  damper?: never;
+  max_distance?: never;
+  min_distance?: never;
+} & JointCommon;
 
-type JointToParameters = JointFixed | JointSpring | JointHinge;
+type JointToParameters = JointCommon | JointSpring | JointHinge;
+
+declare type ForceType = 1 | 2 | 3 | 4

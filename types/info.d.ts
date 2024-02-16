@@ -14,12 +14,12 @@ interface InfoConstructor {
   /**
    * The number of players the current game/mod allows.
    */
-  number_of_players: number;
+  number_of_players: [number, number] | undefined;
 
   /**
    * The amount of time the current game/mod takes.
    */
-  playing_time: number;
+  playing_time: [number, number] | undefined;
 
   /**
    * The tags associated with the current game/mod.

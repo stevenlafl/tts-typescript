@@ -11,7 +11,7 @@ interface Container {
    * @param {number} max_card Optional maximum number of cards to show.
    * @returns {boolean} True if the search window was shown, false otherwise.
    */
-  search(this: void, player: Player, max_card?: number): boolean;
+  search(this: void, player: ColorLiteral, max_card?: number): boolean;
 }
 
 interface ContainerConstructor {}

@@ -10,7 +10,7 @@
  * Function to run when menu item is selected.
  *
  * @callback addContextMenuItemCallback
- * @param {string} player_color - Player Color who selected the menu item.
+ * @param {ColorLiteral} player_color - Player Color who selected the menu item.
  * @param {Vector} vector - Global position of the right-click context menu.
  */
 
@@ -25,7 +25,7 @@
  */
 declare function addContextMenuItem(
   label: string,
-  toRunFunc: (player_color: string, vector: Vector) => void,
+  toRunFunc: (player_color: ColorLiteral, vector: Vector) => void,
   keep_open?: boolean,
   require_table?: boolean
 ): boolean;
@@ -69,12 +69,12 @@ declare function flipTable(): boolean;
 declare function getAllObjects(): GObject[];
 
 /**
- * Returns Object by its GUID. Will return null if this GUID doesn't currently exist.
+ * Returns Object by its GUID. Will return undefined if this GUID doesn't currently exist.
  *
  * @param {string} guid GUID of the Object to get a reference of.
  * @returns {GObject}
  */
-declare function getObjectFromGUID(guid: string): GObject | Zone;
+declare function getObjectFromGUID(guid: string): GObject | undefined;
 
 /**
  * Returns a list of all Objects.
@@ -110,9 +110,9 @@ declare function getObjectsWithAllTags(tags: string[]): GObject[];
 /**
  * Returns a list of all seated players.
  *
- * @returns {Player[]} List of all seated players.
+ * @returns {ColorLiteral[]} List of all seated player colors.
  */
-declare function getSeatedPlayers(): Player[];
+declare function getSeatedPlayers(): ColorLiteral[];
 
 /**
  * Groups objects together, like how the `G` key does for players. It returns a table of object references to any decks/stacks formed.
@@ -186,9 +186,9 @@ declare function startLuaCoroutine(function_owner: GObject  | Global, function_n
 /**
  * Converts a Player Color string into a Color Table for tinting.
  *
- * @param {string} player_color A String of a Player Color.
+ * @param {ColorLiteral} player_color A String of a Player Color.
  */
-declare function stringColorToRGB(player_color: string): Color;
+declare function stringColorToRGB(player_color: ColorLiteral): Color;
 
 /* Hotkey */
 
@@ -216,7 +216,7 @@ declare function addHotkey(
   label: string,
   toRunFunc: (
     playerColor: ColorLiteral,
-    hoveredObject: GObject,
+    hoveredObject: GObject | undefined,
     pointerPosition: Vector,
     isKeyUp: boolean
   ) => void,
@@ -246,20 +246,20 @@ declare function showHotkeyConfig(): boolean;
  * @param {Color} message_tint  A Table containing the RGB color tint for the text.
  * @returns {boolean}
  */
-declare function broadcastToAll(message: string, message_tint: Color): boolean;
+declare function broadcastToAll(message: string, message_tint?: ColorInput): boolean;
 
 /**
  * Print an on-screen message to a specified Player and their in-game chat.
  *
  * @param {string} message Message to display on-screen.
- * @param {string} player_color Player Color to receive the message.
+ * @param {ColorLiteral} player_color Player Color to receive the message.
  * @param {Color} message_tint RGB color tint for the text.
  * @returns {boolean}
  */
 declare function broadcastToColor(
   message: string,
-  player_color: string,
-  message_tint: Color
+  player_color: ColorLiteral,
+  message_tint?: ColorInput
 ): boolean;
 
 /**
@@ -299,7 +299,7 @@ declare function logString(
  * @param {string} postfix Text to place after this type of log entry.
  * @returns {boolean}
  */
-declare function logStyle(tag: string, tint: Color, prefix: string, postfix: string): boolean;
+declare function logStyle(tag: string, tint: ColorInput, prefix?: string, postfix?: string): boolean;
 
 /**
  * Print a string into chat that only the host is able to see. Used for debugging scripts.
@@ -307,7 +307,7 @@ declare function logStyle(tag: string, tint: Color, prefix: string, postfix: str
  * @param message Text to print into the chat log.
  * @returns {boolean}
  */
-declare function print(message: string): null;
+declare function print(message: string): undefined;
 
 /**
  * Print a message into the in-game chat of all connected players.
@@ -315,20 +315,20 @@ declare function print(message: string): null;
  * @param {string} message Message to place into players' in-game chats.
  * @param {Color} message_tint RGB values for the text's color tint.
  */
-declare function printToAll(message: string, message_tint?: Color): boolean;
-declare function printToColor(message: string, player_colo: string, message_tint: Color): boolean;
+declare function printToAll(message: string, message_tint?: ColorInput): boolean;
+declare function printToColor(message: string, player_color: ColorLiteral, message_tint?: ColorInput): boolean;
 declare function sendExternalMessage(data: any): boolean;
 
 /**
  * PasteParameters
  *
  * @typedef {GObject} PasteParameters
- * @property {Vector} [position] - Position to paste objects to. Defaults to the position of the player's cursor.
+ * @property {VectorInput} [position] - Position to paste objects to. Defaults to the position of the player's cursor.
  * @property {boolean} [snap_to_grid] - Snap pasted objects to the grid. Defaults to true.
  * @see {@link paste}
  */
 type PasteParameters = {
-  position?: Vector;
+  position?: VectorInput;
   snap_to_grid?: boolean;
 };
 
@@ -337,58 +337,203 @@ type PasteParameters = {
  *
  * @typedef {GObject} SpawnObjectParameters
  * @property {string} type Built-in or Custom Game Object name.
- * @property {Vector} [position=[0,0,0]] Position where the object will be spawned.
- * @property {Vector} [rotation=[0,0,0]] Rotation of the spawned object.
- * @property {Vector} [scale=[1,1,1]] Scale of the spawned object.
+ * @property {VectorInput} [position=[0,0,0]] Position where the object will be spawned.
+ * @property {VectorInput} [rotation=[0,0,0]] Rotation of the spawned object.
+ * @property {VectorInput} [scale=[1,1,1]] Scale of the spawned object.
  * @property {boolean} [sound=true] Whether a sound will be played as the object spawns.
  * @property {boolean} [snap_to_grid=false] Whether upon spawning, the object will snap to nearby grid lines (or snap points).
- * @property {function} [callback_function=null] Called when the object has finished spawning. The spawned object will be passed as the first and only parameter.
+ * @property {function} [callback_function=undefined] Called when the object has finished spawning. The spawned object will be passed as the first and only parameter.
  * @see {@link spawnObject}
  */
 type SpawnObjectParameters = {
-  type: string;
-  position?: Vector;
-  rotation?: Vector;
-  scale?: Vector;
+  type: BuiltInObjectType | CustomObjectType;
+  position?: VectorInput;
+  rotation?: VectorInput;
+  scale?: VectorInput;
   sound?: boolean;
   snap_to_grid?: boolean;
   callback_function?: (this: void, obj: GObject) => void;
+  /**
+   * param table passed to callback, NOT callback_function
+   */
+  params?: Record<string, any>;
+
+  /**
+   * function name for (this: void, obj: GObject, data?: Record<string, any>) => void
+   */
+  callback?: string;
+
+  /**
+   * only applies to callback, NOT callback_function
+   */
+  callback_owner?: GObject | Global;
 };
 
 /**
  * SpawnObjectDataParameters
  *
  * @typedef {GObject} SpawnObjectDataParameters
- * @property {GObject} data Properties describing the object that will be spawned.
- * @property {Vector} [position=[0,0,0]] Position where the object will be spawned. When specified, overrides the `Transform` position in `data`.
- * @property {Vector} [rotation=[0,0,0]] Rotation of the spawned object. When specified, overrides the `Transform` rotation in `data`.
- * @property {Vector} [scale=[1,1,1]] Scale of the spawned object. When specified, overrides the `Transform` scale in `data`.
- * @property {function} [callback_function=null] Called when the object has finished spawning. The spawned object will be passed as the first and only parameter.
+ * @property {GObjectData} data Properties describing the object that will be spawned.
+ * @property {VectorInput} [position=[0,0,0]] Position where the object will be spawned. When specified, overrides the `Transform` position in `data`.
+ * @property {VectorInput} [rotation=[0,0,0]] Rotation of the spawned object. When specified, overrides the `Transform` rotation in `data`.
+ * @property {VectorInput} [scale=[1,1,1]] Scale of the spawned object. When specified, overrides the `Transform` scale in `data`.
+ * @property {function} [callback_function=undefined] Called when the object has finished spawning. The spawned object will be passed as the first and only parameter.
  * @see {@link spawnObjectData}
  */
 type SpawnObjectDataParameters = {
-  data: any;
-  position?: Vector;
-  rotation?: Vector;
-  scale?: Vector;
+  data: GObjectData;
+  position?: VectorInput;
+  rotation?: VectorInput;
+  scale?: VectorInput;
   callback_function?: (this: void, obj: GObject) => void;
+  /**
+   * param table passed to callback, NOT callback_function
+   */
+  params?: Record<string, any>;
+
+  /**
+   * function name for (this: void, obj: GObject, data?: Record<string, any>) => void
+   */
+  callback?: string;
+
+  /**
+   * only applies to callback, NOT callback_function
+   */
+  callback_owner?: GObject | Global;
 };
 
 /**
  * SpawnObjectJSONParameters
  *
  * @typedef {GObject} SpawnObjectJSONParameters
- * @property {GObject} json - The JSON data of the object to spawn.
- * @property {Vector} [position=[0,0,0]] Position where the object will be spawned. When specified, overrides the `Transform` position in `json`.
- * @property {Vector} [rotation=[0,0,0]] Rotation of the spawned object. When specified, overrides the `Transform` rotation in `json`.
- * @property {Vector} [scale=[1,1,1]] Scale of the spawned object. When specified, overrides the `Transform` scale in `json`.
- * @property {function} [callback_function=null] Called when the object has finished spawning. The spawned object will be passed as the first and only parameter.
+ * @property {string} json - The JSON data representation of GObjectData for the object to spawn.
+ * @property {VectorInput} [position=[0,0,0]] Position where the object will be spawned. When specified, overrides the `Transform` position in `json`.
+ * @property {VectorInput} [rotation=[0,0,0]] Rotation of the spawned object. When specified, overrides the `Transform` rotation in `json`.
+ * @property {VectorInput} [scale=[1,1,1]] Scale of the spawned object. When specified, overrides the `Transform` scale in `json`.
+ * @property {function} [callback_function=undefined] Called when the object has finished spawning. The spawned object will be passed as the first and only parameter.
  * @see {@link spawnObjectJSON}
  */
 type SpawnObjectJSONParameters = {
-  json: any;
-  position?: Vector;
-  rotation?: Vector;
-  scale?: Vector;
+  json: string;
+  position?: VectorInput;
+  rotation?: VectorInput;
+  scale?: VectorInput;
   callback_function?: (this: void, obj: GObject) => void;
+  /**
+   * param table passed to callback, NOT callback_function
+   */
+  params?: Record<string, any>;
+
+  /**
+   * function name for (this: void, obj: GObject, data?: Record<string, any>) => void
+   */
+  callback?: string;
+
+  /**
+   * only applies to callback, NOT callback_function
+   */
+  callback_owner?: GObject | Global;
 };
+
+/*
+* Loosely typed GObjectData because these are the only values i could verify, there could be more
+*/
+type GObjectData = {
+  GUID?: string,
+  Name: BuiltInObjectType | CustomObjectType | string,
+  Transform: {
+    posX: number,
+    posY: number,
+    posZ: number,
+    rotX: number,
+    rotY: number,
+    rotZ: number,
+    scaleX: number,
+    scaleY: number,
+    scaleZ: number
+  },
+  Nickname?: string,
+  Description?: string,
+  GMNotes?: string,
+  AltLookAngle?: VectorLetters,
+  ColorDiffuse?: ColorLetters,
+  LayoutGroupSortIndex?: number,
+  Value?: number,
+  Locked?: boolean,
+  Grid?: boolean,
+  Snap?: boolean,
+  IgnoreFoW?: boolean,
+  HideWhenFaceDown?: boolean,
+  Hands?: boolean,
+  MeasureMovement?: boolean,
+  DragSelectable?: boolean,
+  Autoraise?: boolean,
+  Sticky?: boolean,
+  Tooltip?: boolean,
+  GridProjection?: boolean,
+  CardID?: number,
+  DeckIDs?: number[],
+  SidewaysCard?: boolean,
+  RPGmode?: boolean,
+  RPGdead?: boolean,
+  MaterialIndex?: number,
+  MeshIndex?: number,
+  Number?: number,
+  FogColor?: ColorLiteral | string,
+  FogHidePointers?: boolean,
+  FogReverseHiding?: boolean,
+  FogSeethrough?: boolean,
+  FogOfWar?: {
+    HideGmPointer?: boolean,
+    HideObjects?: boolean,
+    ReHideObjects?: boolean,
+    Height?: number,
+    RevealedLocations?: any, // Unsure what type this is
+    [key: string]: any
+  },
+  Bag?: {
+    Order?: number,
+    [key: string]: any
+  },
+  Calculator?: {
+    value?: string,
+    memory?: number,
+    [key: string]: any
+  }
+  CustomDeck?: {
+    [key: string]: {
+      FaceURL?: string,
+      BackURL?: string,
+      NumWidth?: number,
+      NumHeight?: number,
+      BackIsHidden?: boolean,
+      UniqueBack?: boolean,
+      Type?: number,
+      [key: string]: any
+    }
+  },
+  CustomImage?: {
+    ImageURL?: string,
+    ImageSecondaryURL?: string,
+    ImageScalar?: number,
+    WidthScale?: number,
+    CustomToken?: {
+      Thickness: number,
+      MergeDistancePixels: number,
+      StandUp: boolean,
+      Stackable: boolean,
+      [key: string]: any
+    },
+    [key: string]: any
+  }
+  RotationValues?: { // Dice
+    Value?: string,
+    Rotation?: VectorLetters,
+    [key: string]: any
+  }[]
+  LuaScript?: string,
+  LuaScriptState?: string,
+  XmlUI?: string,
+  ContainedObjects?: GObjectData[]
+  [key: string]: any
+}

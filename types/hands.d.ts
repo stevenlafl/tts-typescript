@@ -1,4 +1,8 @@
-interface Hands {}
+declare const enum HidingState {
+  Default = 1,
+  Reverse = 2,
+  Disable = 3
+}
 
 interface HandsConstructor {
   /**
@@ -18,17 +22,14 @@ interface HandsConstructor {
    * 2. Reverse. The contents of a player's hands are visible to all other players, but not the owner.
    * 3. Disable. Contents of all player hands are visible to all players.
    */
-  hiding: number;
+  hiding: HidingState;
 
   /**
    * Returns a table of all Hand Zone Objects in the game.
    *
-   * @returns {Zone[]} A table of all Hand Zone Objects in the game.
+   * @returns {GObject[]} A table of all Hand Zone Objects in the game.
    */
-  getHands(this: void): Zone[];
+  getHands(this: void): GObject[];
 }
 
-/**
- * The static global Hands class allows you to control the behavior of Hand Zones.
- */
 declare var Hands: HandsConstructor;

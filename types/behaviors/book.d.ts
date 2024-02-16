@@ -2,6 +2,7 @@
  * The Book behavior is present on Custom PDF Objects. The Book behaviour allows you to manipulate the displayed PDF.
  */
 interface Book {
+
   /**
    * The page numbers displayed in the Custom PDF UI are offset by this amount.
    */

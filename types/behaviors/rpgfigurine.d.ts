@@ -14,7 +14,7 @@ interface RPGFigurine {
    * @param {GObject[]} hitObjects The objects that were hit by the attack.
    * @returns {boolean} True if the attack was successful, false otherwise.
    */
-  onAttack: (this: void, hitObjects: GObject[]) => void;
+  onAttack(this: void, hitObjects: GObject[]): void;
 
   /**
    * Executed when the RPGFigurine Object is attacked.
@@ -24,7 +24,7 @@ interface RPGFigurine {
    * @param {GObject} attacker The object that attacked the RPGFigurine Object.
    * @returns {boolean} True if the attack was successful, false otherwise.
    */
-  onHit: (this: void, attacker: GObject) => void;
+  onHit(this: void, attacker: GObject): void;
 
   /**
    * Plays a random attack animation.

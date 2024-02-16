@@ -2,6 +2,11 @@
 
 interface Lighting {}
 
+declare const enum LightSource {
+  Background = 1,
+  Gradient = 2
+}
+
 interface LightingConstructor {
   /**
    * The strength of the ambient light. Range = 0 to 4.
@@ -11,7 +16,7 @@ interface LightingConstructor {
   /**
    * The source of ambient light. 1 = background, 2 = gradient.
    */
-  ambient_type: number;
+  ambient_type: LightSource;
 
   /**
    * The strength of the directional light shining down in the scene. Range = 0 to 4.
@@ -31,7 +36,7 @@ interface LightingConstructor {
   /**
    * The URL of the LUT.
    */
-  lut_url: string;
+  lut_url: string | undefined;
 
   /**
    * The strength of the reflections from the background. Range = 0 to 1.
@@ -43,63 +48,63 @@ interface LightingConstructor {
    *
    * @returns {boolean} True if the changes were applied, false otherwise.
    */
-  apply: (this: void) => boolean;
+  apply(this: void): boolean;
 
   /**
    * Returns Color Table of the gradient equator. Not used if {@link ambient_type} = 1.
    *
    * @returns {Color} The Color Table of the gradient equator.
    */
-  getAmbientEquatorColor: (this: void) => Color;
+  getAmbientEquatorColor(this: void): Color;
 
   /**
    * Returns Color Table of the gradient ground. Not used if {@link ambient_type} = 1.
    *
    * @returns {Color} The Color Table of the gradient ground.
    */
-  getAmbientGroundColor: (this: void) => Color;
+  getAmbientGroundColor(this: void): Color;
 
   /**
    * Returns Color Table of the gradient sky. Not used if {@link ambient_type} = 1.
    *
    * @returns {Color} The Color Table of the gradient sky.
    */
-  getAmbientSkyColor: (this: void) => Color;
+  getAmbientSkyColor(this: void): Color;
 
   /**
    * Returns Color Table of the directional light, which shines straight down on the table.
    *
    * @returns {Color} The Color Table of the directional light.
    */
-  getLightColor: (this: void) => Color;
+  getLightColor(this: void): Color;
 
   /**
    * Sets the color of the gradient equator. Not used if {@link ambient_type} = 1.
    *
    * @param {Color} tint The new color of the gradient equator.
    */
-  setAmbientEquatorColor: (this: void, tint: Color) => boolean;
+  setAmbientEquatorColor(this: void, tint: ColorInput): boolean;
 
   /**
    * Sets the color of the gradient ground. Not used if {@link ambient_type} = 1.
    *
    * @param {Color} tint The new color of the gradient ground.
    */
-  setAmbientGroundColor: (this: void, tint: Color) => boolean;
+  setAmbientGroundColor(this: void, tint: ColorInput): boolean;
 
   /**
    * Sets the color of the gradient sky. Not used if {@link ambient_type} = 1.
    *
    * @param {Color} tint The new color of the gradient sky.
    */
-  setAmbientSkyColor: (this: void, tint: Color) => boolean;
+  setAmbientSkyColor(this: void, tint: ColorInput): boolean;
 
   /**
    * Sets the color of the directional light, which shines straight down on the table.
    *
    * @param {Color} tint The new color of the directional light.
    */
-  setLightColor: (this: void, tint: Color) => boolean;
+  setLightColor(this: void, tint: ColorInput): boolean;
 }
 
 /**

@@ -19,22 +19,22 @@ interface PhysicsConstructor {
    * @param {CastParameters} parameters A Table of parameters used to guide the function.
    * @returns {HitObjects} Table containing information on hit Objects.
    */
-  cast: (this: void, parameters: CastParameters) => HitObjects;
+  cast(this: void, parameters: CastParameters): HitObjects[];
 
   /**
    * Returns directional Vector of the direction gravity is pulling.
    *
    * @returns {Vector} The directional Vector of the direction gravity is pulling.
    */
-  getGravity: (this: void) => Vector;
+  getGravity(this: void): Vector;
 
   /**
    * Sets the direction gravity pulls.
    *
-   * @param {Vector} direction The new direction gravity pulls.
+   * @param {VectorInput} direction The new direction gravity pulls.
    * @returns {boolean} True if the direction gravity pulls was set, false otherwise.
    */
-  setGravity: (this: void, direction: Vector) => boolean;
+  setGravity(this: void, direction: VectorInput): boolean;
 }
 
 /**
@@ -44,31 +44,37 @@ interface PhysicsConstructor {
  */
 declare var Physics: PhysicsConstructor;
 
+declare const enum CastType {
+  Ray = 1,
+  Sphere = 2,
+  Box = 3
+}
+
 type CastParameters = {
   /**
    * Position of the starting point. Defaults to {x=0, y=0, z=0}.
    */
-  origin?: Vector;
+  origin?: VectorInput;
 
   /**
    * A direction for the cast to move in. Cast is motionless without a direction.
    */
-  direction?: Vector;
+  direction?: VectorInput;
 
   /**
    * The type of cast. 1 = Ray, 2 = Sphere, 3 = Box. Defaults to 1.
    */
-  type?: number;
+  type?: CastType;
 
   /**
    * Size of the cast shape. Sphere/Box only. Defaults to {x=0, y=0, z=0}.
    */
-  size?: Vector;
+  size?: VectorInput;
 
   /**
    * Rotation of the cast shape. Box only. Defaults to {x=0, y=0, z=0}
    */
-  orientation?: Vector;
+  orientation?: VectorInput;
 
   /**
    * How far the cast will travel. Defaults to infinity. Won't move without direction.

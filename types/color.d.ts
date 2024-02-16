@@ -14,30 +14,11 @@ declare type ColorLiteral =
   | 'Black'
   | 'Nobody';
 
-declare class ColorFunctionality {
-  /**
-   *
-   */
-  setAt?: (this: void, k: ColorLetterKeys | ColorNumberKeys, value: number) => this;
-
-  /**
-   *
-   */
-  set?: (this: void, r: number, g: number, b: number, a: number) => this;
-
-  /**
-   *
-   */
-  get?: (this: void) => { r: number; g: number; b: number; a: number };
-
-  /**
-   *
-   */
-  copy?: (this: void) => Color;
-}
+type ColorLiteralIgnoreCase = ColorLiteral | Uppercase<ColorLiteral> | Lowercase<ColorLiteral>
 
 type ColorLetterKeys = 'r' | 'g' | 'b' | 'a';
 type ColorNumberKeys = 1 | 2 | 3 | 4;
+type ColorTuple = [number, number, number, number?];
 
 type ColorLetters = {
   [key in ColorLetterKeys]?: number;
@@ -51,9 +32,9 @@ type ColorNumbers = {
   [key in ColorNumberKeys]?: number;
 };
 
-type ColorTuple = [number, number, number, number?];
+interface ColorInput extends ColorLetters, ColorNumbers {}
 
-interface Color extends ColorLetters, ColorNumbers, ColorFunctionality {
+interface Color extends ColorInput {
  /**
   * Sets a component to value and returns self.
   * 
@@ -61,44 +42,47 @@ interface Color extends ColorLetters, ColorNumbers, ColorFunctionality {
   * @param {number} value The value to set the component to.
   * @returns {this} self
   */
- setAt?: (k: ColorLetterKeys | ColorNumberKeys, value: number) => this;
+ setAt(k: ColorLetterKeys | ColorNumberKeys, value: number): this;
 
  /**
   * Sets r, b, g, a components to given values and returns self.
   * 
-  * @param {VectorTuple} args The values to set the components to.
+   * @param {number} r Red component.
+   * @param {number} g Green component.
+   * @param {number} b Blue component.
+   * @param {number} a Alpha component.
   * @returns {this} self
   */
- set?: (...args: ColorTuple) => this;
+ set(r: number, g: number, b: number, a?: number): this;
 
  /**
-  * Returns x, y, z components as three separate values.
+  * Returns r, g, b, a components as four separate values.
   * 
   * @returns {ColorLettersGuaranteed} The components.
   */
- get?: () => ColorLettersGuaranteed;
+ get(): LuaMultiReturn<Required<ColorTuple>>;
  
  /**
   * Returns a separate Color with identical component values. 	
   * 
   * @returns {Color} A new Color
   */
- copy?: () => Color;
+ copy(): Color;
 
  /**
   *  Returns a hex string for self, boolean parameter `includeAlpha`.
   * 
   * @param includeAlpha Whether to include the alpha component.
   */
- toHex? (includeAlpha: boolean): string;
+ toHex(includeAlpha?: boolean): string;
 
  /**
   * Returns a color string if matching this instance, nil otherwise, optional numeric tolerance param.
   * 
   * @param {number} tolerance The tolerance to use.
-  * @returns {string} A string representation of the color or null.
+  * @returns {undefined} A string representation of the color or undefined.
   */
- toString?: (tolerance?: number) => string | null;
+ toString(tolerance?: number): string | undefined;
 
  /**
   * Returns true if otherCol same as self, false otherwise, optional numeric tolerance param.
@@ -107,16 +91,16 @@ interface Color extends ColorLetters, ColorNumbers, ColorFunctionality {
   * @param {number} tolerance The tolerance to use.
   * @returns {boolean} Whether the colors are equal.
   */
- equals?: (otherCol: Color, tolerance?: number) => boolean;
+ equals(otherCol: Color, tolerance?: number): boolean;
 
  /**
   * Return a color some part of the way between col and otherCol, numeric arg [0, 1] is the fraction.
   * 
   * @param {Color} otherCol The color to lerp to.
-  * @param {number} num The fraction to lerp by.
+  * @param {number} fraction The fraction to lerp by.
   * @returns {Color} The lerped color.
   */
- lerp?: (otherCol: Color, num: number) => Color;
+ lerp(otherCol: Color, fraction: number): Color;
 
  /**
   * Return a string description of a color with an optional `prefix`.
@@ -124,11 +108,14 @@ interface Color extends ColorLetters, ColorNumbers, ColorFunctionality {
   * @param prefix The prefix to use.
   * @returns {string} The string representation of the color.
   */
- dump?: (prefix?: string) => string;
+ dump(prefix?: string): string;
 }
 
+// Because capitalization is ignored, and custom colors can be added, a lot more indexers can be used
 type ColorConstructor = {
-  [index in ColorLiteral]: Color;
+  [index in ColorLiteralIgnoreCase]: Color;
+} & {
+  [index: string]: Color | undefined;
 } & {
   /**
    * Return a color with specified (r, g, b, a?) components.
@@ -147,7 +134,14 @@ type ColorConstructor = {
    * @param {Color} t The source table.
    * @returns {Color} The color.
    */
-  (this: void, t: Color): Color;
+  (this: void, t: ColorInput): Color;
+  /**
+   * Return a color with r/g/b/a components from source table.
+   *
+   * @param {Color} t The source table.
+   * @returns {Color} The color.
+   */
+  (this: void, t: ColorTuple): Color;
 
   /**
    * Same as Color(...).
@@ -158,7 +152,7 @@ type ColorConstructor = {
    * @param {number} a Alpha component.
    * @returns {Color} The color.
    */
-  new: (this: void, r: number, g: number, b: number, a?: number) => Color;
+  new: (this: void, r: number | ColorInput | ColorTuple, g?: number, b?: number, a?: number) => Color;
 
   /**
    * Return a color from a color string ('Red', 'Green' etc), capitalization ignored.
@@ -166,7 +160,16 @@ type ColorConstructor = {
    * @param {string} colorStr The color string.
    * @returns {Color} The color.
    */
-  fromString: (this: void, colorStr: string) => Color;
+  fromString(this: void, colorStr: ColorLiteralIgnoreCase): Color;
+
+  /**
+   * Return a string description of a color with an optional `prefix`.
+   * 
+   * @param {ColorInput} color The color to dump
+   * @param {string} prefix The prefix to use.
+   * @returns {string} The string representation of the color.
+   */
+  dump(this: void, color: ColorInput, prefix?: string): string;
 
   /**
    * Returns a table of all color strings.
@@ -182,7 +185,7 @@ type ColorConstructor = {
    * @param {Color} yourColor The color to add.
    * @returns {Color} The color. 
    */
-  Add(this: void, name: string, yourColor: Color): Color;
+  Add(this: void, name: string, yourColor: ColorInput): Color;
 };
 
 /**
