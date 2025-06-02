@@ -1,6 +1,6 @@
 function objectTest(script_state: string) {
   let obj = getAllObjects()[0];
-  obj.alt_view_angle = [0, 0, 0];
+  obj.alt_view_angle = Vector([0, 0, 0]);
 
   let obj2 = GObject.new('x');
 
@@ -16,7 +16,7 @@ function objectButtonTest(script_state: string) {
   obj.createButton({
     label: 'Stand',
     // TODO
-    click_function: buttonFunction,
+    click_function: 'buttonFunction',
     function_owner: undefined,
     position: Vector(-1, 0.25, 0),
     rotation: Vector(0, 0, 0),

@@ -11,8 +11,8 @@ function colorTest(script_state: string) {
     Red: Color.new(255, 0, 0, 255),
   };
 
-  let Purple: Color = { r: 201, g: 0, b: 255 };
-  let PurpleAlpha: Color = { r: 201, g: 0, b: 255, a: 255 };
+  let Purple: Color = Color({ r: 201, g: 0, b: 255 });
+  let PurpleAlpha: Color = Color({ r: 201, g: 0, b: 255, a: 255 });
 
   Purple.get();
   Purple.set(0, 0, 0);
@@ -28,10 +28,10 @@ function colorTest(script_state: string) {
   let col:Color = Purple.lerp(Color.new(0, 0, 0, 255), 0.5);
 
   colorIds = {
-    White: [254, 254, 254, 255],
-    Pink: [255, 0, 231],
-    Purple: { r: 201, g: 0, b: 255 },
-    Blue: { r: 0, g: 0, b: 255, a: 255 },
+    White: Color([254, 254, 254, 255]),
+    Pink: Color([255, 0, 231]),
+    Purple: Color({ r: 201, g: 0, b: 255 }),
+    Blue: Color({ r: 0, g: 0, b: 255, a: 255 }),
     Green: Color.new(0, 128, 0),
     Yellow: Color.new(255, 254, 0, 255),
     Orange: Color.new(255, 168, 0, 255),
