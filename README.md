@@ -47,16 +47,22 @@ note: we use `"luaTarget": "5.2"` to be compatible with the LUA version Tabletop
 
 3. Create `src/index.ts`
 ```typescript
-// The OnLoad function. This is called after everything in the game save finishes loading.
+// The onLoad function. This is called after everything in the game save finishes loading.
 // Most of your script code goes here.
-function onLoad( saveData: any ) {
+(globalThis as any).onLoad = (saveData: string) => {
 
   // Lock color-UI cube
-  let cube = getObjectFromGUID( "c1a0d1" )
-  cube.interactable = false
-  cube.setLock( true )
-}
+  const cube = getObjectFromGUID("c1a0d1");
+  if (cube) {
+    cube.interactable = false;
+    cube.setLock(true);
+  }
+};
 ```
+
+### Global event functions
+
+Tabletop Simulator finds event functions such as `onLoad`, `onUpdate` and `onObjectEnterContainer` by looking them up on the Lua global table. TypeScriptToLua emits a top level `function onLoad() {}` as `local function onLoad()`, which the game never sees, so nothing runs. Assign event functions to `globalThis` instead, as above. TypeScriptToLua turns `globalThis` into `_G`, which is exactly where the game looks. The cast to `any` is needed because these types do not declare the event functions, and `getObjectFromGUID` can return `undefined`, so check the result under `strict`.
 
 4. Your project is ready! run `npx tstl` to compile it into Lua
 ```
@@ -94,8 +100,10 @@ local function require(file, ...)
     end
     if ____modules[file] then
         local module = ____modules[file]
-        ____moduleCache[file] = { value = (select("#", ...) > 0) and module(...) or module(file) }
-        return ____moduleCache[file].value
+        local value = nil
+        if (select("#", ...) > 0) then value = module(...) else value = module(file) end
+        ____moduleCache[file] = { value = value }
+        return value
     else
         if ____originalRequire then
             return ____originalRequire(file)
@@ -107,14 +115,19 @@ end
 ____modules = {
 ["src.index"] = function(...) 
 --[[ Generated with https://github.com/TypeScriptToLua/TypeScriptToLua ]]
-function onLoad(saveData)
+local ____exports = {}
+_G.onLoad = function(saveData)
     local cube = getObjectFromGUID("c1a0d1")
-    cube.interactable = false
-    cube.setLock(true)
+    if cube then
+        cube.interactable = false
+        cube.setLock(true)
+    end
 end
+return ____exports
  end,
 }
-return require("src.index", ...)
+local ____entry = require("src.index", ...)
+return ____entry
 ```
 
 </details>
